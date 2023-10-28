@@ -16,6 +16,7 @@ function App() {
   const [login, setLogin] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(false);
 
+  // These functions handle the state of the app within App.js so that external components can change the state of the app.
   function handleHome() {
     setHome(true);
     setAbout(false);
@@ -54,6 +55,7 @@ function App() {
     setStore(null);
   }
 
+  // Three core views, a header, view, and footer
 
   return (
     <>
