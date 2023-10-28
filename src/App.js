@@ -18,63 +18,66 @@ function App() {
   const [modifyComp, setModifyComp] = React.useState(false);
   const [removeComp, setRemoveComp] = React.useState(false);
 
-  // These functions handle the state of the app within App.js so that external components can change the state of the app.
-  function handleHome() {
-    setHome(true);
+  // This function turns off all states of the app so that only one view is shown at a time.
+  function turnOffAll() {
+    setHome(false);
     setAbout(false);
     setLogin(false);
     setCreateStore(false);
-  }
-
-  function handleRemoveComp(bool) {
-    setRemoveComp(bool);
-  }
-
-  function handleModifyComp(bool) {
-    setModifyComp(bool);
-  }
-
-  function handleInventory(bool) {
-    setInventory(bool);
-  }
-
-  function handleAbout(bool) {
-    setAbout(bool);
-  }
-
-  function handleAddComp(bool) {
-    setAddComp(bool);
-    }
-
-  function handleLogin(bool) {
-    setLogin(bool);
-    setAbout(false);
-  }
-
-  function handleCreateStore(bool) {
-    setCreateStore(bool);
-    setAbout(false);
-  }
-
-  function handleUser(user) {
-    setUser(user);
-    setLogin(false);
-    setAbout(false);
-  }
-
-  function handleLogout() {
-    setUser(null);
-    setLogin(false);
-    setAbout(false);
-    setCreateStore(false);
-    setHelp(false);
-    setSearch(false);
-    setStore(null);
-    setHome(true);
     setAddComp(false);
     setInventory(false);
     setModifyComp(false);
     setRemoveComp(false);
+  }
+  // These functions handle the state of the app within App.js so that external components can change the state of the app.
+  function handleHome() {
+    turnOffAll();
+    setHome(true);
+  }
+
+  function handleRemoveComp(bool) {
+    turnOffAll();
+    setRemoveComp(bool);
+  }
+
+  function handleModifyComp(bool) {
+    turnOffAll();
+    setModifyComp(bool);
+  }
+
+  function handleInventory(bool) {
+    turnOffAll();
+    setInventory(bool);
+  }
+
+  function handleAbout(bool) {
+    turnOffAll();
+    setAbout(bool);
+  }
+
+  function handleAddComp(bool) {
+    turnOffAll();
+    setAddComp(bool);
+    }
+
+  function handleLogin(bool) {
+    turnOffAll();
+    setLogin(bool);
+  }
+
+  function handleCreateStore(bool) {
+    turnOffAll();
+    setCreateStore(bool);
+  }
+
+  function handleUser(user) {
+    turnOffAll();
+    setUser(user);
+  }
+
+  function handleLogout() {
+    turnOffAll();
+    setUser(null);
   }
 
   // Three core views, a header, view, and footer

@@ -8,8 +8,6 @@ export default function AddComp(props) {
                     <input
                         type="text"
                         name="brand"
-                        value={props.brand}
-                        onChange={props.handleChange}
                     />
                 </div>
                 <div>
@@ -17,8 +15,6 @@ export default function AddComp(props) {
                     <input
                         type="text"
                         name="model"
-                        value={props.model}
-                        onChange={props.handleChange}
                     />
                 </div>
                 <div>
@@ -26,8 +22,6 @@ export default function AddComp(props) {
                     <input
                         type="text"
                         name="price"
-                        value={props.price}
-                        onChange={props.handleChange}
                     />
                 </div>
                 <div>
@@ -35,19 +29,17 @@ export default function AddComp(props) {
                     <input
                         type="text"
                         name="description"
-                        value={props.description}
-                        onChange={props.handleChange}
                     />
                 </div>
                 <div>
-                    <label>Memory</label>
+                    <label>Memory:</label>
                     <input type="radio" name="memory" value="4GB"/>4GB
                     <input type="radio" name="memory" value="8GB"/>8GB
                     <input type="radio" name="memory" value="16GB"/>16GB
                     <input type="radio" name="memory" value="32GB"/>32GB
                 </div>
                 <div>
-                    <label>Storage</label>
+                    <label>Storage:</label>
                     <input type="radio" name="storage" value="128GB"/>128GB
                     <input type="radio" name="storage" value="256GB"/>256GB
                     <input type="radio" name="storage" value="512GB"/>512GB
@@ -55,31 +47,31 @@ export default function AddComp(props) {
                     <input type="radio" name="storage" value="2TB"/>2TB
                 </div>
                 <div>
-                    <label>Graphics</label>
+                    <label>Graphics:</label>
                     <input type="radio" name="graphics" value="NVIDIA GeForce RTX 4090"/>NVIDIA GeForce RTX 4090
                     <input type="radio" name="graphics" value="AMD Radeon Pro X6400"/>AMD Radeon Pro X6400
                     <input type="radio" name="graphics" value="Intel UHD Graphics 770"/>Intel UHD Graphics 770
                 </div>
                 <div>
-                    <label>Processor</label>
+                    <label>Processor:</label>
                     <input type="radio" name="processor" value="Intel Core i9-11900K"/>Intel Core i9-11900K
                     <input type="radio" name="processor" value="AMD Ryzen 9 5950X"/>AMD Ryzen 9 5950X
                     <input type="radio" name="processor" value="Apple M1"/>Apple M1
                 </div>
                 <div>
-                    <label>Operating System</label>
+                    <label>Operating System:</label>
                     <input type="radio" name="operating-system" value="Windows 10"/>Windows 10
                     <input type="radio" name="operating-system" value="Mac OS"/>Mac OS
                     <input type="radio" name="operating-system" value="Linux"/>Linux
                 </div>
                 <div>
-                    <label>Screen Size</label>
+                    <label>Screen Size:</label>
                     <input type="radio" name="screen-size" value="13 inches"/>13 inches
                     <input type="radio" name="screen-size" value="15 inches"/>15 inches
                     <input type="radio" name="screen-size" value="17 inches"/>17 inches
                 </div>
                 <div>
-                    <label>Color</label>
+                    <label>Color:</label>
                     <input type="radio" name="color" value="Black"/>Black
                     <input type="radio" name="color" value="Silver"/>Silver
                     <input type="radio" name="color" value="Space Gray"/>Space Gray
@@ -87,7 +79,7 @@ export default function AddComp(props) {
                     <input type="radio" name="color" value="Rose Gold"/>Rose Gold
                 </div>
                 <div>
-                    <label>Quantity</label>
+                    <label>Quantity:</label>
                     <input type="number" name="quantity" value={props.quantity} onChange={props.handleChange}/>
                 </div>
                 <button>Add Computer</button>
