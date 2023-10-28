@@ -1,7 +1,8 @@
 import './App.css'
 import {Header} from './Header.js'; 
-import {View} from './View.js';
+import {Landing} from './Landing.js';
 import React from 'react';
+import {View} from './View.js';
 
 
 function App() {
@@ -12,14 +13,17 @@ function App() {
   const [help, setHelp] = React.useState(null);
   const [login, setLogin] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
+  const [view, setView] = React.useState(Landing); 
 
 
   return (
-    <div className="App">
+    <>
       <Header />
-      <View />
-
-    </div>
+      <View 
+      user={user}
+      store={store}
+      />
+    </>
 
   );
 }
