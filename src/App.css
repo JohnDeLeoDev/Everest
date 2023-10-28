@@ -15,13 +15,39 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: calc(10px + 2vmin);
   color: white;
+  height:100px;
+}
+
+.Brand {
+  display: flex;
+  flex-direction: row;
+  text-align: center;;
+  justify-content: center;
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  padding-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  top:50%;
+}
+
+.Button {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 50px;
+  margin: auto;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: middle;
+  padding-top: 12px;
+  
 }
 
 .App-link {
