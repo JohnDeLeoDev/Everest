@@ -4,9 +4,6 @@ import {Footer} from './Footer.js';
 import React from 'react';
 import View from './View.js';
 
-
-
-
 function App() {
   const [user, setUser] = React.useState(null);
   const [home, setHome] = React.useState(true);
