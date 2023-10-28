@@ -58,7 +58,7 @@ function App() {
   function handleAddComp(bool) {
     turnOffAll();
     setAddComp(bool);
-    }
+  }
 
   function handleLogin(bool) {
     turnOffAll();
