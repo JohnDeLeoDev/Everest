@@ -22,12 +22,13 @@ function OwnerView(props) {
     return (
         <div className="OwnerView">
             <h1>Welcome, Owner</h1>
-            <button className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
-            <button className="Button" onClick={() => {props.handleAddComp(true)}}>Add Computers</button>
-            <button className="Button" onClick={() => {props.handleInventory(true)}}>Inventory</button>
-            <button className="Button" onClick={() => {props.handleModifyComp(true)}}>Modify Computers</button>
-            <button className="Button" onClick={() => {props.handleRemoveComp(true)}}>Remove Computers</button>
-
+            <div className="SubMenu">
+                <button className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
+                <button className="Button" onClick={() => {props.handleAddComp(true)}}>Add Computers</button>
+                <button className="Button" onClick={() => {props.handleInventory(true)}}>Inventory</button>
+                <button className="Button" onClick={() => {props.handleModifyComp(true)}}>Modify Computers</button>
+                <button className="Button" onClick={() => {props.handleRemoveComp(true)}}>Remove Computers</button>
+            </div>
         </div>
     );
 }
