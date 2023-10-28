@@ -1,6 +1,8 @@
 import React from "react";
 import './App.css';
-import App from './App.js';
+import Create from './Owner/Create.js';
+import Login from './Login.js';
+import About from './About.js';
 
 function ManagerView() {
     return (
@@ -13,7 +15,7 @@ function ManagerView() {
 function OwnerView() {
     return (
         <div className="OwnerView">
-            <h1>Owner View</h1>
+            <h1>Welcome, Owner</h1>
         </div>
     );
 }
@@ -34,29 +36,18 @@ function Landing() {
     );
 }
 
-export function View() {
-    if (App.user === 'owner') {
-        <OwnerView />
-    } else if (App.user === 'manager') {
-        <ManagerView />
-    } else if (App.user === 'customer') {
-        <CustomerView />
-    } else {
-        <Landing />
-    }
+export default function View(props) {
     
     return (
-        <div className="View">
-            {() => {
-                if (App.user === 'owner') {
-                    <OwnerView />
-                } else if (App.user === 'manager') {
-                    <ManagerView />
-                } else if (App.user === 'customer') {
-                    <CustomerView />
-                } else {
-                    <Landing />
-                }
-            }}
-        </div>)
+        <>
+            {props.user === 'owner' && <OwnerView />}
+            {props.user === 'manager' && <ManagerView />}
+            {props.user === 'customer' && <CustomerView />}
+            {(props.createStore === true && (props.user === 'manager' || props.user === 'owner')) && <Create />}
+            {props.user === null && <Landing />}
+            {props.login === true && <Login handleUser={props.handleUser}/>}
+            {props.about === true && <About />}
+            
+        </>
+    )
 }
