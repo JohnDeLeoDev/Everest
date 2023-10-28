@@ -1,0 +1,188 @@
+/* Homepage standard styles */
+
+/* Elle Mackey */
+
+/* Header styles */
+
+header {
+	width: 100%;
+	position: relative;
+}
+
+header p img {
+	display: inline-block;
+	margin-left: 7%;
+}
+
+header h1 {
+	color: white;
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 300%;
+	height: 15%;
+	margin-top: 3%;
+	text-align: center;
+	width: 100%;
+}
+
+header h2 {
+	color: white;
+	display: block;
+	font-family: 'Dancing Script', cursive;
+	font-size: 150%;
+	/*font-style: italic;*/
+	margin-left: 45%;
+	text-align: center;
+	width: 40%;
+}
+	
+aside {
+		background-color: lightpink;
+		border-radius: 15px;
+		color: rgb(255, 105, 180);
+		display: inline-block;
+		font-family: 'Dancing Script', cursive;
+		width: 10%;
+		margin-right: 5%;
+		padding: 6px;
+		text-align: center;
+}
+
+aside a {
+	text-decoration: none;
+}
+		
+aside a:hover {
+	color: rgb(0, 255, 255);
+}
+	
+	
+/* Body styles */
+
+body {
+	background-color: black;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	font-weight: inherit;
+	line-height: 1em;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: baseline;
+	/*margin-top: 3%;*/
+	margin-bottom: 3%;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Top of Page navigation styles */
+
+
+nav a {
+	text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+nav.horizontalNAV {
+	margin-left: 0%;
+	width: 95%;
+	
+}
+
+nav.horizontalNAV li {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	float: left;
+	padding: 0px 0px;
+	text-align: right;
+	width: 15%;
+}
+
+nav.horizontalNAV li a {
+	color: white;
+}
+
+nav.horizontalNAV li a:hover {
+	color: red;
+}
+
+
+
+
+/* Headers styles */
+
+h3 {
+	color: white;
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 150%;
+	text-transform: uppercase;
+	margin-left: 33%;
+}
+
+h4.cursive{
+	display: block;
+	font-family: 'Dancing Script', cursive;
+	font-size: 120%;
+	margin-left: 30%;
+}
+
+
+
+
+/*Section styles */
+
+
+/*text section*/
+
+#elevator {
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	width: 100%;
+	align-content: center;
+    margin-top: 10%;
+}
+
+/* Page link navigation */
+
+nav.policy a {
+	color: rgb(255, 105, 180);
+	display: inline;
+	font-family: 'Dancing Script', cursive;
+	text-align: right;
+	float: none;
+	margin-left: 3%;
+	margin-right: 3%;
+	padding: 0px 10px 0px 0px;
+	width: 40%;
+	text-decoration: none;
+}
+
+nav.policy a:hover {
+	color: rgb(0, 255, 255);
+}
+	
+
+/* Footer styles */
+
+hr {
+	clear: left;
+}
+
+footer {
+	color:white;
+	font-size: 75%;
+	line-height: .5em; 
+	text-align: right;
+	margin-right: 10%;
+    margin-top: auto;
+}
+
+a.bib {
+	color: lightpink;
+}
