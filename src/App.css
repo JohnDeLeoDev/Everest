@@ -62,3 +62,17 @@
     transform: rotate(360deg);
   }
 }
+
+.Footer {
+  background-color: #282c34;
+  position:absolute;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  height:100px;
+  width: 100%;
+  bottom:20px;
+  text-align: center;
+}
