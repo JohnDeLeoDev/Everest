@@ -26,8 +26,6 @@ function OwnerView(props) {
                 <button className="SubButton" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
                 <button className="SubButton" onClick={() => {props.handleAddComp(true)}}>Add Computers</button>
                 <button className="SubButton" onClick={() => {props.handleInventory(true)}}>Inventory</button>
-                <button className="SubButton" onClick={() => {props.handleModifyComp(true)}}>Modify Computers</button>
-                <button className="SubButton" onClick={() => {props.handleRemoveComp(true)}}>Remove Computers</button>
             </div>
         </div>
     );
@@ -61,11 +59,7 @@ export default function View(props) {
             {props.login === true && <Login handleUser={props.handleUser}/>}
             {props.about === true && <About />}
             {props.addComp ===true && <AddComp />}
-            {props.inventory === true && <Inventory />}
-            {props.modifyComp === true && <ModifyComp />}
-            {props.removeComp === true && <RemoveComp />}
-
-            
+            {props.inventory === true && <Inventory modifyComp={props.modifyComp} removeComp={props.removeComp} handleModifyComp={props.handleModifyComp} handleRemoveComp={props.handleRemoveComp} />}           
         </>
     )
 }

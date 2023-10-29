@@ -15,8 +15,8 @@ function App() {
   const [createStore, setCreateStore] = React.useState(false);
   const [addComp, setAddComp] = React.useState(false);
   const [inventory, setInventory] = React.useState(false);
-  const [modifyComp, setModifyComp] = React.useState(false);
-  const [removeComp, setRemoveComp] = React.useState(false);
+  const [modifyComp, setModifyComp] = React.useState(false, null);
+  const [removeComp, setRemoveComp] = React.useState(false, null);
 
   // This function turns off all states of the app so that only one view is shown at a time.
   function turnOffAll() {
@@ -26,8 +26,8 @@ function App() {
     setCreateStore(false);
     setAddComp(false);
     setInventory(false);
-    setModifyComp(false);
-    setRemoveComp(false);
+    setModifyComp([false, null]);
+    setRemoveComp([false, null]);
   }
   // These functions handle the state of the app within App.js so that external components can change the state of the app.
   function handleHome() {
@@ -35,14 +35,14 @@ function App() {
     setHome(true);
   }
 
-  function handleRemoveComp(bool) {
-    turnOffAll();
-    setRemoveComp(bool);
+  function handleRemoveComp(bool, id) {
+    setModifyComp([false, null]);
+    setRemoveComp([bool, id]);
   }
 
-  function handleModifyComp(bool) {
-    turnOffAll();
-    setModifyComp(bool);
+  function handleModifyComp(bool, id) {
+    setRemoveComp([false, null]);
+    setModifyComp([bool, id]);
   }
 
   function handleInventory(bool) {
