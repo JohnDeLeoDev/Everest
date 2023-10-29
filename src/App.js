@@ -15,8 +15,10 @@ function App() {
   const [createStore, setCreateStore] = React.useState(false);
   const [addComp, setAddComp] = React.useState(false);
   const [inventory, setInventory] = React.useState(false);
-  const [modifyComp, setModifyComp] = React.useState(false, null);
-  const [removeComp, setRemoveComp] = React.useState(false, null);
+
+  // modifyComp and removeComp are arrays that hold 3 values. If state is active, the computer id it is acting on, and bool if confirmed by user.
+  const [modifyComp, setModifyComp] = React.useState(false, null, false);
+  const [removeComp, setRemoveComp] = React.useState(false, null, false);
 
   // This function turns off all states of the app so that only one view is shown at a time.
   function turnOffAll() {
@@ -26,8 +28,8 @@ function App() {
     setCreateStore(false);
     setAddComp(false);
     setInventory(false);
-    setModifyComp([false, null]);
-    setRemoveComp([false, null]);
+    setModifyComp([false, null, false]);
+    setRemoveComp([false, null, false]);
   }
   // These functions handle the state of the app within App.js so that external components can change the state of the app.
   function handleHome() {
@@ -36,13 +38,23 @@ function App() {
   }
 
   function handleRemoveComp(bool, id) {
-    setModifyComp([false, null]);
-    setRemoveComp([bool, id]);
+    setModifyComp([false, null, false]);
+    if (removeComp[2] === true) {
+      console.log("Remove confirmed");
+      setRemoveComp([false, null, false]);
+    } else {
+      setRemoveComp([bool, id, true]);
+    }
   }
 
   function handleModifyComp(bool, id) {
-    setRemoveComp([false, null]);
-    setModifyComp([bool, id]);
+    setRemoveComp([false, null, false]);
+    if (modifyComp[2] === true) {
+      console.log("Modify confirmed");
+      setModifyComp([false, null, false]);
+    } else {
+      setModifyComp([bool, id, true]);
+    }
   }
 
   function handleInventory(bool) {

@@ -2,7 +2,7 @@ export default function Inventory(props) {
     let modifyComp = props.modifyComp;
     let removeComp = props.removeComp;
 
-
+    // array of objects that represent the computers in the inventory. Intend to replace with database.
     const computers = [
         {
             id: 1,
@@ -48,10 +48,9 @@ export default function Inventory(props) {
         },
     ]
 
-    
+    // handles the display of the computers in the inventory. Takes above array as input
     function displayComputers(computers) {
         let tableData = [];
-
 
         for (let i = 0; i < computers.length; i++) {
             tableData.push(
@@ -61,10 +60,10 @@ export default function Inventory(props) {
                     <td>{
                         modifyComp[0] && modifyComp[1] === computers[i].id ? <input type="text" placeholder={computers[i].price} /> : computers[i].price
                         }</td>
-                    <td><button className="SubButton" onClick={() => {props.handleModifyComp(true, computers[i].id)}}>
+                    <td><button className="Button" onClick={() => {props.handleModifyComp(true, computers[i].id)}}>
                         {modifyComp[0] && modifyComp[1] === computers[i].id ? "Submit" : "Modify"}
                         </button></td>
-                    <td><button className="SubButton" onClick={() => {props.handleRemoveComp(true, computers[i].id)}}>
+                    <td><button className="Button" onClick={() => {props.handleRemoveComp(true, computers[i].id)}}>
                         {removeComp[0] && removeComp[1] === computers[i].id ? "Confirm" : "Remove"}
                         </button></td>
                 </tr>
@@ -73,7 +72,7 @@ export default function Inventory(props) {
         return tableData;
     }
 
-
+    // returns the JSX for the inventory page
     return (
         <>
             <h1>Inventory</h1>
