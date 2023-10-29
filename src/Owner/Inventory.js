@@ -2,51 +2,7 @@ export default function Inventory(props) {
     let modifyComp = props.modifyComp;
     let removeComp = props.removeComp;
 
-    // array of objects that represent the computers in the inventory. Intend to replace with database.
-    const computers = [
-        {
-            id: 1,
-            brand: "Apple",
-            model: "Macbook Pro",
-            description: "13-inch, 2018, Four Thunderbolt 3 Ports",
-            price: 1799.99
-        },
-        {
-            id: 2,
-            brand: "Apple",
-            model: "Macbook Pro",
-            description: "13-inch, 2019, Two Thunderbolt 3 Ports",
-            price: 1299.99
-        },
-        {
-            id: 3,
-            brand: "Apple",
-            model: "Macbook Pro",
-            description: "16-inch, 2019",
-            price: 2399.99
-        },
-        {
-            id: 4,
-            brand: "Apple",
-            model: "Macbook Air",
-            description: "13-inch, 2019",
-            price: 1099.99
-        },
-        {
-            id: 5,
-            brand: "HP",
-            model: "Pavilion",
-            description: "15-inch, 2019",
-            price: 699.99
-        },
-        {
-            id: 6,
-            brand: "HP",
-            model: "Envy",
-            description: "13-inch, 2019",
-            price: 899.99
-        },
-    ]
+    let computers = props.inventory;
 
     // handles the display of the computers in the inventory. Takes above array as input
     function displayComputers(computers) {
@@ -54,7 +10,7 @@ export default function Inventory(props) {
 
         for (let i = 0; i < computers.length; i++) {
             tableData.push(
-                <tr>
+                <tr key={computers[i].id}>
                     <td>{computers[i].brand} {computers[i].model}</td>
                     <td>{computers[i].description}</td>
                     <td>{

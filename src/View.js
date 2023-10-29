@@ -1,17 +1,16 @@
 import React from "react";
 import './App.css';
-import Create from './Owner/Create.js';
+import Create from './Owner/CreateStore.js';
 import Login from './Login.js';
 import About from './About.js';
 import AddComp from './Owner/AddComp.js';
 import Inventory from './Owner/Inventory.js';
-import ModifyComp from './Owner/Modify.js';
-import RemoveComp from './Owner/Remove.js';
+import InventoryReport from "./Owner/InventoryReport";
 
 function ManagerView(props) {
     return (
         <div className="ManagerView">
-            <h1>Manager View</h1>
+            <h1>Welcome, Manager</h1>
             <button className="SubButton" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
             <button className="SubButton" onClick={() => {props.handleAddComp(true)}}>Add Computers</button>
         </div>
@@ -25,7 +24,8 @@ function OwnerView(props) {
             <div className="SubMenu">
                 <button className="SubButton" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
                 <button className="SubButton" onClick={() => {props.handleAddComp(true)}}>Add Computers</button>
-                <button className="SubButton" onClick={() => {props.handleInventory(true)}}>Inventory</button>
+                {props.inventoryView === false ? <button className={"SubButton"} onClick={() => {props.handleInventoryView(true)}}>Inventory</button> : null}
+                {props.inventoryView === true ? <button className={"SubButton"} onClick={() => {props.handleInventoryReport(true)}}>Generate Inventory Report</button> : null}
             </div>
         </div>
     );
@@ -34,7 +34,7 @@ function OwnerView(props) {
 function CustomerView() {
     return (
         <div className="CustomerView">
-            <h1>Customer View</h1>
+            <h1>Welcome, Customer</h1>
         </div>
     );
 }
@@ -48,18 +48,50 @@ function Landing() {
 }
 
 export default function View(props) {
-    
     return (
         <>
-            {props.user === 'owner' && <OwnerView handleAddComp={props.handleAddComp} handleCreateStore={props.handleCreateStore} handleInventory={props.handleInventory} handleModifyComp={props.handleModifyComp} handleRemoveComp={props.handleRemoveComp}/>}
-            {props.user === 'manager' && <ManagerView handleAddComp={props.handleAddComp} handleCreateStore={props.handleCreateStore} />}
+            {props.user === 'owner' && <OwnerView 
+                handleAddComp={props.handleAddComp} 
+                handleCreateStore={props.handleCreateStore} 
+                handleInventoryView={props.handleInventoryView} 
+                handleModifyComp={props.handleModifyComp} 
+                handleRemoveComp={props.handleRemoveComp} 
+                inventoryView={props.inventoryView} 
+                handleInventoryReport={props.handleInventoryReport}
+            />}
+
+            {props.user === 'manager' && <ManagerView 
+                handleAddComp={props.handleAddComp} 
+                handleCreateStore={props.handleCreateStore} 
+            />}
+
             {props.user === 'customer' && <CustomerView />}
+
             {(props.createStore === true && (props.user === 'manager' || props.user === 'owner')) && <Create />}
+
             {props.user === null && <Landing />}
+
             {props.login === true && <Login handleUser={props.handleUser}/>}
+
             {props.about === true && <About />}
+
             {props.addComp ===true && <AddComp />}
-            {props.inventory === true && <Inventory modifyComp={props.modifyComp} removeComp={props.removeComp} handleModifyComp={props.handleModifyComp} handleRemoveComp={props.handleRemoveComp} />}           
+
+            {props.inventoryView === true && <Inventory 
+                modifyComp={props.modifyComp} 
+                removeComp={props.removeComp} 
+                handleModifyComp={props.handleModifyComp} 
+                handleRemoveComp={props.handleRemoveComp} 
+                inventoryView={props.inventoryView}
+                handleInventory={props.handleInventory}
+                inventory={props.inventory}
+            />}   
+
+            {(props.inventoryView === true && props.inventoryReport === true) && <InventoryReport 
+            inventory={props.inventory}
+            handleInventoryReport={props.handleInventoryReport}
+            />}
+
         </>
     )
 }

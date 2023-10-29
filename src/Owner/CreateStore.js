@@ -3,9 +3,7 @@ export default function Create(props) {
     if (props.user === 'null') {
         props.handleCreateStore(false);
         return (
-            <>
-                alert(Must be logged in to create a store.)
-            </>
+            <alert>You must be logged in to create a store.</alert>
         )
     } else {
 
@@ -79,7 +77,7 @@ export default function Create(props) {
                     </div>
 
                     <div>
-                        <button>Create Store</button>
+                        <button onClick={props.handleCreateStore}>Create Store</button>
                     </div>
                 </form>
 
