@@ -1,59 +1,182 @@
+import React from 'react';
 import './everest_style.css'
-import logo from './everest.jpg'
-import bkgd from './laptop.jpg'   //Image by Joshua Woroniecki (Pixabay)
+import { Header } from './Header';
+import View from './View';
+import {testInventory} from './Owner/testInventory.js';
+import { test_stores } from './Manager/testStores';
+
 
 function App() {
+
+  const [user, setUser] = React.useState(null);
+  const [login, setLogin] = React.useState(null);
+  const [search, setSearch] = React.useState(null);
+  const [about, setAbout] = React.useState(null);
+  const [createStore, setCreateStore] = React.useState(null);
+  const [logout, setLogout] = React.useState(null);
+  const [addComputer, setAddComputer] = React.useState(null);
+  const [inventoryView, setInventoryView] = React.useState(null)
+  const [inventory, setInventory] = React.useState(testInventory);
+  const [inventoryReport, setInventoryReport] = React.useState(null);
+  const [modifyComp, setModifyComp] = React.useState(false, null, false);
+  const [removeComp, setRemoveComp] = React.useState(false, null, false);
+  const [stores, setStores] = React.useState(test_stores);  //init test data for stores
+  const [showStores, setShowStores] = React.useState(null);
+  const [descending, setDescending] = React.useState(null);
+  const [showBalances, setShowBalances] = React.useState(null); 
+  const [siteManagerBalance, setSiteManagerBalance] = React.useState(null);
+  const [storeBalance, setStoreBalance] = React.useState(null);
+
+  function clear(){
+    setLogin(false)
+    setAbout(false)
+    setCreateStore(false)
+    setInventoryView(false)
+    setAddComputer(false)
+    setInventory(false)
+    setShowStores(false)
+    setShowBalances(false)
+    setSiteManagerBalance(false)
+    setStoreBalance(false)
+  }
+
+  function handleLogin(bool) {
+    clear()
+    setLogin(bool);
+  }
+
+  function handleAbout(bool){
+    clear()
+    setAbout(bool);
+  }
+
+  function handleCreateStore(bool){
+    clear()
+    setCreateStore(bool);
+  }
+
+  function handleUser(user) {
+    clear();
+    if (user === 'owner'){
+      setInventoryView(true);
+    }
+    setUser(user);
+  }
+
+  function handleLogout(bool){
+    clear();
+    setLogout(bool);
+  }
+
+  function handleAddComputer(bool){
+    clear();
+    setAddComputer(bool);
+  }
+
+  function handleInventory(data) {
+    setInventory(data);
+  }
+
+  function handleInventoryView(bool){
+    clear();
+    setInventoryView(bool);
+  }
+
+  function handleInventoryReport(bool){
+    clear();
+    setInventoryReport(bool)
+  }
+
+  function handleModifyComp(bool, id) {
+    setRemoveComp([false, null, false]);
+    if (modifyComp[2] === true) {
+      console.log("Modify confirmed");
+      setModifyComp([false, null, false]);
+    } else {
+      setModifyComp([bool, id, true]);
+    }
+  }
+
+  function handleRemoveComp(bool, id) {
+    setModifyComp([false, null, false]);
+    if (removeComp[2] === true) {
+      console.log("Remove confirmed");
+      setRemoveComp([false, null, false]);
+    } else {
+      setRemoveComp([bool, id, true]);
+    }
+  }
+
+  function handleStores(stores){
+    clear()
+    setStores(stores)
+  }
+
+  function handleShowStores(bool){
+    clear()
+    setShowStores(bool)
+  }
+
+  function handleDescending(bool){
+    clear()
+    setDescending(bool)
+  }
+
+  function handleShowBalances(bool){
+    clear();
+    setShowBalances(bool);
+  }
+
+  function handleSiteManagerBalance(bool){
+    //clear();
+    setShowBalances(false)
+    setStoreBalance(false)
+    setSiteManagerBalance(bool)
+  }
+
+  function handleStoreBalance(bool){
+    //clear();
+    setShowBalances(false)
+    setSiteManagerBalance(false)
+    setStoreBalance(bool);
+  }
+
+  function handleSearch(option) { //should maybe be int (type of search needs to go)
+    clear();
+    setSearch(option);
+  }
+
+
   return (
     <div className="App">
-      <head>
-        <title>Everest Home</title>
-        <meta charset="UTF-8" />
-        <meta name="author" content="Ellen Mackey, John DeLeo" />
-        <meta name="keywords" content="computers, used computers, computer consignment" />
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
-        rel="stylesheet"/>
-      </head>
+      <Header user={user} handleUser={handleUser} 
+              handleLogin={handleLogin} 
+              handleAbout={handleAbout} 
+              handleCreateStore={handleCreateStore} 
+              handleLogout={handleLogout} 
+              handleAddComputer={handleAddComputer}
+              handleInventoryReport={handleInventoryReport}
+              handleShowStores={handleShowStores}
+              handleShowBalances={handleShowBalances}
+              />
       
-      <body>
-      <header>
-	      <p class="logo"><img src={logo} height="150" width="150" align="left"/></p>
-	        <nav class="horizontalNAV">
-	          <ul type="none">
-		          <li><a href="login.html">Sign In</a></li>
-		          <li>Create Store</li>
-		          <li>About Us</li>
-		          <li>Search</li>
-		          <li><a href="FAQ.html">?</a></li>
-	          </ul>
-          </nav>
-          <br clear="right" />
-          <h1>
-	        Everest Computer Consignment
-          </h1>
-    
-          <h2 class="tagline"></h2>
-   
-      </header>
-
-      <div id="elevator">
-
-      <h3>Search thousands of used computers</h3>
-	    <h3>Find rare models and features at low costs</h3>
-	    <h3>New deals every day</h3>
-     
-      </div>
-      </body>
-
-      <br />
-      <hr color="white" clear="right"/>
-      <footer>
-        <address>
-			    Everest Computer Consignment&nbsp;&nbsp;&nbsp;&#9765;&nbsp;&nbsp;&nbsp;
-			    established 2023
-	      </address>
-	
-      </footer>
- 
+      <View login={login} handleUser={handleUser} 
+            about={about} 
+            createStore={createStore} 
+            addComputer={addComputer}
+            inventory={inventory} handleInventory={handleInventory}
+            inventoryView={inventoryView} handleInventoryView={handleInventoryView}
+            logout={logout}
+            handleModifyComp={handleModifyComp} modifyComp={modifyComp} 
+            handleRemoveComp={handleRemoveComp} removeComp={removeComp}
+            inventoryReport={inventoryReport} handleInventoryReport={handleInventoryReport} 
+            stores={stores} 
+            showStores={showStores} handleShowStores={handleShowStores}
+            descending={descending} handleDescending={handleDescending}
+            showBalances={showBalances}
+            siteManagerBalance={siteManagerBalance} handleSiteManagerBalance={handleSiteManagerBalance}
+            storeBalance={storeBalance} handleStoreBalance={handleStoreBalance}
+            />
     </div>
   );
 }

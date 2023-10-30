@@ -9,7 +9,7 @@ header {
 	position: relative;
 }
 
-header p img {
+header img {
 	display: inline-block;
 	margin-left: 7%;
 }
@@ -20,8 +20,9 @@ header h1 {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 300%;
 	height: 15%;
-	margin-top: 3%;
-	text-align: center;
+	margin-top: 5%;
+    margin-left: 20%;
+	text-align: left;
 	width: 100%;
 }
 
@@ -72,9 +73,51 @@ body {
 	vertical-align: baseline;
 	/*margin-top: 3%;*/
 	margin-bottom: 3%;
-    min-height: 85vh;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
+}
+
+.bodybag {
+    background-color: black;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	font-weight: inherit;
+	line-height: 1em;
+	list-style: none;
+	margin-left: 5%;
+    margin-top: 5%;
+	vertical-align: baseline;
+	/*margin-top: 3%;*/
+	margin-bottom: 3%;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 80%;
+}
+
+.bodybag button {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	float: center;
+	padding: 10px 10px;
+	text-align: right;
+	width: 15%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.bodybag button:hover {
+    background-color: white;
+    color: black;
+}
+
+body p {
+    text-align: center;
 }
 
 
@@ -93,21 +136,23 @@ nav.horizontalNAV {
 	
 }
 
-nav.horizontalNAV li {
+nav.horizontalNAV Button {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 100%;
 	float: left;
-	padding: 0px 0px;
+	padding: 10px 10px;
 	text-align: right;
 	width: 15%;
+    background-color: rgb(21, 20, 20);
+    color: white;
+    text-align: center;
+    margin-left: 5px;
 }
 
-nav.horizontalNAV li a {
-	color: white;
-}
 
-nav.horizontalNAV li a:hover {
-	color: red;
+nav.horizontalNAV Button:hover {
+    background-color: white;
+	color: black;
 }
 
 
@@ -132,9 +177,104 @@ h4.cursive{
 }
 
 
-
+.banner {
+    margin-left: 5%;
+    margin-top: 1%;
+    background-color:rgb(11, 47, 67);
+    color: white;
+    text-align: center;
+    padding: 10px 10px;
+}
 
 /*Section styles */
+.login {
+    background-color:rgb(11, 47, 67);
+    color: white;
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 30%;
+    width: 30%;
+}
+
+.profile {
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 30%;
+    width: 30%;
+}
+
+.create-store {
+    background-color: rgb(11, 47, 67);
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10%;
+}
+
+#intake-form {
+    background-color: white;
+    color: black;
+}
+#intake-form div {
+    margin-top: 10px;
+}
+
+#intake-form label{
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+#intake-form button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.features div{
+    width: 90%;
+    color: white;
+    margin-left: 5%;
+    margin-top: 1%;
+    background-color: rgb(11, 47, 67);
+}
+
+.features #text-inputs {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.features button {
+    margin-left: 5%;
+    background-color: black;
+    color: white;
+    font-size: 150%;
+}
+
+.features button:hover {
+    background-color: white;
+    color: black;
+}
+
+
+#tile-title{
+    font-size: 125%;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+#c1 {
+    width: 25%;
+    display: inline-block;
+
+}
+#c2 {
+    width: 25%;
+    display: inline-block;
+
+}
+#c3 {
+    width: 25%;
+    display: inline-block;    
+}
+
 
 
 /*text section*/
@@ -186,3 +326,4 @@ footer {
 a.bib {
 	color: lightpink;
 }
+

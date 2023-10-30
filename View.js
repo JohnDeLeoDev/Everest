@@ -1,87 +1,96 @@
 import React from "react";
 import './everest_style.css';
 import Create from './Owner/Create.js';
-import Login from './Login.js';
+import {Login} from './Login.js';
 import About from './About.js';
+import Inventory from "./Owner/Inventory";
 
-import logo from './everest.jpg'
+import AddComputer from "./Owner/AddComputer";
+import InventoryReport from "./Owner/InventoryReport";
+import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
 
-
-function ManagerView() {
+//*********************************************** */
+function Footer()
+/**
+ * @brief this is a View helper class to standardize
+ *      UX commonalities between views
+ **************************************************/
+{
     return (
-        <div className="ManagerView">
-            <h1>Manager View</h1>
+        <div>
+            <br />
+            <hr color="white" clear="right"/>
+            <footer>
+                <address>
+			    Everest Computer Consignment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    established 2023
+	            </address>
+	
+            </footer>
+        </div>
+    )
+}
+
+//********************************************* */
+export function ManagerView() 
+/** 
+ * @brief the manager view
+ *      manager must log in to view dashboard
+ ************************************************/ 
+{
+   return (
+        <div className="bodybag">
+            
+            <title>Administrator Dashboard</title>
+                <div>
+                    <h2>Logged in as Admin</h2>
+                </div>
+            
+            <Footer/>
         </div>
     );
 }
 
-function OwnerView() {
+//****************************************** */
+function OwnerView(props) 
+/**
+ * @brief the StoreOwner view - 
+ *      Store Owner must be logged in
+ **********************************************/
+{
+    const storeName = "default" 
+    //somehow when we load the view from login can take store name
     return (
         <div className="OwnerView">
-            <h1>Welcome, Owner</h1>
+            <title>{storeName} - Owner Dashboard</title>
+            <body>
+                {props.inventoryView === false ? <button className={"SubButton"} onClick={() => {props.handleInventoryView(true)}}>Inventory</button> : null}
+                {props.inventoryView === true ? <button className={"SubButton"} onClick={() => {props.handleInventoryReport(true)}}>Generate Inventory Report</button> : null}
+            
+            </body>
+            <Footer/>
         </div>
     );
 }
 
-function CustomerView() {
-    return (
-        <div className="CustomerView">
-            <h1>Customer View</h1>
-        </div>
-    );
-}
-
-export function Landing() {
+//*********************************************** */
+export function Landing() 
+/**
+ * @brief main landing page for the site, 
+ *      from here all functionality may be linked
+ ***************************************************/
+{
     return (
         <div className="Landing-page">
-            <head>
-        <title>Everest Home</title>
-        <meta charset="UTF-8" />
-        <meta name="author" content="Ellen Mackey, John DeLeo" />
-        <meta name="keywords" content="computers, used computers, computer consignment" />
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
-        rel="stylesheet"/>
-      </head>
-      
-      <body>
-      <header>
-	      <p class="logo"><img src={logo} height="150" width="150" align="left"/></p>
-	        <nav class="horizontalNAV">
-	          <ul type="none">
-		          <li><a href="login.html">Sign In</a></li>
-		          <li>Create Store</li>
-		          <li>About Us</li>
-		          <li>Search</li>
-		          <li><a href="FAQ.html">?</a></li>
-	          </ul>
-          </nav>
-          <br clear="right" />
-          <h1>
-	        Everest Computer Consignment
-          </h1>
-    
-          <h2 class="tagline"></h2>
-   
-      </header>
-
+            <body>
       <div id="elevator">
+                    <p>Search thousands of used computers</p>
+	                <p>Find rare models and features at low costs</p>
+	                <p>New deals every day</p>
+                </div>
+            </body>
 
-      <h3>Search thousands of used computers</h3>
-	    <h3>Find rare models and features at low costs</h3>
-	    <h3>New deals every day</h3>
-     
-      </div>
-      </body>
-
-      <br />
-      <hr color="white" clear="right"/>
-      <footer>
-        <address>
-			    Everest Computer Consignment&nbsp;&nbsp;&nbsp;&#9765;&nbsp;&nbsp;&nbsp;
-			    established 2023
-	      </address>
-	
-      </footer>
+            <Footer/>
         </div>
     );
 }
@@ -90,14 +99,34 @@ export default function View(props) {
     
     return (
         <div>
-            {props.user === 'owner' && <OwnerView />}
+            {props.user === 'owner' && <OwnerView />
+                && <Inventory 
+                modifyComp={props.modifyComp} 
+                removeComp={props.removeComp} 
+                handleModifyComp={props.handleModifyComp} 
+                handleRemoveComp={props.handleRemoveComp} 
+                inventoryView={props.inventoryView}
+                handleInventory={props.handleInventory}
+                inventory={props.inventory}/>}
             {props.user === 'manager' && <ManagerView />}
-            {props.user === 'customer' && <CustomerView />}
-            {(props.createStore === true && (props.user === 'manager' || props.user === 'owner')) && <Create />}
+            {props.createStore === true && <Create />}      
             {props.user === null && <Landing />}
             {props.login === true && <Login handleUser={props.handleUser}/>}
             {props.about === true && <About />}
-            
+            {props.logout === true && <Landing /> }
+            {props.addComputer === true && <AddComputer/>}
+            {props.inventoryReport === true && <InventoryReport 
+                inventory={props.inventory}
+                handleInventoryReport={props.handleInventoryReport}/>}
+
+            {props.showBalances === "Site Manager" && <GenerateSiteManagerBalance
+               handleSiteManagerBalance={props.handleSiteManagerBalance} />}
+
+            {props.showBalances === "All Stores" && <GenerateStoreBalance 
+                descending={props.descending}
+                stores={props.stores}
+                handleStoreBalance={props.handleStoreBalance}/>}
+
         </div>
     )
 }
