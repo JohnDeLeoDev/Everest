@@ -23,7 +23,7 @@ export const computer_filter_labels = {
     "Memory" : ["4 GB or less", "8 GB", "16 GB", "32 GB"],
     "Storage" : ["256 GB or less", "512 GB", "1 TB", "2 TB"],
     "Processor" : ["All Intel Processors", "All AMD Processors", "Any Processors"],
-    "Process Generation" : ["11th Gen Intel", "12th Gen Intel", "13th Gen Intel", 
+    "ProcessGen" : ["11th Gen Intel", "12th Gen Intel", "13th Gen Intel", 
                     "AMD Ryzan 6000 Series", "AMD Ryzan 7000 Series"],
     "Graphics" : ["All NVIDIA Graphics", "All AMD Graphics", "All Intel Graphics", "Any Graphics"]
 }

@@ -26,6 +26,7 @@ function App() {
   const [showBalances, setShowBalances] = React.useState(null); 
   const [siteManagerBalance, setSiteManagerBalance] = React.useState(null);
   const [storeBalance, setStoreBalance] = React.useState(null);
+  const [storeReport, setStoreReport] = React.useState(null);
 
   function clear(){
     setLogin(false)
@@ -38,6 +39,7 @@ function App() {
     setShowBalances(false)
     setSiteManagerBalance(false)
     setStoreBalance(false)
+    setStoreReport(false)
   }
 
   function handleLogin(bool) {
@@ -146,6 +148,10 @@ function App() {
     setSearch(option);
   }
 
+  function handleSetStoreReport(option){
+    clear();
+    setStoreReport(option)
+  }
 
   return (
     <div className="App">
@@ -158,6 +164,8 @@ function App() {
               handleInventoryReport={handleInventoryReport}
               handleShowStores={handleShowStores}
               handleShowBalances={handleShowBalances}
+              handleSearch={handleSearch}
+              handleSetStoreReport={handleSetStoreReport}
               />
       
       <View login={login} handleUser={handleUser} 
@@ -176,6 +184,8 @@ function App() {
             showBalances={showBalances}
             siteManagerBalance={siteManagerBalance} handleSiteManagerBalance={handleSiteManagerBalance}
             storeBalance={storeBalance} handleStoreBalance={handleStoreBalance}
+            search={search} handleSearch={handleSearch}
+            setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
             />
     </div>
   );

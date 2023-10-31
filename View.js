@@ -8,6 +8,8 @@ import Inventory from "./Owner/Inventory";
 import AddComputer from "./Owner/AddComputer";
 import InventoryReport from "./Owner/InventoryReport";
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
+import { SearchComputer, SearchStores } from "./Customer/Search";
+import { GenerateAllStoreInventoryReport , GenerateStoreInventoryReport} from "./Manager/GenerateReport";
 
 //*********************************************** */
 function Footer()
@@ -63,13 +65,20 @@ function OwnerView(props)
     return (
         <div className="OwnerView">
             <title>{storeName} - Owner Dashboard</title>
-            <body>
-                {props.inventoryView === false ? <button className={"SubButton"} onClick={() => {props.handleInventoryView(true)}}>Inventory</button> : null}
-                {props.inventoryView === true ? <button className={"SubButton"} onClick={() => {props.handleInventoryReport(true)}}>Generate Inventory Report</button> : null}
-            
-            </body>
+               <Inventory 
+                    modifyComp={props.modifyComp} 
+                    removeComp={props.removeComp} 
+                    handleModifyComp={props.handleModifyComp} 
+                    handleRemoveComp={props.handleRemoveComp} 
+                    inventoryView={props.inventoryView}
+                    handleInventory={props.handleInventory}
+                    inventory={props.inventory}/>
             <Footer/>
         </div>
+
+        // {props.inventoryView === false ? <button className={"SubButton"} onClick={() => {props.handleInventoryView(true)}}>Inventory</button> : null}
+        //{props.inventoryView === true ? <button className={"SubButton"} onClick={() => {props.handleInventoryReport(true)}}>Generate Inventory Report</button> : null}
+            
     );
 }
 
@@ -99,8 +108,7 @@ export default function View(props) {
     
     return (
         <div>
-            {props.user === 'owner' && <OwnerView />
-                && <Inventory 
+            {props.user === 'owner' && <OwnerView 
                 modifyComp={props.modifyComp} 
                 removeComp={props.removeComp} 
                 handleModifyComp={props.handleModifyComp} 
@@ -122,10 +130,21 @@ export default function View(props) {
             {props.showBalances === "Site Manager" && <GenerateSiteManagerBalance
                handleSiteManagerBalance={props.handleSiteManagerBalance} />}
 
-            {props.showBalances === "All Stores" && <GenerateStoreBalance 
+            {props.setStoreReport  === "All Stores" && <GenerateAllStoreInventoryReport 
                 descending={props.descending}
                 stores={props.stores}
-                handleStoreBalance={props.handleStoreBalance}/>}
+                handleSetStoreReport={props.handleSetStoreReport}/>}
+
+            {props.setStoreReport === "One Store" && <GenerateStoreInventoryReport
+                stores={props.stores}
+                />}
+
+            {props.search === "Stores" && <SearchStores
+                stores={props.stores}/>}
+            {props.search === "Computers" && <SearchComputer/>}
+
+            
+
 
         </div>
     )

@@ -17,7 +17,6 @@ function DropdownNav(submenu, callback)
     });
 }
 
-
 //********************************************************* */
 function getDefaultNav(props)
 /**
@@ -29,12 +28,23 @@ function getDefaultNav(props)
  *        ? (this is help)
  ************************************************************/
 {
+    const searchOpts = {"options":["Stores", "Computers"]}
+    let search = (
+        <div>
+            <button className="Button">Search
+            <select>
+                {DropdownNav(searchOpts, props.handleSearch)}
+            </select>
+            </button>
+        </div>
+        ) 
+
     return(
         <div>
             <button className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
             <button className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
             <button className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
-            <button className="Button" onClick={() => {props.handleSearch(true)}}>Search</button>
+            {search}
             <button className="Button">?</button>
         </div>
     )
@@ -53,13 +63,24 @@ function getStoreOwnerNav(props)
  *      ? (help)
  ************************************************************/
 {
+    const searchOpts = {"options":["Stores", "Computers"]}
+    let search = (
+        <div>
+            <button className="Button">Search
+            <select>
+                {DropdownNav(searchOpts, props.handleSearch)}
+            </select>
+            </button>
+        </div>
+        )
+
     return(
     <div>
         <button className="Button" onClick={() => {props.handleLogout(true); props.handleUser(null)}}> Logout </button>
         <button className="Button" onClick={() => {props.handleAddComputer(true)}}> Add Computer </button>
         <button className="Button" onClick={() => {props.handleInventoryReport(true)}}> Generate Reports</button>
         <button className="Button" onClick={() => {props.handleAbout(true)}}> About Us</button>
-        <button className="Button"> Search </button>
+        {search}
         <button className="Button"> ? </button>
     </div>
     )
@@ -75,7 +96,7 @@ function getSiteManagerNav(props)
  *      
  ******************************************************************/
 {
-    const items = {"title":"Generate Balance","options": ["Site Manager", "All Stores"]}
+    const items = {"options": ["Site Manager", "All Stores"]}
     let balances = 
         <div>
             <button className="Button">Generate Reports
@@ -86,7 +107,7 @@ function getSiteManagerNav(props)
         </div>
 
     const searchOpts = {"options":["Stores", "Computers"]}
-    let search = 
+    let search = (
         <div>
             <button className="Button">Search
             <select>
@@ -94,11 +115,24 @@ function getSiteManagerNav(props)
             </select>
             </button>
         </div>
+    )
 
+    const reportOpts = {"options":["All Stores", "One Store"]}
+    let inventoryReport = (
+        <div>
+            <button className="Button">Generate Inventory Report
+            <select>
+                {DropdownNav(reportOpts, props.handleSetStoreReport)}
+            </select>
+            </button>
+        </div>
+    )
+
+    
     return (
         <div>
             <button className="Button" onClick={() => {props.handleLogout(true)}}>Logout</button>
-            <button className="Button" onClick={() => {props.generateInventory(true)}}>Generate Inventory Report</button>
+            {inventoryReport}
             {balances}
             {search}
             <button className="Button">?</button>
