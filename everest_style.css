@@ -6,12 +6,11 @@
 
 header {
 	width: 100%;
-	position: relative;
 }
 
 header img {
 	display: inline-block;
-	margin-left: 7%;
+	margin-left: 5%;
 }
 
 header h1 {
@@ -22,8 +21,8 @@ header h1 {
 	height: 15%;
 	margin-top: 5%;
     margin-left: 20%;
-	text-align: left;
-	width: 100%;
+	text-align: right;
+	width: 70%;
 }
 
 header h2 {
@@ -33,7 +32,7 @@ header h2 {
 	font-size: 150%;
 	/*font-style: italic;*/
 	margin-left: 45%;
-	text-align: center;
+	text-align: right;
 	width: 40%;
 }
 	
@@ -76,6 +75,7 @@ body {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .bodybag {
@@ -184,7 +184,9 @@ h4.cursive{
     color: white;
     text-align: center;
     padding: 10px 10px;
+    width: 90%;
 }
+
 
 /*Section styles */
 .login {

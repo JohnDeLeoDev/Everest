@@ -42,9 +42,20 @@ function App() {
     setStoreReport(false)
   }
 
+  //reset all values to default if logged out
+  function handleLogout(bool) {
+    if (bool === true) {
+      clear()
+      setUser(null)
+    }
+    setLogout(bool)
+  }
+
+  //this shows the login view
   function handleLogin(bool) {
     clear()
-    setLogin(bool);
+    setLogin(bool)
+    setLogout(false)
   }
 
   function handleAbout(bool){
@@ -63,11 +74,6 @@ function App() {
       setInventoryView(true);
     }
     setUser(user);
-  }
-
-  function handleLogout(bool){
-    clear();
-    setLogout(bool);
   }
 
   function handleAddComputer(bool){
@@ -174,7 +180,7 @@ function App() {
             addComputer={addComputer}
             inventory={inventory} handleInventory={handleInventory}
             inventoryView={inventoryView} handleInventoryView={handleInventoryView}
-            logout={logout}
+            logout={logout} handleLogout={handleLogout}
             handleModifyComp={handleModifyComp} modifyComp={modifyComp} 
             handleRemoveComp={handleRemoveComp} removeComp={removeComp}
             inventoryReport={inventoryReport} handleInventoryReport={handleInventoryReport} 

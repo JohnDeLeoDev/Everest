@@ -1,15 +1,13 @@
 TO DO:
     Site Manager Use Cases
-        Generate Report
-        Search -> Remove Store
+        Remove Store
         put a button into GenerateStore__ to sort ascending or descending
 
 Things to fix:
     1. screen w & h is > 100% 
     3. adding the computer (pushing the button) seems to log out store owner - goes to landing
     4. auto-adjust nav button width for N buttons out of the view (owner wraps)
-    5. Logout for site manager 
-    6. i broke the default store owner view :)
+    5. i broke the default store owner view :)
 
 
 
