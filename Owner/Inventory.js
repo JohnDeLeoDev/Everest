@@ -5,11 +5,12 @@ export default function Inventory(props) {
     let removeComp = props.removeComp;
 
     let computers = props.inventory;
+    console.log("i got here into Inventory!!")
 
     // handles the display of the computers in the inventory. Takes above array as input
     function displayComputers(computers) {
         let tableData = [];
-
+        console.log("i got here in display computers!")
         for (let i = 0; i < computers.length; i++) {
             tableData.push(
                 <tr key={computers[i].id}>
@@ -18,10 +19,10 @@ export default function Inventory(props) {
                     <td>{
                         modifyComp[0] && modifyComp[1] === computers[i].id ? <input type="text" placeholder={computers[i].price} /> : computers[i].price
                         }</td>
-                    <td><button className="Button" onClick={() => {props.handleModifyComp(true, computers[i].id)}}>
+                    <td><button onClick={() => {props.handleModifyComp(true, computers[i].id)}}>
                         {modifyComp[0] && modifyComp[1] === computers[i].id ? "Submit" : "Modify"}
                         </button></td>
-                    <td><button className="Button" onClick={() => {props.handleRemoveComp(true, computers[i].id)}}>
+                    <td><button onClick={() => {props.handleRemoveComp(true, computers[i].id)}}>
                         {removeComp[0] && removeComp[1] === computers[i].id ? "Confirm" : "Remove"}
                         </button></td>
                 </tr>

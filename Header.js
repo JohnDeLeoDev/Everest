@@ -5,7 +5,10 @@ import logo from './everest.jpg'
 /****************************************************** */
 function DropdownNav(submenu, callback)
 /**
- * @brief packs a dropdown nav for show balances
+ * @brief packs a dropdown nav button
+ * @parameters 
+ *      submenu: dropdown option values
+ *      callback: the props.<function> to select for option
  ********************************************************/
 {
     let opts = submenu.options
@@ -58,8 +61,9 @@ function getStoreOwnerNav(props)
  *      Log out
  *      Add Computer
  *      Generate Report - sub-nav with inventory or finance
+ *          -this isn't fully implemented
  *      About Us
- *      Search
+ *      Search - sub-nav with Stores or Computers
  *      ? (help)
  ************************************************************/
 {
@@ -76,7 +80,7 @@ function getStoreOwnerNav(props)
 
     return(
     <div>
-        <button className="Button" onClick={() => {props.handleLogout(true); props.handleUser(null)}}> Logout </button>
+        <button className="Button" onClick={() => props.handleLogout(true)}> Logout </button>
         <button className="Button" onClick={() => {props.handleAddComputer(true)}}> Add Computer </button>
         <button className="Button" onClick={() => {props.handleInventoryReport(true)}}> Generate Reports</button>
         <button className="Button" onClick={() => {props.handleAbout(true)}}> About Us</button>
@@ -92,8 +96,12 @@ function getSiteManagerNav(props)
  * @brief get the nav panel for the site manager
  *      options:
  *      Logout
- *      Generate Reports
- *      
+ *      Generate Reports - inventory report (money value of inventory)
+ *          -for all stores -subnav
+ *          -for one store -subnav
+ *      Generate Balance - balance in dollars
+ *          -for site manager
+ *          -for store(s) --double check this
  ******************************************************************/
 {
     const items = {"options": ["Site Manager", "All Stores"]}
@@ -149,17 +157,25 @@ export function Header(props)
     let user = props.user;
     let navList = getDefaultNav(props);
     let viewName = "Everest Home";
-    let admin_msg = ""
+    let msg = ""
+    var dflt_storename = "Test"
+    let banner = <></>
+
 
     //check login status
     if (user === 'owner') {
         navList = getStoreOwnerNav(props);
         viewName = "Store Dashboard"
+        msg = "Logged into " + "*"+dflt_storename+"*" + " Dashboard"
     } else if (user === 'manager') {
        navList = getSiteManagerNav(props);
        viewName = "Site Manager Dashboard"
-       admin_msg = "Logged in as Admin"
+       msg = "Logged in as Admin"
     } 
+
+    if (user === 'owner' || user === 'manager'){
+        banner = <h3 className="banner">{msg}</h3>
+    }
 
     return (
         <header>
@@ -181,7 +197,7 @@ export function Header(props)
             </h1>
     
             <h2 class="tagline">Second Hand Computer Sellers</h2>
-            <h3 className="banner">{admin_msg}</h3>
+            {banner}
         </header>
     )
 }

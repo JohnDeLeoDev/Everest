@@ -24,7 +24,7 @@ export function GenerateSiteManagerBalance(props)
 {
     //this is one value we retrieve from database?
     return (
-        <div className="bodybag">
+        <div>
             <h3>SITE MANAGER BALANCE</h3>
             <br/>
             <h3>$670,887.26</h3>

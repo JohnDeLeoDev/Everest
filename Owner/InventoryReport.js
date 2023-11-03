@@ -15,7 +15,7 @@ export default function InventoryReport(props) {
 
 
     return (
-        <div className="InventoryReport">
+        <div>
             <h1>Inventory Report</h1>
             <table>
                 <thead>
