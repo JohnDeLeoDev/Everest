@@ -25,7 +25,7 @@ function compareBalance (a, b)
 //*********************************************************** */
 export function GenerateAllStoreInventoryReport(props)
 /**
- * @brief generate balances of (EVERY?) store
+ * @brief generate balances (or inventory?) of (EVERY?) store
  *      TODO: put a button in to sort ascending/descending
  **************************************************************/
 {
@@ -63,7 +63,7 @@ export function GenerateAllStoreInventoryReport(props)
     }
 
     return (
-        <div className="bodybag">
+        <div>
             <p> 
                 Store Inventory Total Report {day}.{month}.{year}
             </p>
@@ -83,7 +83,7 @@ export function GenerateAllStoreInventoryReport(props)
     )
 }
 
-export function GenerateStoreInventoryReport() {
+export function GenerateStoreInventoryReport(props) {
     
     //by store - search for store and click on store to go to store site
 
@@ -93,7 +93,10 @@ export function GenerateStoreInventoryReport() {
     return (
         <div>
             Select Store to Generate Report
-            <SearchStores />
+            <SearchStores 
+                stores={props.stores}
+                user={props.user}
+                />
         </div>
     )
 }

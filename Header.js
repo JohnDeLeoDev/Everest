@@ -158,7 +158,7 @@ export function Header(props)
     let navList = getDefaultNav(props);
     let viewName = "Everest Home";
     let msg = ""
-    var dflt_storename = "Test"
+    var dflt_storename = "Test Store"
     let banner = <></>
 
 

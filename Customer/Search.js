@@ -43,7 +43,7 @@ export function SearchComputer(props)
     //array values are the check boxes
 
     return (
-        <div className="bodybag">
+        <div>
             <div id="filter_boxes"> 
                 <form onSubmit={props.handleSubmit} className='features'>
                 <div id='c1'>
@@ -84,21 +84,45 @@ export function SearchComputer(props)
     )
 }
 
-//if we could pass it the type of input to use we can use for checkbox and radio
-//search stores
+//*********************************************************** */
 export function SearchStores(props)
+/**
+ * @brief function to search for all stores on site
+ *        **when calling from manager view, use radio buttons
+ *        **when calling from default view, use checkboxes
+ *************************************************************/
 {
-    let stores = props.stores
+    const stores = props.stores
+    let submit = "checkbox"
+    if (props.user === 'manager'){
+        submit = 'radio'
+    }
 
+    //make check boxes
+    let storeSearch = []
+    for (let s of stores){
+        storeSearch.push(
+            <tr>
+                <td>
+                <input type={submit} name={s.storeID} value={s.name}/>   
+                <label>{s.name}</label>
+                </td>
+            </tr> 
+        )
+    }
 
     return (
         <div className="bodybag">
             SEARCH STORES
             <div id="c1">
-                {}
+                <table>
+                    <tbody>
+                    {storeSearch}
+                    </tbody>
+                </table>
             </div>
             <div id="c2">
-                <button>GO</button>
+                <button onClick={props.handleSubmit}>GO</button>
             </div>
         </div>
     )

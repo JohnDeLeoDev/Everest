@@ -1,6 +1,6 @@
 //list stores to filter by/go to
 
-export function ListStores(props)
+export function ListStoreBalances(props)
 {
     //build structure ascending (default)
     for (let i=0; i < objArray.length;i++){

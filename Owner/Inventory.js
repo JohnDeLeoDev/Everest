@@ -5,12 +5,10 @@ export default function Inventory(props) {
     let removeComp = props.removeComp;
 
     let computers = props.inventory;
-    console.log("i got here into Inventory!!")
 
     // handles the display of the computers in the inventory. Takes above array as input
     function displayComputers(computers) {
         let tableData = [];
-        console.log("i got here in display computers!")
         for (let i = 0; i < computers.length; i++) {
             tableData.push(
                 <tr key={computers[i].id}>

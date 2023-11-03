@@ -1,3 +1,5 @@
+//Store owner inventory report
+
 export default function InventoryReport(props) {
     let inventory = props.inventory;
     let inventoryReport = [];

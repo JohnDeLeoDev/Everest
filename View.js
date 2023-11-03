@@ -55,6 +55,10 @@ export function ManagerView(props)
                         stores={props.stores}
                         //searchStores={props.searchStores}
                     />
+    } else if (props.setStoreReport === "All Stores") {
+        callback = <GenerateAllStoreInventoryReport
+                    stores={props.stores}
+                    />
     }
 
     if (props.search === "Stores"){
@@ -64,11 +68,12 @@ export function ManagerView(props)
         callback = <SearchComputer/>
     }
 
-    if (props.setStoreReport  === "All Stores"){
-        callback = <GenerateAllStoreInventoryReport 
+    if (props.setStoreReport  === "One Store"){
+        callback = <GenerateStoreInventoryReport 
                         descending={props.descending}
                         stores={props.stores}
-                        handleSetStoreReport={props.handleSetStoreReport}/>
+                        handleSetStoreReport={props.handleSetStoreReport}
+                        user={props.user}/>
     }
 
    return (
@@ -174,7 +179,13 @@ export function Landing(props)
     );
 }
 
-export default function View(props) {
+//********************************************************* */
+export default function View(props) 
+/**
+ * @brief intake funciton to select the correct view based on 
+ *        permissions
+ ***********************************************************/
+{
     if (props.user === 'owner'){
         return (
             <OwnerView 
@@ -202,6 +213,7 @@ export default function View(props) {
                 descending={props.descending}
                 stores={props.stores}
                 search={props.search}
+                user={props.user}
             />
         </div>
         )
@@ -213,7 +225,8 @@ export default function View(props) {
                 login={props.login}
                 handleUser={props.handleUser}
                 createStore={props.createStore}  
-                about={props.about}    
+                about={props.about}   
+                stores={props.stores} 
                 />
             </div>
         )
