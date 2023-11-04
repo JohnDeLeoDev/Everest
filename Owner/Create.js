@@ -5,7 +5,7 @@ export default function Create(props)
  *        after which a login is created
  *******************************************************/
 {
-
+    //<button><input type="file" />Upload Logo</button>
     return (
         <div className="create-store">
             <h1>Create Store</h1>
@@ -14,7 +14,7 @@ export default function Create(props)
                     <label>Store Name</label>
                     <input type="text" />
                 
-                    <button><input type="file" />Upload Logo</button>
+                    
                     
                 </div>
 

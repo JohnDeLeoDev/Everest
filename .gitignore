@@ -4,3 +4,6 @@
 Manager/Manager.js
 Owner/Remove.js
 Owner/Modify.js
+
+getSiteInventory/*
+getSiteInventory
