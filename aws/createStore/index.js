@@ -11,20 +11,28 @@ exports.handler = async (event) => {
   });
 
   
-  let arg1 = event.arg1;
+  let name = event.name;
   let logo = event.logo;
   let fname = event.fname;
   let lname = event.lname;
   let email = event.email;
   let password = event.password;
+  let usertype = event.usertype;
   let phone = event.phone;
   let address = event.address;
   let city = event.city;
   let state = event.state;
   let zip = event.zip;
   let country = event.country;
+  let lat = Number(event.lat);
+  let long = Number(event.long);
   let description = event.description;
   let response = {};
+  
+  
+  console.log("LAT/LONG INFO...");
+  console.log(lat);
+  console.log(long);
   
   
   let userQuery = "INSERT INTO Users (userID, userFirst, userLast, userEmail, userStreet, userCity, userState, userZip, userType, password) VALUES ('" + email + "', '" + fname + "', '" + lname + "', '" + email + "', '" + address + "', '" + city + "', '" + state + "', '" + zip + "', 0, '" + password + "');"
@@ -44,8 +52,9 @@ exports.handler = async (event) => {
           }
       });
   });
+  
+  let storeQuery = "INSERT INTO Stores (name, description, storeOwner, long, lat) VALUES ('" + name + "', '" + description + "', '" + email + "', '" + long + "', '" + lat + "');"
 
-  let storeQuery = "INSERT INTO Stores (name, description, image, storeOwner) VALUES ('" + arg1 + "', '" + description + "', '" + logo + "', '" + email + "');";
 
   result = await new Promise((resolve, reject) => {
       pool.query(storeQuery, (err, res) => {
@@ -70,7 +79,7 @@ exports.handler = async (event) => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*"
       },
-      body: JSON.stringify(result),
+      body: JSON.stringify('Store created successfully'),
   };
 
   return response;
