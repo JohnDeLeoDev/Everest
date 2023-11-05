@@ -18,15 +18,24 @@ export function LoginRequest(props)
         setLoginRequest(json);
     }
 
+    function handleFailedLogin() {
+        props.handleFailedLogin(true);
+    }
+
     function handleLoginResponse(response) {
         if (response !== null || response !== undefined) {
-            let json = response["body-json"];
-            let body = json.body;
-            let user = body.user;
-            let userType = body.userType;
-            props.handleUser([user, userType]);
+            if (response.status === 200) {
+                let json = response["body-json"];
+                let body = json.body;
+                let user = body.user;
+                let userType = body.userType;
+                props.handleUser([user, userType]);
+            } else {
+                handleFailedLogin();
+            }
         }
     }
+
 
     useEffect(() => {
         let userID = loginRequest.userID;

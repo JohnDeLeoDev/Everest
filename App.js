@@ -11,6 +11,7 @@ function App() {
   cookie = JSON.parse(cookie);
   const [user, setUser] = React.useState(cookie);
   const [login, setLogin] = React.useState(null);
+  const [failedLogin, setFailedLogin] = React.useState(null);
   const [search, setSearch] = React.useState(null);
   const [about, setAbout] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
@@ -41,6 +42,10 @@ function App() {
     setStoreBalance(false)
     setStoreReport(false)
     setSearch(null)
+  }
+
+  function handleFailedLogin(bool) {
+    setFailedLogin(bool);
   }
 
   //reset all values to default if logged out
@@ -220,6 +225,8 @@ function App() {
               />
       
       <View login={login} 
+            failedLogin={failedLogin}
+            handleFailedLogin={handleFailedLogin}
             user={user} handleUser={handleUser} 
             handleLogin={handleLogin}
             about={about} 
