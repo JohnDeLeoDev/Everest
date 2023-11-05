@@ -26,21 +26,23 @@ export function Login(props)
 
     //need to switch "userID" to user email to link to store
     return (
-        <>
+        <div className='login'>
         <h1>Login</h1>
         <form name="login" onSubmit={handleLoginRequest}>
             <label htmlFor="userID">User ID</label>
             <input type="text" name="userID" />
+            <br/>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
+            <br/>
             <button id="submit" type="submit">Login</button>
         </form>
 
-        <h1>Register</h1>
+        <h2>Register</h2>
             <button className="Button" onClick={() => {props.handleUser("owner")}}>Owner</button>
             <button className="Button" onClick={() => {props.handleUser("manager")}}>Manager</button>
         {loginRequest !== null ? <LoginRequest json={loginRequest} handleUser={props.handleUser} /> : null}
-        </>
+        </div>
 
     )
 }
