@@ -18,7 +18,6 @@ export default function Create(props)
         const json = JSON.stringify(Object.fromEntries(formData));
         console.log(json);
         setCreateStoreRequest(json);
-
     }
 
     //<button><input type="file" />Upload Logo</button>

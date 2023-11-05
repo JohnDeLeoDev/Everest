@@ -70,7 +70,7 @@ export function CreateStoreRequest(props)
     function handleCreateStoreResponse(response) {
         if (response !== null || response !== undefined) {
             console.log(response);
-            let json = response["body-json"];
+            let json = response;
             let body = json.body;
             setCreateStoreResponse(json);
         }
@@ -84,8 +84,10 @@ export function CreateStoreRequest(props)
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*'
             },
-            body: JSON.stringify(createStoreRequest)
+            body: createStoreRequest
         };
+
+        console.log(requestOptions);
 
         fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
             .then(response => response.json())
