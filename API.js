@@ -19,34 +19,39 @@ export function LoginRequest(props)
     }
 
     function handleLoginResponse(response) {
-        setLoginResponse(response);
+        if (response !== null || response !== undefined) {
+            let json = response["body-json"];
+            let body = json.body;
+            let user = body.user;
+            let userType = body.userType;
+            props.handleUser([user, userType]);
+        }
     }
 
     useEffect(() => {
+        let userID = loginRequest.userID;
+        let password = loginRequest.password;
+        let json = {
+            "userID": userID,
+            "password": password
+        };
+
         const requestOptions = {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Origin': '*'
-
             },
-            body: JSON.stringify(loginRequest)
+            body: JSON.stringify(json)
+            
         };
 
         fetch('https://je60qiy1fi.execute-api.us-east-1.amazonaws.com/default/handleLogin', requestOptions)
-            .then(response => {
-                console.log(response);
-                response.json();
-            })
-            .then(data => {
-            console.log(data);
-            setLoginResponse(data);
-            return data;
-            })
-        }, []);
+            .then(response => response.json())
+            .then(data => handleLoginResponse(data));
 
-    return loginResponse;
+        }, []);
 }
 
 //********************************************************** */
@@ -63,7 +68,12 @@ export function CreateStoreRequest(props)
     }
 
     function handleCreateStoreResponse(response) {
-        setCreateStoreResponse(response);
+        if (response !== null || response !== undefined) {
+            console.log(response);
+            let json = response["body-json"];
+            let body = json.body;
+            setCreateStoreResponse(json);
+        }
     }
 
     useEffect(() => {
@@ -78,19 +88,10 @@ export function CreateStoreRequest(props)
         };
 
         fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
-            .then(response => {
-                console.log(response);
-                response.json();
-            })
-            .then(data => {
-            console.log(data);
-            setCreateStoreResponse(data);
-            return data;
-            })
-        }, []);
-
-    return createStoreResponse;
-}
+            .then(response => response.json())
+            .then(data => handleCreateStoreResponse(data));
+    }, []);
+    }
 
 //**************************************************************** */
 export function RemoveStoreRequest(props)

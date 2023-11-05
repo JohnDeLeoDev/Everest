@@ -7,8 +7,9 @@ import { test_stores } from './Manager/testStores';
 
 
 function App() {
-
-  const [user, setUser] = React.useState(null);
+  let cookie = localStorage.getItem('user');
+  cookie = JSON.parse(cookie);
+  const [user, setUser] = React.useState(cookie);
   const [login, setLogin] = React.useState(null);
   const [search, setSearch] = React.useState(null);
   const [about, setAbout] = React.useState(null);
@@ -49,6 +50,7 @@ function App() {
       setUser(null)
     }
     setLogout(bool)
+    localStorage.removeItem('user');
   }
 
   //render the login view
@@ -74,16 +76,13 @@ function App() {
   //"owner" : store owner
   //"manager" : site manager
   //null : default (customer or landing page)
-  function handleUser(user) {
-   handleLogin(false);
-    if (user === 'owner'){
+  function handleUser(userInfo) {
+    handleLogin(false);
+    setUser(userInfo);
+    localStorage.setItem('user', JSON.stringify(userInfo));
+    if (userInfo[1] === 0) {
       setInventoryView(true); 
-    } 
-      
-    setUser(user);
-
-    console.log("user is ", user)
-    //here need to prompt to go to view, somehow it only updates header.
+    }
   }
 
   //owner view
@@ -222,6 +221,7 @@ function App() {
       
       <View login={login} 
             user={user} handleUser={handleUser} 
+            handleLogin={handleLogin}
             about={about} 
             createStore={createStore} 
             addComputer={addComputer}

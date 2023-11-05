@@ -154,28 +154,35 @@ export function Header(props)
  * @brief function to add nav by view priviledge level
  **********************************************************/
 {
-    let user = props.user;
     let navList = getDefaultNav(props);
     let viewName = "Everest Home";
     let msg = ""
     var dflt_storename = "Test Store"
     let banner = <></>
-
-
+    
     //check login status
-    if (user === 'owner') {
-        navList = getStoreOwnerNav(props);
-        viewName = "Store Dashboard"
-        msg = "Logged into " + "*"+dflt_storename+"*" + " Dashboard"
-    } else if (user === 'manager') {
-       navList = getSiteManagerNav(props);
-       viewName = "Site Manager Dashboard"
-       msg = "Logged in as Admin"
-    } 
-
-    if (user === 'owner' || user === 'manager'){
-        banner = <h3 className="banner">{msg}</h3>
+    if (props.user === null || props.user === undefined) {
+        navList = getDefaultNav(props);
+        viewName = "Everest Home"
+        msg = ""
+    } else {
+        if (props.user[1] === 0) {
+            navList = getStoreOwnerNav(props);
+            viewName = "Store Dashboard"
+            msg = "Logged into " + "*"+dflt_storename+"*" + " Dashboard"
+        } else if (props.user[1] === 1) {
+           navList = getSiteManagerNav(props);
+           viewName = "Site Manager Dashboard"
+           msg = "Logged in as Admin"
+        } 
+    
+        if (props.user[1] === 0 || props.user[1] === 1){
+            banner = <h3 className="banner">{msg}</h3>
+        }
     }
+
+
+
 
     return (
         <header>
@@ -197,6 +204,7 @@ export function Header(props)
             </h1>
     
             <h2 class="tagline">Second Hand Computer Sellers</h2>
+            {props.user !== null && props.user !== undefined ? <h2 class="tagline">Welcome {props.user[0]}</h2> : <></>}
             {banner}
         </header>
     )

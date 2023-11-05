@@ -186,7 +186,20 @@ export default function View(props)
  *        permissions
  ***********************************************************/
 {
-    if (props.user === 'owner'){
+    if (props.user === null || props.user === undefined) {
+        return (
+            <div> 
+                <Landing 
+                    search={props.search}
+                    login={props.login}
+                    handleUser={props.handleUser}
+                    createStore={props.createStore}  
+                    about={props.about}   
+                    stores={props.stores} 
+                    />
+            </div>
+        )
+    } else if (props.user[1] === 0){
         return (
             <OwnerView 
                 modifyComp={props.modifyComp} 
@@ -202,7 +215,7 @@ export default function View(props)
                 />
         )
     } 
-    else if (props.user === 'manager'){
+    else if (props.user[1] === 1){
         return (
         <div>
             <ManagerView 

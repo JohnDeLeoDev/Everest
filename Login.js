@@ -13,35 +13,34 @@ export function Login(props)
 
     function handleLoginRequest(event) {
         event.preventDefault();
-        const form = document.getElementById("login");
+        const form = document.forms.login;
         const formData = new FormData(form);
-        const json = JSON.stringify(Object.fromEntries(formData));
+        let userID = formData.get("userID");
+        let password = formData.get("password");
+        let json = {
+            "userID": userID,
+            "password": password
+        };
         setLoginRequest(json);
     }
 
     //need to switch "userID" to user email to link to store
-    console.log("LOGIN")
     return (
-        <div  className="login" >
-            <h1>Login</h1>
-            <form id="login">
-                <div>
-                <label>Username</label>
-                <input id="userID" type="text"/>
-                </div>
-                <div>
-                <label>Password</label>
-                <input id="password" type="password"/>
-                </div>
-                <br/><br/>
-                <button onClick={handleLoginRequest} type="submit">Login</button>
-                <br/><br/>
-            </form>
-            <br/><br/>
+        <>
+        <h1>Login</h1>
+        <form name="login" onSubmit={handleLoginRequest}>
+            <label htmlFor="userID">User ID</label>
+            <input type="text" name="userID" />
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" />
+            <button id="submit" type="submit">Login</button>
+        </form>
+
+        <h1>Register</h1>
             <button className="Button" onClick={() => {props.handleUser("owner")}}>Owner</button>
             <button className="Button" onClick={() => {props.handleUser("manager")}}>Manager</button>
-            {loginRequest !== null ? <LoginRequest json={loginRequest} /> : null}
-        </div>
+        {loginRequest !== null ? <LoginRequest json={loginRequest} handleUser={props.handleUser} /> : null}
+        </>
 
     )
 }
