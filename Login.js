@@ -19,6 +19,7 @@ export function Login(props)
         setLoginRequest(json);
     }
 
+    //need to switch "userID" to user email to link to store
     console.log("LOGIN")
     return (
         <div  className="login" >
@@ -42,8 +43,6 @@ export function Login(props)
             {loginRequest !== null ? <LoginRequest json={loginRequest} /> : null}
         </div>
 
-        
-
     )
 }
 
@@ -51,6 +50,9 @@ export function Login(props)
 export function Logout(props) 
 /**
  * @brief log out of Store Owner or Site Manager Dashboard
+ *          
+ *      If we are creating some session token, we destroy
+ *           it here
  *********************************************************/
 {
     props.handleUser("");

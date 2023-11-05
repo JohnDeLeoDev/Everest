@@ -77,3 +77,55 @@ export function CreateStoreRequest(props) {
 
     return createStoreResponse;
 }
+
+export function addComputer(props)
+{
+    //TODO
+}
+
+//*********************************************** */
+export function GetSiteInventoryBalances(props)
+/**
+ * @brief this function connects the web app to lambda
+ *          to get the inventory balance for stores
+ * @param 
+ *        props.storeID (int): the id of the store req.
+ *                  if null, get all stores
+ ****************************************************/
+{
+    const [getSiteInventoryBalReqest, setGetSiteInventoryBalRequest] = React.useState(props.json);
+    const [getSiteInventoryBalResponse, setGetSiteInventoryBalResponse] = React.useState(null);
+
+    function handleSiteInventoryBalRequest(json) {
+        setGetSiteInventoryBalRequest(json);
+    }
+
+    function handleSiteInventoryBalResponse(response) {
+        setGetSiteInventoryBalResponse(response);
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
+            }
+        };
+
+        fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
+            .then(response => {
+                console.log(response);
+                response.json();
+            })
+            .then(data => {
+            console.log(data);
+            setGetSiteInventoryBalResponse(data);
+            return data;
+            })
+        }, []
+
+    )
+        
+}

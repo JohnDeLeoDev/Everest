@@ -11,7 +11,7 @@ export function GenerateStoreBalance(props)
 {
     return (
         <div>
-            USE CASE?
+            Get the balance from store with -storeID-
         </div>
     )
 }

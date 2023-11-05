@@ -1,6 +1,7 @@
 //Generate Reports
 
 import { SearchStores } from "../Customer/Search";
+import { GetSiteInventoryBalances } from "../API";
 
 //********************************************************** */
 function compareBalance (a, b)

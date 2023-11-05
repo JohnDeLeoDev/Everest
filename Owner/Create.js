@@ -27,15 +27,34 @@ export default function Create(props)
             <h1>Create Store</h1>
             <form id="create-store" className='intake-form'>
                 <div>
-                    <div>
-                    <label>Store Name</label>
+                    <label>Store Name *</label>
                     <input 
                         type="text"
                         name="arg1"
                         required={false}
                     />
                 </div>
+
                 <br />
+
+                <div>
+                    <div>
+                    <label>Username *</label>
+                    <input 
+                        type="text"
+                        name="userID"
+                        required={false}
+                    />
+                </div>
+
+                <div>
+                    <label>Password*</label>
+                    <input 
+                        type="text"
+                        name="password"
+                        required={false}
+                    />
+                </div>
 
                 <div>
                     <label>First Name</label>
@@ -57,7 +76,7 @@ export default function Create(props)
                 </div>
 
                 <div>
-                    <label>Email</label>
+                    <label>Email *</label>
                     <input 
                         type="text"
                         name="email"
@@ -115,6 +134,24 @@ export default function Create(props)
                     <input 
                         type="text"
                         name="country"
+                        required={false} 
+                    />
+                </div>
+                <br/>
+                <div>
+                <label>Latitude *</label>
+                    <input 
+                        type="text"
+                        name="lat"
+                        required={false} 
+                    />
+                </div>
+
+                <div>
+                <label>Longitude *</label>
+                    <input 
+                        type="text"
+                        name="longitude"
                         required={false} 
                     />
                 </div>

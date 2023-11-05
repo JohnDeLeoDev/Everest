@@ -23,9 +23,11 @@ function getOptions(keyword, options){
     });
 }
 
-//search computers
+//***************************************************** */
 export function SearchComputer(props)
 /**
+ * search computers
+ * 
  * Search by filters:
  *      Price: 
  *      Memory: 
@@ -34,7 +36,8 @@ export function SearchComputer(props)
  *      Process Gen:
  *      Graphics:
  * 
- *      select 20 or 50 per page (load 0..i files, "more" loads i+1..i+i, while i < n)
+ *      select 20 or 50 per page (load 0..i files, 
+ *          "more" loads i+1..i+i, while i < n)
  ***************************************************************************************/
 {
     //get the filter boxes
