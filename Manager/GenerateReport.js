@@ -2,6 +2,7 @@
 
 import { SearchStores } from "../Customer/Search";
 import { GetSiteInventoryBalances } from "../API";
+import React from "react";
 
 //********************************************************** */
 function compareBalance (a, b)
@@ -26,38 +27,61 @@ function compareBalance (a, b)
 //*********************************************************** */
 export function GenerateAllStoreInventoryReport(props)
 /**
- * @brief generate balances (or inventory?) of (EVERY?) store
+ * @brief generate inventory balances for every store
  *      TODO: put a button in to sort ascending/descending
  **************************************************************/
 {
-    //there must be a better way to temporarily store the stores
     //const objArray = JSON.parse(props.stores);
-    const objArray = props.stores;
-    const sortedObjArray = objArray.sort(compareBalance);  //sorts ascending by default
+    const sortedBalances = {};//balances.sort(compareBalance);  //sorts ascending by default
     const reportBody = []
     const date = new Date();
     const day = date.getDay();
     const month = date.getMonth();
     const year = date.getFullYear();
 
+    // GenerateReport triggers a GET request to the server
+    const [siteInventoryRequest, setSiteInventoryRequest] = React.useState(null);
+    const [siteInventoryBalances, setSiteInventoryBalances] = React.useState(null);
+
+    //set the balances from the data string
+    function handleSiteInventoryBalances(balances){
+        setSiteInventoryBalances(JSON.parse(balances));
+    }
+
+    //handle the event
+    function handleSiteInventoryRequest(event) {
+        event.preventDefault();
+        setSiteInventoryRequest("SiteInventoryBalances");
+        
+    }
+
+    return (
+        <GetSiteInventoryBalances 
+            siteInventoryRequest={props.siteInventoryRequest}   //the request name
+            handleSiteInventoryBalances={props.handleSiteInventoryBalances} //this sets the balances                   //
+        />
+    )
+    
+/*
     if (props.descending){
         //build structure ascending
-        for (let i = (objArray.length-1); i > 0; i--){
+        for (let i = (siteInventoryBalances.length-1); i > 0; i--){
             reportBody.push(
                 <tr>
-                <td>{sortedObjArray[i].name}</td>
-                <td>{sortedObjArray[i].storeBalance}</td>
-            </tr>
+                    <td>{sortedBalances[i].storeName}</td>
+                    <td>{sortedBalances[i].storeBalance}</td>
+                </tr>
             )
         }
     } else {
+        sortedBalances = siteInventoryBalances.sort(compareBalance)
         //build structure ascending (default)
-        for (let i=0; i < objArray.length;i++){
+        for (let i=0; i < siteInventoryBalances.length;i++){
             //build structure ascending
             reportBody.push(
-                <tr key={sortedObjArray[i].storeID}>
-                <td>{sortedObjArray[i].name}</td>
-                <td>{sortedObjArray[i].storeBalance}</td>
+                <tr>
+                <td>{sortedBalances[i].StoreName}</td>
+                <td>{sortedBalances[i].storeBalance}</td>
             </tr>
             )
         }
@@ -81,7 +105,7 @@ export function GenerateAllStoreInventoryReport(props)
             </table>
             <button className="Button" onClick={() => {props.handleSetStoreReport(null)}}>Close</button>
         </div>
-    )
+    )*/
 }
 
 export function GenerateStoreInventoryReport(props) {

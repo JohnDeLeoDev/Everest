@@ -1,4 +1,8 @@
-//Store owner inventory report
+/*****************************************************
+ * Store owner inventory report
+ * 
+ * generates and totals the inventory in the store 
+ **************************************************** */
 
 export default function InventoryReport(props) {
     let inventory = props.inventory;

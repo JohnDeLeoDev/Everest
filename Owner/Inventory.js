@@ -1,4 +1,7 @@
-//inventory
+/**********************************************************
+ * store inventory function
+ *      displays all computers in the inventory
+ * *******************************************************/
 
 export default function Inventory(props) {
     let modifyComp = props.modifyComp;
