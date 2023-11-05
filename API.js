@@ -76,12 +76,21 @@ export function CreateStoreRequest(props)
         setCreateStoreRequest(json);
     }
 
+    function handleFailedStore() {
+        props.handleFailedStore(true);
+    }
+
     function handleCreateStoreResponse(response) {
         if (response !== null || response !== undefined) {
-            console.log(response);
-            let json = response;
-            let body = json.body;
-            setCreateStoreResponse(json);
+            if (response.status === 200) {
+                let json = response["body-json"];
+                let body = json.body;
+                let user = body.user;
+                let userType = body.userType;
+                props.handleUser([user, userType]);
+            } else {
+                handleFailedStore();
+            }
         }
     }
 

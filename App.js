@@ -12,6 +12,7 @@ function App() {
   const [user, setUser] = React.useState(cookie);
   const [login, setLogin] = React.useState(null);
   const [failedLogin, setFailedLogin] = React.useState(null);
+  const [failedCreateStore, setFailedCreateStore] = React.useState(null);
   const [search, setSearch] = React.useState(null);
   const [about, setAbout] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
@@ -46,6 +47,10 @@ function App() {
 
   function handleFailedLogin(bool) {
     setFailedLogin(bool);
+  }
+
+  function handleFailedStore(bool) {
+    setFailedCreateStore(bool);
   }
 
   //reset all values to default if logged out
@@ -227,6 +232,8 @@ function App() {
       <View login={login} 
             failedLogin={failedLogin}
             handleFailedLogin={handleFailedLogin}
+            handleFailedStore={handleFailedStore}
+            failedCreateStore={failedCreateStore}
             user={user} handleUser={handleUser} 
             handleLogin={handleLogin}
             about={about} 

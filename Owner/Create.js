@@ -178,7 +178,8 @@ export default function Create(props)
                 </div>
             </form>
 
-            {createStoreRequest !== null ? <CreateStoreRequest json={createStoreRequest} /> : null}
+            {createStoreRequest !== null ? <CreateStoreRequest json={createStoreRequest} handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore}  /> : null}
+            {props.failedCreateStore ? <h3>Failed to create store.</h3> : null}
         </div>
     )
 }
