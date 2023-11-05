@@ -204,27 +204,30 @@ h4.cursive{
     width: 30%;
 }
 
-.create-store {
+.format-form {
     background-color: rgb(11, 47, 67);
     width: 60%;
     margin-left: 20%;
     margin-top: 10%;
 }
 
-#intake-form {
+
+.intake-form {
     background-color: white;
     color: black;
 }
-#intake-form div {
+.intake-form div {
     margin-top: 10px;
+	margin-left: 10px;
+	display: inline-block;
 }
 
-#intake-form label{
+.intake-form label{
     margin-left: 10px;
     margin-right: 2px;
 }
 
-#intake-form button {
+.intake-form button {
     margin-left: 10px;
     margin-right: 10px;
 }

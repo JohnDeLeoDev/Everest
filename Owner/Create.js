@@ -23,10 +23,11 @@ export default function Create(props)
 
     //<button><input type="file" />Upload Logo</button>
     return (
-        <>
+        <div className='format-form'>
             <h1>Create Store</h1>
-            <form id="create-store">
+            <form id="create-store" className='intake-form'>
                 <div>
+                    <div>
                     <label>Store Name</label>
                     <input 
                         type="text"
@@ -34,6 +35,7 @@ export default function Create(props)
                         required={false}
                     />
                 </div>
+                <br />
 
                 <div>
                     <label>First Name</label>
@@ -51,6 +53,7 @@ export default function Create(props)
                         name="lname"
                         required={false}
                     />
+                </div>
                 </div>
 
                 <div>
@@ -140,6 +143,6 @@ export default function Create(props)
             </form>
 
             {createStoreRequest !== null ? <CreateStoreRequest json={createStoreRequest} /> : null}
-        </>
+        </div>
     )
 }
