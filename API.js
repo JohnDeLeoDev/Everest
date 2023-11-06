@@ -165,7 +165,7 @@ export function RemoveStoreRequest(props)
 
 
 //***************************************************************** */
-export function AddComputer(props)
+export function AddComputerRequest(props)
 /**
  * @brief add a computer to the database for a particular store
  * 
@@ -209,7 +209,7 @@ function calculateInventoryBalance(siteInventoryData)
 }
 
 //*********************************************** */
-export function GetSiteInventoryBalances(props)
+export function GetSiteInventoryBalancesRequest(props)
 /**
  * @brief this function connects the web app to lambda
  *          to get the inventory balance for stores

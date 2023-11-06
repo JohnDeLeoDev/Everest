@@ -1,7 +1,7 @@
 //Generate Reports
 
 import { SearchStores } from "../Customer/Search";
-import { GetSiteInventoryBalances } from "../API";
+import { GetSiteInventoryBalancesRequest } from "../API";
 import React from "react";
 
 //********************************************************** */
@@ -55,12 +55,12 @@ export function GenerateAllStoreInventoryReport(props)
         
     }
 
-    return (
-        <GetSiteInventoryBalances 
+    //return (
+        <GetSiteInventoryBalancesRequest 
             siteInventoryRequest={props.siteInventoryRequest}   //the request name
             handleSiteInventoryBalances={props.handleSiteInventoryBalances} //this sets the balances                   //
         />
-    )
+   // )
     
 /*
     if (props.descending){
