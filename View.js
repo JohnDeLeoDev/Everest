@@ -101,6 +101,7 @@ function OwnerView(props)
  **********************************************/
 {
     let callback = <Inventory 
+        user={props.user}
         modifyComp={props.modifyComp} 
         removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
         handleModifyComp={props.handleModifyComp} 
@@ -217,6 +218,7 @@ export default function View(props)
     } else if (props.user[1] === 0){
         return (
             <OwnerView 
+                user={props.user}
                 modifyComp={props.modifyComp} 
                 removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
                 handleModifyComp={props.handleModifyComp} 
@@ -244,6 +246,7 @@ export default function View(props)
                 user={props.user}
                 removeStore={props.removeStore} 
                 handleRemoveStore={props.handleRemoveStore}
+                inventory={props.inventory}
             />
         </div>
         )

@@ -19,7 +19,7 @@ function App() {
   const [logout, setLogout] = React.useState(null);
   const [addComputer, setAddComputer] = React.useState(null);
   const [inventoryView, setInventoryView] = React.useState(null)
-  const [inventory, setInventory] = React.useState(testInventory);
+  const [inventory, setInventory] = React.useState(null);
   const [inventoryReport, setInventoryReport] = React.useState(null);
   const [modifyComp, setModifyComp] = React.useState(false, null, false);
   const [removeComp, setRemoveComp] = React.useState(false, null, false);
@@ -108,6 +108,7 @@ function App() {
   //data is an array of json computer objects
   function handleInventory(data) {
     setInventory(data);
+    console.log(inventory);
   }
 
   //owner view

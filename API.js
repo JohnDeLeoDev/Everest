@@ -262,3 +262,44 @@ export function GetSiteInventoryBalances(props)
     return getSiteInventoryBalResponse;
         
 }
+
+//**************************************************************** */
+export function GetStoreInventory(props) {
+    let userID = props.userID;
+    const [getStoreInventoryRequest, setGetStoreInventoryRequest] = React.useState(props.json);
+    const [getStoreInventoryResponse, setGetStoreInventoryResponse] = React.useState(null);
+
+    function handleGetStoreInventoryRequest(json) {
+        setGetStoreInventoryRequest(json);
+    }
+
+    function handleGetStoreInventoryResponse(response) {
+        let responseJson = JSON.parse(response["body-json"].body);
+        setGetStoreInventoryResponse(response);
+        props.handleInventory(responseJson);
+    }
+
+    useEffect(() => {
+        let json = {
+            "userID": userID,
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(json)
+        };
+
+        fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
+            .then(response => response.json())
+            .then(data => handleGetStoreInventoryResponse(data));
+        }, []);
+}
+
+
+
+    
