@@ -39,6 +39,8 @@ export default function AddComputer(props) {
         let processGen = formData.get("ProccessGen");
 
         var json = {
+            "username": props.user[0],
+            "storeID": props.user[2].storeID,
             "brand": brand,
             "model": model,
             "price": price,
@@ -47,7 +49,9 @@ export default function AddComputer(props) {
             "storageSize": storage,
             "graphics": graphics,
             "processor": processor,
-            "processGen": processGen
+            "processGen": processGen,
+            "isSold": 0,
+
         };
 
         setAddComputerRequest(json);

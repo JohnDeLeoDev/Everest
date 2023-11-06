@@ -29,7 +29,8 @@ export function LoginRequest(props)
                 let body = json.body;
                 let user = body.user;
                 let userType = body.userType;
-                props.handleUser([user, userType]);
+                let stores = body.stores;
+                props.handleUser([user, userType, stores]);
             } else {
                 handleFailedLogin();
             }
@@ -305,14 +306,17 @@ export function GetSiteInventoryBalances(props)
 //**************************************************************** */
 export function GetStoreInventory(props) {
     function handleGetStoreInventoryResponse(response) {
-        if (response !== null && response !== undefined) {
+        if (response !== null || response !== undefined) {
             let responseJson = JSON.parse(response["body-json"]);
-            if (responseJson !== null && responseJson !== undefined) {
-                if (responseJson.statusCode === 400) {
-                    console.log("Error: " + responseJson.body);
-                } else if (responseJson.statusCode === 200) {
-                    let body = JSON.parse(responseJson.body);
-                    props.handleInventory(body);
+            console.log(responseJson);
+            if (responseJson["statusCode"] === 200) {
+                if (responseJson !== null && responseJson !== undefined) {
+                    if (responseJson.statusCode === 400) {
+                        console.log("Error: " + responseJson.body);
+                    } else if (responseJson.statusCode === 200) {
+                        let body = JSON.parse(responseJson.body);
+                        props.handleInventory(body);
+                    }
                 }
             }
         }

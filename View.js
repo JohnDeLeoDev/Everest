@@ -109,7 +109,7 @@ function OwnerView(props)
         inventory={props.inventory}/>
     
     if (props.addComputer){
-        callback = <AddComputer/>
+        callback = <AddComputer user={props.user}/>
     } 
     
     if (props.inventoryReport){
