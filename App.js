@@ -4,6 +4,7 @@ import { Header } from './Header';
 import View from './View';
 import {testInventory} from './Owner/testInventory.js';
 import { test_stores } from './Manager/testStores';
+import { wait } from '@testing-library/user-event/dist/utils/index.js';
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
   cookie = JSON.parse(cookie);
   const [user, setUser] = React.useState(cookie);
   const [login, setLogin] = React.useState(null);
-  const [failedLogin, setFailedLogin] = React.useState(null);
+  const [failedLogin, setFailedLogin] = React.useState(false);
   const [failedCreateStore, setFailedCreateStore] = React.useState(null);
   const [search, setSearch] = React.useState(null);
   const [about, setAbout] = React.useState(null);

@@ -27,7 +27,7 @@ export default function Inventory(props) {
     return (
         <>
             <h1>Inventory</h1>
-            {props.user[0] !== null && props.user[0] !== undefined ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
+            {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
             <table>
                 <thead>
                     <tr>

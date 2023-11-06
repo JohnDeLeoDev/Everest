@@ -266,43 +266,43 @@ export function GetSiteInventoryBalances(props)
 //**************************************************************** */
 export function GetStoreInventory(props) {
     let userID = props.userID;
-    const [getStoreInventoryRequest, setGetStoreInventoryRequest] = React.useState(props.json);
-    const [getStoreInventoryResponse, setGetStoreInventoryResponse] = React.useState(null);
-
-    function handleGetStoreInventoryRequest(json) {
-        setGetStoreInventoryRequest(json);
-    }
 
     function handleGetStoreInventoryResponse(response) {
-        console.log(response);
-        if (response["body-json"]) {
-            let responseJson = JSON.parse(response["body-json"].body);
-            setGetStoreInventoryResponse(response);
-            props.handleInventory(responseJson);
+        if (response !== null && response !== undefined) {
+            let responseJson = JSON.parse(response["body-json"]);
+            if (responseJson !== null && responseJson !== undefined) {
+                if (responseJson.statusCode === 400) {
+                    console.log("Error: " + responseJson.body);
+                } else if (responseJson.statusCode === 200) {
+                    let body = JSON.parse(responseJson.body);
+                    props.handleInventory(body);
+                }
+            }
         }
     }
 
     useEffect(() => {
-        let json = {
-            "userID": userID,
-        };
+        if (userID !== null && userID !== undefined) {
+            let json = {
+                "userID": userID,
+            };
 
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify(json)
-        };
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(json)
+            };
 
-        fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
-            .then(response => response.json())
-            .then(data => handleGetStoreInventoryResponse(data));
-        }, []);
+            fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
+                .then(response => response.json())
+                .then(data => handleGetStoreInventoryResponse(data));
+    } else {
+        console.log("Error: userID is null or undefined.");
+        props.handleInventory(null);
+    }
+    }, []);
 }
-
-
-
-    
