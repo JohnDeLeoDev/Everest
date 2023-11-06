@@ -67,7 +67,7 @@ export function LoginRequest(props)
 export function CreateStoreRequest(props) 
 /**
  * @brief create a new store
- */
+ **************************************************************/
 {
     const [createStoreRequest, setCreateStoreRequest] = React.useState(props.json);
     const [createStoreResponse, setCreateStoreResponse] = React.useState(null);
@@ -192,13 +192,14 @@ function calculateInventoryBalance(siteInventoryData)
  ********************************************************************/
 {
     //debug prints - verify 
-    console.log(siteInventoryData);
-    console.log(siteInventoryData.name[0])
-    console.log(siteInventoryData.price[0])
+    let puterlist = siteInventoryData.body;
+    console.log(puterlist);
+    console.log(puterlist.name[0])
+    console.log(puterlist.price[0])
 
     //create a dictionary init to 0
     //keys are unique store names
-    let newset = new Set(siteInventoryData.store);
+    let newset = new Set(puterlist.store);
     console.log(newset);
     //create dict and init
     let balances = {}
@@ -247,7 +248,7 @@ export function GetSiteInventoryBalances(props)
                 console.log(response);
                 response.json();
             })
-            .then(data => {     //this it the array of store names and price per computer
+            .then(data => {     //this it the payload from server
             
             //setGetSiteInventoryBalResponse(JSON.parse(data));
             console.log(data);
@@ -258,6 +259,6 @@ export function GetSiteInventoryBalances(props)
 
     )
 
-    return getSiteInventoryBalResponse
+    return getSiteInventoryBalResponse;
         
 }

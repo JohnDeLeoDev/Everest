@@ -23,16 +23,6 @@ export default function RemoveStore(props)
         setRemoveStoreRequest(data);
     }
 
-<form>
-  <div>
-    <input 
-        type="search" 
-        id="storeName" 
-        name="q" />
-    <button>Search</button>
-  </div>
-</form>
-
     console.log("remove computer ID "+ props.removeId)
     return (
         <div>
