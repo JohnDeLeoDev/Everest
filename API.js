@@ -274,9 +274,12 @@ export function GetStoreInventory(props) {
     }
 
     function handleGetStoreInventoryResponse(response) {
-        let responseJson = JSON.parse(response["body-json"].body);
-        setGetStoreInventoryResponse(response);
-        props.handleInventory(responseJson);
+        console.log(response);
+        if (response["body-json"]) {
+            let responseJson = JSON.parse(response["body-json"].body);
+            setGetStoreInventoryResponse(response);
+            props.handleInventory(responseJson);
+        }
     }
 
     useEffect(() => {
