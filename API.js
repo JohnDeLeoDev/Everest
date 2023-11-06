@@ -129,7 +129,7 @@ export function RemoveStoreRequest(props)
             body: JSON.stringify(removeStoreRequest)
         };
 
-        fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
+        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
             .then(response => {
                 console.log(response);
                 response.json();
@@ -217,24 +217,22 @@ export function GetSiteInventoryBalances(props)
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
-            /*headers: {
+            headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
-            }*/
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Headers':'*'
+            }
         };
 
-        // which one do i need here?
-        //fetch('https://zxs5scvkbc.execute-api.us-east-1.amazonaws.com/first', requestOptions)
-        //fetch('arn:aws:execute-api:us-east-1:810353635676:zxs5scvkbc/*/GET/getSiteInventory', requestOptions)
-        fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/getSiteInventory', requestOptions)
+        fetch('https://zxs5scvkbc.execute-api.us-east-1.amazonaws.com/default/getSiteInventory', requestOptions)
             .then(response => {
                 console.log(response);
                 response.json();
             })
             .then(data => {     //this it the array of store names and price per computer
             
-            setGetSiteInventoryBalResponse(data);
+            //setGetSiteInventoryBalResponse(JSON.parse(data));
+            console.log(data);
             //props.handleSiteInventoryBalances(data);
             return data;
             })

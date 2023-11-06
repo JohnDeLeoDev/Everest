@@ -28,6 +28,7 @@ function App() {
   const [siteManagerBalance, setSiteManagerBalance] = React.useState(null);
   const [storeBalance, setStoreBalance] = React.useState(null);
   const [storeReport, setStoreReport] = React.useState(null);
+  const [removeStore, setRemoveStore] = React.useState(null);
 
   function clear(){
     setLogin(false)
@@ -41,6 +42,7 @@ function App() {
     setStoreBalance(false)
     setStoreReport(false)
     setSearch(null)
+    setRemoveStore(null)
   }
 
   //reset all values to default if logged out
@@ -199,6 +201,10 @@ function App() {
     setStoreReport(option)
   }
 
+  function handleRemoveStore(bool){
+    clear();
+    setRemoveStore(bool);
+  }
 
   //App returns a header and a view
   //the header is used to get nav button selections needed to set different views
@@ -217,6 +223,7 @@ function App() {
               handleShowBalances={handleShowBalances}
               handleSearch={handleSearch}
               handleSetStoreReport={handleSetStoreReport}
+              handleRemoveStore={handleRemoveStore}
               />
       
       <View login={login} 
@@ -239,6 +246,7 @@ function App() {
             storeBalance={storeBalance} handleStoreBalance={handleStoreBalance}
             search={search} handleSearch={handleSearch}
             setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
+            removeStore={removeStore} setRemoveStore={setRemoveStore}
             />
     </div>
   );

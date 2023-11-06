@@ -1,6 +1,7 @@
 import React from "react";
 import './everest_style.css'
 import logo from './everest.jpg'
+import RemoveStore from "./Manager/RemoveStore";
 
 /****************************************************** */
 function DropdownNav(submenu, callback)
@@ -114,6 +115,8 @@ function getSiteManagerNav(props)
             </button>
         </div>
 
+    //longer path to remove/search
+    /*
     const searchOpts = {"options":["Stores", "Computers"]}
     let search = (
         <div>
@@ -123,12 +126,13 @@ function getSiteManagerNav(props)
             </select>
             </button>
         </div>
-    )
+    )*/
+    let search = <button onClick={() => props.handleRemoveStore(true)}>Remove Store</button>               //<RemoveStore />
 
     const reportOpts = {"options":["All Stores", "One Store"]}
     let inventoryReport = (
         <div>
-            <button className="Button">Generate Inventory Report
+            <button>Generate Inventory Report
             <select>
                 {DropdownNav(reportOpts, props.handleSetStoreReport)}
             </select>

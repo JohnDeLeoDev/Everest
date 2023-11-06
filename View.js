@@ -1,15 +1,17 @@
 import React from "react";
 import './everest_style.css';
-import Create from './Owner/Create.js';
 import {Login} from './Login.js';
 import About from './About.js';
-import Inventory from "./Owner/Inventory";
+import { SearchComputer, SearchStores } from "./Customer/Search";
 
+import Create from './Owner/Create.js';
+import Inventory from "./Owner/Inventory";
 import AddComputer from "./Owner/AddComputer";
 import InventoryReport from "./Owner/InventoryReport";
+
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
-import { SearchComputer, SearchStores } from "./Customer/Search";
 import { GenerateAllStoreInventoryReport , GenerateStoreInventoryReport} from "./Manager/GenerateReport";
+import RemoveStore from "./Manager/RemoveStore";
 
 //*********************************************** */
 function Footer()
@@ -74,6 +76,11 @@ export function ManagerView(props)
                         stores={props.stores}
                         handleSetStoreReport={props.handleSetStoreReport}
                         user={props.user}/>
+    }
+
+    if (props.removeStore){
+        callback = <RemoveStore 
+                        handleRemoveStore={props.handleRemoveStore}/>
     }
 
    return (
@@ -227,6 +234,8 @@ export default function View(props)
                 stores={props.stores}
                 search={props.search}
                 user={props.user}
+                removeStore={props.removeStore} 
+                handleRemoveStore={props.handleRemoveStore}
             />
         </div>
         )
