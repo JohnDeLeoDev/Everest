@@ -178,22 +178,22 @@ export function AddComputerRequest(props)
     
     function handleAddComputer(response) {
         if (response !== null && response !== undefined) {
-            let responseJson = JSON.parse(response["body-json"]);
-            if (responseJson !== null && responseJson !== undefined) {
-                if (responseJson.statusCode === 400) {
-                    console.log("Error: " + responseJson.body);
-                } else if (responseJson.statusCode === 200) {
-                    let body = JSON.parse(responseJson.body);
-                    props.handleInventory(body);
+            if (JSON.parse(response["body-json"])) {
+                let responseJson = JSON.parse(response["body-json"]);
+                console.log(responseJson);
+                if (responseJson !== null && responseJson !== undefined) {
+                    if (responseJson.statusCode === 400) {
+                        console.log("Error: " + responseJson.body);
+                    } else if (responseJson.statusCode === 200) {
+                        let body = responseJson.body;
+                        props.setCreateStoreResponse(body);
+                    }
                 }
-            }
+            }  
         }
     }
 
-    console.log(props.json);
-
     useEffect(() => {
-        console.log(props.json);
         if (props.json !== null && props.json !== undefined) {
             const requestOptions = {
                 method: 'POST',
@@ -205,15 +205,13 @@ export function AddComputerRequest(props)
                 body: JSON.stringify(props.json)
             };
 
-            console.log(requestOptions);
-
             fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addcomputer', requestOptions)
                 .then(response => response.json())
                 .then(data => handleAddComputer(data));
         } else {
             console.log("All fields must be filled out.");
         }
-        }, []);
+        }, [props.json]);
     
 }
 
@@ -306,11 +304,10 @@ export function GetSiteInventoryBalances(props)
 //**************************************************************** */
 export function GetStoreInventory(props) {
     function handleGetStoreInventoryResponse(response) {
-        if (response !== null || response !== undefined) {
-            let responseJson = JSON.parse(response["body-json"]);
-            console.log(responseJson);
-            if (responseJson["statusCode"] === 200) {
-                if (responseJson !== null && responseJson !== undefined) {
+        if (response !== null && response !== undefined) {
+            if (JSON.parse(response["body-json"])) {
+                let responseJson = JSON.parse(response["body-json"]);
+                if (responseJson["statusCode"] === 200) {
                     if (responseJson.statusCode === 400) {
                         console.log("Error: " + responseJson.body);
                     } else if (responseJson.statusCode === 200) {

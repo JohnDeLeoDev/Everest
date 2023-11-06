@@ -23,6 +23,7 @@ function getOptions(keyword, options){
 export default function AddComputer(props) {
 
     const [addComputerRequest, setAddComputerRequest] = React.useState(null);
+    const [addComputerResponse, setAddComputerResponse] = React.useState(null);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -51,10 +52,10 @@ export default function AddComputer(props) {
             "processor": processor,
             "processGen": processGen,
             "isSold": 0,
-
         };
 
         setAddComputerRequest(json);
+
     }
 
     return (
@@ -117,7 +118,8 @@ export default function AddComputer(props) {
 
                 <button onClick={handleSubmit} id='c3'>Add Computer</button>
             </form>
-            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} /> : null}
+            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} setAddComputerResponse={setAddComputerResponse}/> : null}
+            {addComputerResponse !== null ? props.addComputer = false : null}
         </div>
     )
 }
