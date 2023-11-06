@@ -158,7 +158,11 @@ export function Landing(props)
                         <p>New deals every day</p>
                     </div>
     if (props.login === true){
-        callback = <Login handleUser={props.handleUser}/>
+        callback = <Login 
+            failedLogin={props.failedLogin} 
+            handleFailedLogin={props.handleFailedLogin} 
+            handleUser={props.handleUser}
+        />
     } 
 
     if (props.search === "Stores"){
@@ -169,7 +173,7 @@ export function Landing(props)
     }
 
     if (props.createStore=== true){
-        callback = <Create /> 
+        callback = <Create handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore}  /> 
     }
 
     if (props.about === true){
@@ -200,9 +204,13 @@ export default function View(props)
                     search={props.search}
                     login={props.login}
                     handleUser={props.handleUser}
-                    createStore={props.createStore}  
+                    createStore={props.createStore}
+                    handleFailedStore={props.handleFailedStore}
+                    failedCreateStore={props.failedCreateStore}  
                     about={props.about}   
                     stores={props.stores} 
+                    failedLogin={props.failedLogin}
+                    handleFailedLogin={props.handleFailedLogin}
                     />
             </div>
         )
@@ -245,6 +253,10 @@ export default function View(props)
             <Landing 
                 search={props.search}
                 login={props.login}
+                failedLogin={props.failedLogin}
+                handleFailedLogin={props.handleFailedLogin}
+                handleFailedStore={props.handleFailedStore}
+                failedCreateStore={props.failedCreateStore}  
                 handleUser={props.handleUser}
                 createStore={props.createStore}  
                 about={props.about}   

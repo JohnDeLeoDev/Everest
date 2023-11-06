@@ -41,7 +41,8 @@ export function Login(props)
         <h2>Register</h2>
             <button className="Button" onClick={() => {props.handleUser("owner")}}>Owner</button>
             <button className="Button" onClick={() => {props.handleUser("manager")}}>Manager</button>
-        {loginRequest !== null ? <LoginRequest json={loginRequest} handleUser={props.handleUser} /> : null}
+        {loginRequest !== null ? <LoginRequest handleFailedLogin={props.handleFailedLogin} json={loginRequest} handleUser={props.handleUser}/> : null}
+        {props.failedLogin ? <h3>Invalid Login</h3> : null}
         </div>
 
     )
