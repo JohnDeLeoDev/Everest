@@ -165,7 +165,7 @@ export function RemoveStoreRequest(props)
 
 
 //***************************************************************** */
-export function AddComputer(props)
+export function AddComputerRequest(props)
 /**
  * @brief add a computer to the database for a particular store
  * 
@@ -174,7 +174,46 @@ export function AddComputer(props)
  *      props.computer (this can be the template from computer_cfg)
  *********************************************************************/
 {
-    //TODO
+    
+    function handleAddComputer(response) {
+        if (response !== null && response !== undefined) {
+            let responseJson = JSON.parse(response["body-json"]);
+            if (responseJson !== null && responseJson !== undefined) {
+                if (responseJson.statusCode === 400) {
+                    console.log("Error: " + responseJson.body);
+                } else if (responseJson.statusCode === 200) {
+                    let body = JSON.parse(responseJson.body);
+                    props.handleInventory(body);
+                }
+            }
+        }
+    }
+
+    console.log(props.json);
+
+    useEffect(() => {
+        console.log(props.json);
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+
+            console.log(requestOptions);
+
+            fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addcomputer', requestOptions)
+                .then(response => response.json())
+                .then(data => handleAddComputer(data));
+        } else {
+            console.log("All fields must be filled out.");
+        }
+        }, []);
+    
 }
 
 //************************************************************** */
@@ -265,8 +304,6 @@ export function GetSiteInventoryBalances(props)
 
 //**************************************************************** */
 export function GetStoreInventory(props) {
-    let userID = props.userID;
-
     function handleGetStoreInventoryResponse(response) {
         if (response !== null && response !== undefined) {
             let responseJson = JSON.parse(response["body-json"]);
@@ -282,9 +319,9 @@ export function GetStoreInventory(props) {
     }
 
     useEffect(() => {
-        if (userID !== null && userID !== undefined) {
+        if (props.userID !== null && props.userID !== undefined) {
             let json = {
-                "userID": userID,
+                "userID": props.userID,
             };
 
             const requestOptions = {

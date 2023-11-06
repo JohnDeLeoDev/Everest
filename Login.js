@@ -17,9 +17,6 @@ export function Login(props)
         const formData = new FormData(form);
         let userID = formData.get("userID");
         let password = formData.get("password");
-        console.log(userID);
-        console.log(password);
-
 
         if (userID === null || userID === undefined || userID === "" || password === null || password === undefined || password === "") {
             props.handleFailedLogin(true);
