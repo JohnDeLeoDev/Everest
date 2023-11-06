@@ -21,20 +21,21 @@ exports.handler = async (event) => {
     var response = {};
     let responseBody = {};
 
-    if (user === undefined) {
-        return {
+    if (user === null || user === undefined) {
+        response = {
             statusCode: 400,
-            body: JSON.stringify('Error: No user provided.'),
+            body: JSON.stringify('Error: User ID is empty.'),
         };
-    } else if (password === undefined) {
-        return {
+        return response;
+    } else if (password === null || password === undefined) {
+        response = {
             statusCode: 400,
-            body: JSON.stringify('Error: No password provided.'),
+            body: JSON.stringify('Error: Password is empty.'),
         };
-    } else {  
+        return response;
+    } else {
         // find user in database with userID, check password
-        let userQuery = "SELECT password FROM Users WHERE userID = '" + user + "';";
-
+        let userQuery = "SELECT * FROM Users WHERE userID = '" + user + "';";
         var result = await new Promise((resolve, reject) => {
             pool.query(userQuery, (err, res) => {
                 if (err) {
@@ -57,32 +58,64 @@ exports.handler = async (event) => {
                 }
             });
         });
-        
-        console.log(result);
-
-
-
-        let userDB = result[0];
-        let passwordDB = userDB.password;
-
-        if (password === passwordDB) {
-            isMatch = true;
-            responseBody = "User authenticated."
-            console.log("User authenticated.");
-        } else {
-            responseBody = "Incorrect password.";
-            console.log("Incorrect password.");
-        }
     }
+    console.log(result);
+
+    let userDB = result[0];
+    let passwordDB = userDB.password;
+    let userType = userDB.userType;
+
+    if (password === passwordDB) {
+        isMatch = true;
+        responseBody = "User authenticated."
+        console.log("User authenticated.");
+    } else {
+        responseBody = "Incorrect password.";
+        console.log("Incorrect password.");
+    }
+
+    let storeQuery = "SELECT * FROM Stores WHERE storeOwner = '" + user + "';";
+
+    var result2 = await new Promise((resolve, reject) => {
+        pool.query(storeQuery, (err, res) => {
+            if (err) {
+                console.log(err);
+                response = {
+                    stores: 'User does not have a store.',
+                };
+            } else {
+                if (res.length === 0) {
+                    console.log("User does not have a store.");
+                    response = {
+                        stores: 'User does not have a store.',
+                    };
+                    
+                }
+                resolve(res);
+            }
+        });
+    });
+
+    let storeDB = result2[0];
+
+
+
+    let constructed = ("{ userID: " + user + ", result: " + responseBody +  "}"); 
 
     response = {
         statusCode: 200,
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            },
         body: {
             "user": user,
-            "response": responseBody
+            "userType": userType,
+            "stores": storeDB,
+            "response": constructed
         }
-        
     };
-
+    pool.end();
     return response;
   };

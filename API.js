@@ -29,7 +29,8 @@ export function LoginRequest(props)
                 let body = json.body;
                 let user = body.user;
                 let userType = body.userType;
-                props.handleUser([user, userType]);
+                let stores = body.stores;
+                props.handleUser([user, userType, stores]);
             } else {
                 handleFailedLogin();
             }
@@ -174,7 +175,46 @@ export function AddComputerRequest(props)
  *      props.computer (this can be the template from computer_cfg)
  *********************************************************************/
 {
-    //TODO
+    
+    function handleAddComputer(response) {
+        if (response !== null && response !== undefined) {
+            let responseJson = JSON.parse(response["body-json"]);
+            if (responseJson !== null && responseJson !== undefined) {
+                if (responseJson.statusCode === 400) {
+                    console.log("Error: " + responseJson.body);
+                } else if (responseJson.statusCode === 200) {
+                    let body = JSON.parse(responseJson.body);
+                    props.handleInventory(body);
+                }
+            }
+        }
+    }
+
+    console.log(props.json);
+
+    useEffect(() => {
+        console.log(props.json);
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+
+            console.log(requestOptions);
+
+            fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addcomputer', requestOptions)
+                .then(response => response.json())
+                .then(data => handleAddComputer(data));
+        } else {
+            console.log("All fields must be filled out.");
+        }
+        }, []);
+    
 }
 
 //************************************************************** */
@@ -261,4 +301,49 @@ export function GetSiteInventoryBalancesRequest(props)
 
     return getSiteInventoryBalResponse;
         
+}
+
+//**************************************************************** */
+export function GetStoreInventory(props) {
+    function handleGetStoreInventoryResponse(response) {
+        if (response !== null || response !== undefined) {
+            let responseJson = JSON.parse(response["body-json"]);
+            console.log(responseJson);
+            if (responseJson["statusCode"] === 200) {
+                if (responseJson !== null && responseJson !== undefined) {
+                    if (responseJson.statusCode === 400) {
+                        console.log("Error: " + responseJson.body);
+                    } else if (responseJson.statusCode === 200) {
+                        let body = JSON.parse(responseJson.body);
+                        props.handleInventory(body);
+                    }
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (props.userID !== null && props.userID !== undefined) {
+            let json = {
+                "userID": props.userID,
+            };
+
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(json)
+            };
+
+            fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
+                .then(response => response.json())
+                .then(data => handleGetStoreInventoryResponse(data));
+    } else {
+        console.log("Error: userID is null or undefined.");
+        props.handleInventory(null);
+    }
+    }, []);
 }

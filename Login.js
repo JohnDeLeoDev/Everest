@@ -17,11 +17,16 @@ export function Login(props)
         const formData = new FormData(form);
         let userID = formData.get("userID");
         let password = formData.get("password");
-        let json = {
-            "userID": userID,
-            "password": password
-        };
-        setLoginRequest(json);
+
+        if (userID === null || userID === undefined || userID === "" || password === null || password === undefined || password === "") {
+            props.handleFailedLogin(true);
+        } else {
+            var json = {
+                "userID": userID,
+                "password": password
+            };
+            setLoginRequest(json);
+        }
     }
 
     //need to switch "userID" to user email to link to store
@@ -35,14 +40,14 @@ export function Login(props)
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
             <br/>
-            <button id="submit" type="submit">Login</button>
+            <button id="submit" type="submit" onClick={handleLoginRequest}>Login</button>
         </form>
 
         <h2>Register</h2>
             <button className="Button" onClick={() => {props.handleUser("owner")}}>Owner</button>
             <button className="Button" onClick={() => {props.handleUser("manager")}}>Manager</button>
         {loginRequest !== null ? <LoginRequest handleFailedLogin={props.handleFailedLogin} json={loginRequest} handleUser={props.handleUser}/> : null}
-        {props.failedLogin ? <h3>Invalid Login</h3> : null}
+        {props.failedLogin ? <h3>Invalid Login. Please try again.</h3> : null}
         </div>
 
     )
