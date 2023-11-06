@@ -24,7 +24,7 @@ export function LoginRequest(props)
 
     function handleLoginResponse(response) {
         if (response !== null || response !== undefined) {
-            if (response.status === 200) {
+            if (response["body-json"]["statusCode"] === 200) {
                 let json = response["body-json"];
                 let body = json.body;
                 let user = body.user;
@@ -82,7 +82,7 @@ export function CreateStoreRequest(props)
 
     function handleCreateStoreResponse(response) {
         if (response !== null || response !== undefined) {
-            if (response.status === 200) {
+            if (response["body-json"]["statusCode"] === 200) {
                 let json = response["body-json"];
                 let body = json.body;
                 let user = body.user;
