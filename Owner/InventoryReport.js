@@ -1,21 +1,37 @@
+/*****************************************************
+ * Store owner inventory report
+ * 
+ * generates and totals the inventory in the store 
+ **************************************************** */
+
 export default function InventoryReport(props) {
     let inventory = props.inventory;
     let inventoryReport = [];
+    var total = 0;
 
-    for (let i = 0; i < inventory.length; i++) {
+    for (let key in inventory) {
+        let item = inventory[key];
+        total += Number(item.price);
         inventoryReport.push(
-            <tr key={inventory[i].id}>
-                <td>{inventory[i].brand} {inventory[i].model}</td>
-                <td>{inventory[i].description}</td>
-                <td>{inventory[i].price}</td>
-                <td>{inventory[i].quantity}</td>
+            <tr key={key}>
+                <td>{item.brand} {item.model}</td>
+                <td>{item.description}</td>
+                <td>${item.price}</td>
+                
             </tr>
         );
     }
 
+    inventoryReport.push(
+        <tr key="total">
+            <td>Total</td>
+            <td></td>
+            <td>${total}</td>
+        </tr>
+    )
 
     return (
-        <div className="InventoryReport">
+        <div>
             <h1>Inventory Report</h1>
             <table>
                 <thead>
@@ -23,7 +39,6 @@ export default function InventoryReport(props) {
                         <th>Brand and Model</th>
                         <th>Description</th>
                         <th>Price</th>
-                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <tbody>

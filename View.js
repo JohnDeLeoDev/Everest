@@ -1,15 +1,17 @@
 import React from "react";
 import './everest_style.css';
-import Create from './Owner/Create.js';
 import {Login} from './Login.js';
 import About from './About.js';
-import Inventory from "./Owner/Inventory";
+import { SearchComputer, SearchStores } from "./Customer/Search";
 
+import Create from './Owner/Create.js';
+import Inventory from "./Owner/Inventory";
 import AddComputer from "./Owner/AddComputer";
 import InventoryReport from "./Owner/InventoryReport";
+
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
-import { SearchComputer, SearchStores } from "./Customer/Search";
 import { GenerateAllStoreInventoryReport , GenerateStoreInventoryReport} from "./Manager/GenerateReport";
+import RemoveStore from "./Manager/RemoveStore";
 
 //*********************************************** */
 function Footer()
@@ -34,20 +36,58 @@ function Footer()
 }
 
 //********************************************* */
-export function ManagerView() 
+export function ManagerView(props) 
 /** 
  * @brief the manager view
  *      manager must log in to view dashboard
  ************************************************/ 
 {
+    let callback = ''
+    console.log("MANAGER VIEW")
+    if (props.showBalances === "Site Manager"){
+        callback = <GenerateSiteManagerBalance
+               handleSiteManagerBalance={props.handleSiteManagerBalance} />
+    } else if (props.showBalances === ''){
+
+    }
+
+    if (props.setStoreReport === "One Store" ){
+        //props.searchStores=(true)
+        callback = <GenerateStoreInventoryReport
+                        stores={props.stores}
+                        //searchStores={props.searchStores}
+                    />
+    } else if (props.setStoreReport === "All Stores") {
+        callback = <GenerateAllStoreInventoryReport
+                    stores={props.stores}
+                    />
+    }
+
+    if (props.search === "Stores"){
+        callback = <SearchStores
+            stores={props.stores}/>
+    } else if  (props.search === "Computers"){
+        callback = <SearchComputer/>
+    }
+
+    if (props.setStoreReport  === "One Store"){
+        callback = <GenerateStoreInventoryReport 
+                        descending={props.descending}
+                        stores={props.stores}
+                        handleSetStoreReport={props.handleSetStoreReport}
+                        user={props.user}/>
+    }
+
+    if (props.removeStore){
+        callback = <RemoveStore 
+                        handleRemoveStore={props.handleRemoveStore}/>
+    }
+
    return (
+    <div>
         <div className="bodybag">
-            
-            <title>Administrator Dashboard</title>
-                <div>
-                    <h2>Logged in as Admin</h2>
-                </div>
-            
+            {callback}
+        </div>      
             <Footer/>
         </div>
     );
@@ -60,69 +100,192 @@ function OwnerView(props)
  *      Store Owner must be logged in
  **********************************************/
 {
-    const storeName = "default" 
-    //somehow when we load the view from login can take store name
+    let callback = <Inventory 
+        user={props.user}
+        modifyComp={props.modifyComp} 
+        removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
+        handleModifyComp={props.handleModifyComp} 
+        handleInventory={props.handleInventory}
+        inventory={props.inventory}/>
+    
+    if (props.addComputer){
+        callback = <AddComputer user={props.user} addComputer={props.addComputer} computerAdded={props.computerAdded} handleAddComputer={props.handleAddComputer} handleComputerAdded={props.handleComputerAdded}/>
+    } 
+    
+    if (props.inventoryReport){
+        callback = <InventoryReport 
+            inventory={props.inventory}
+            handleInventoryReport={props.handleInventoryReport}/>
+    }
+
+    if (props.about === true){
+        callback = <About/>
+    }
+
+    if (props.search === "Stores"){
+        callback = <SearchStores
+            stores={props.stores}/>
+    } else if  (props.search === "Computers"){
+        callback = <SearchComputer/>
+    }
+
+    if (props.inventoryReport === true) {
+        callback = <InventoryReport 
+        inventory={props.inventory}
+        handleInventoryReport={props.handleInventoryReport}/>
+    }
+
     return (
-        <div className="OwnerView">
-            <title>{storeName} - Owner Dashboard</title>
-               <Inventory 
-                    modifyComp={props.modifyComp} 
-                    removeComp={props.removeComp} 
-                    handleModifyComp={props.handleModifyComp} 
-                    handleRemoveComp={props.handleRemoveComp} 
-                    inventoryView={props.inventoryView}
-                    handleInventory={props.handleInventory}
-                    inventory={props.inventory}/>
+        <div>
+            <div className="bodybag">
+                {callback}
+            </div>
             <Footer/>
         </div>
-
-        // {props.inventoryView === false ? <button className={"SubButton"} onClick={() => {props.handleInventoryView(true)}}>Inventory</button> : null}
-        //{props.inventoryView === true ? <button className={"SubButton"} onClick={() => {props.handleInventoryReport(true)}}>Generate Inventory Report</button> : null}
-            
+    
     );
 }
 
 //*********************************************** */
-export function Landing() 
+export function Landing(props) 
 /**
  * @brief main landing page for the site, 
  *      from here all functionality may be linked
  ***************************************************/
 {
-    return (
-        <div className="Landing-page">
-            <body>
-      <div id="elevator">
-                    <p>Search thousands of used computers</p>
-	                <p>Find rare models and features at low costs</p>
-	                <p>New deals every day</p>
-                </div>
-            </body>
+    let callback = <div id='elevator'>
+                        <p>Search thousands of used computers</p>
+                        <p>Find rare models and features at low costs</p>
+                        <p>New deals every day</p>
+                    </div>
+    if (props.login === true){
+        callback = <Login 
+            failedLogin={props.failedLogin} 
+            handleFailedLogin={props.handleFailedLogin} 
+            handleUser={props.handleUser}
+        />
+    } 
 
+    if (props.search === "Stores"){
+        callback = <SearchStores
+            stores={props.stores}/>
+    } else if  (props.search === "Computers"){
+        callback = <SearchComputer/>
+    }
+
+    if (props.createStore=== true){
+        callback = <Create handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore}  /> 
+    }
+
+    if (props.about === true){
+        callback = <About/>
+    }
+
+    return (
+        <div>
+        <div className="bodybag">
+            {callback}
+        </div>
             <Footer/>
         </div>
     );
 }
 
-export default function View(props) {
-    
-    return (
-        <div>
-            {props.user === 'owner' && <OwnerView 
+//********************************************************* */
+export default function View(props) 
+/**
+ * @brief intake funciton to select the correct view based on 
+ *        permissions
+ ***********************************************************/
+{
+    if (props.user === null || props.user === undefined) {
+        return (
+            <div> 
+                <Landing 
+                    search={props.search}
+                    login={props.login}
+                    handleUser={props.handleUser}
+                    createStore={props.createStore}
+                    handleFailedStore={props.handleFailedStore}
+                    failedCreateStore={props.failedCreateStore}  
+                    about={props.about}   
+                    stores={props.stores} 
+                    failedLogin={props.failedLogin}
+                    handleFailedLogin={props.handleFailedLogin}
+                    />
+            </div>
+        )
+    } else if (props.user[1] === 0){
+        return (
+            <OwnerView 
+                user={props.user}
                 modifyComp={props.modifyComp} 
-                removeComp={props.removeComp} 
+                removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
                 handleModifyComp={props.handleModifyComp} 
-                handleRemoveComp={props.handleRemoveComp} 
-                inventoryView={props.inventoryView}
+                handleInventory={props.handleInventory}
+                inventory={props.inventory}
+                addComputer={props.addComputer}
+                computerAdded={props.computerAdded}
+                handleAddComputer={props.handleAddComputer}
+                handleComputerAdded={props.handleComputerAdded}
+                inventoryReport={props.inventoryReport}
+                handleInventoryReport={props.handleInventoryReport}
+                search={props.search}
+                about={props.about}
+                />
+        )
+    } 
+    else if (props.user[1] === 1){
+        return (
+        <div>
+            <ManagerView 
+                showBalances={props.showBalances}
+                handleSiteManagerBalance={props.handleSiteManagerBalance}
+                setStoreReport={props.setStoreReport}
+                handleSetStoreReport={props.handleSetStoreReport}
+                descending={props.descending}
+                stores={props.stores}
+                search={props.search}
+                user={props.user}
+                removeStore={props.removeStore} 
+                handleRemoveStore={props.handleRemoveStore}
+                inventory={props.inventory}
+            />
+        </div>
+        )
+    } else {
+        return (
+            <div> 
+            <Landing 
+                search={props.search}
+                login={props.login}
+                failedLogin={props.failedLogin}
+                handleFailedLogin={props.handleFailedLogin}
+                handleFailedStore={props.handleFailedStore}
+                failedCreateStore={props.failedCreateStore}  
+                handleUser={props.handleUser}
+                createStore={props.createStore}  
+                about={props.about}   
+                stores={props.stores} 
+                />
+            </div>
+        )
+    }
+}
+
+/*
+{props.user === 'owner' && <OwnerView 
+                modifyComp={props.modifyComp} 
+                removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
+                handleModifyComp={props.handleModifyComp} 
                 handleInventory={props.handleInventory}
                 inventory={props.inventory}/>}
             {props.user === 'manager' && <ManagerView />}
-            {props.createStore === true && <Create />}      
             {props.user === null && <Landing />}
-            {props.login === true && <Login handleUser={props.handleUser}/>}
             {props.about === true && <About />}
             {props.logout === true && <Landing /> }
             {props.addComputer === true && <AddComputer/>}
+            
             {props.inventoryReport === true && <InventoryReport 
                 inventory={props.inventory}
                 handleInventoryReport={props.handleInventoryReport}/>}
@@ -142,10 +305,4 @@ export default function View(props) {
             {props.search === "Stores" && <SearchStores
                 stores={props.stores}/>}
             {props.search === "Computers" && <SearchComputer/>}
-
-            
-
-
-        </div>
-    )
-}
+*/

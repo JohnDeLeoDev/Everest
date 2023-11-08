@@ -1,39 +1,33 @@
-//inventory
+import React, { useEffect } from 'react';
+import { GetStoreInventory } from '../API';
+
+/**********************************************************
+ * store inventory function
+ *      displays all computers in the inventory
+ * *******************************************************/
 
 export default function Inventory(props) {
     let modifyComp = props.modifyComp;
     let removeComp = props.removeComp;
+    let table = [];
 
-    let computers = props.inventory;
-
-    // handles the display of the computers in the inventory. Takes above array as input
-    function displayComputers(computers) {
-        let tableData = [];
-
-        for (let i = 0; i < computers.length; i++) {
-            tableData.push(
-                <tr key={computers[i].id}>
-                    <td>{computers[i].brand} {computers[i].model}</td>
-                    <td>{computers[i].description}</td>
-                    <td>{
-                        modifyComp[0] && modifyComp[1] === computers[i].id ? <input type="text" placeholder={computers[i].price} /> : computers[i].price
-                        }</td>
-                    <td><button className="Button" onClick={() => {props.handleModifyComp(true, computers[i].id)}}>
-                        {modifyComp[0] && modifyComp[1] === computers[i].id ? "Submit" : "Modify"}
-                        </button></td>
-                    <td><button className="Button" onClick={() => {props.handleRemoveComp(true, computers[i].id)}}>
-                        {removeComp[0] && removeComp[1] === computers[i].id ? "Confirm" : "Remove"}
-                        </button></td>
-                </tr>
-            )
-        }
-        return tableData;
+    for (let key in props.inventory) {
+        console.log(props.inventory[key]);
+        table.push(
+            <tr key={props.inventory[key].inventoryID}>
+                <td>{props.inventory[key].brand} {props.inventory[key].model}</td>
+                <td>{props.inventory[key].description}</td>
+                <td>{props.inventory[key].price}</td>
+                <td><button>Modify</button></td>
+                <td><button>Remove</button></td>
+            </tr>
+        );
     }
-
     // returns the JSX for the inventory page
     return (
         <>
             <h1>Inventory</h1>
+            {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
             <table>
                 <thead>
                     <tr>
@@ -45,10 +39,9 @@ export default function Inventory(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {displayComputers(computers)}
+                    {table}
                 </tbody>
             </table>
-
         </>
     )
 }
