@@ -153,17 +153,16 @@ export function RemoveStoreRequest(props)
             body: JSON.stringify(removeStoreRequest)
         };
 
-        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
-            .then(response => {
-                console.log(response);
-                response.json();
-            })
-            .then(data => {
-            console.log(data);
-            setRemoveStoreResponse(data);
-            return data;
-            })
-        }, []);
+    fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+        .then(response => {
+            console.log(response);
+            response.json();
+        })
+        .then(data => {
+        console.log(data);
+        setRemoveStoreResponse(data);
+        return data;
+        })
 
     return removeStoreResponse;
 
