@@ -135,29 +135,25 @@ export function RemoveStoreRequest(props)
  *******************************************************************/
 {
     //todo
-    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
+    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.request);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
-    function handleRemoveStoreRequest(json) {
-        setRemoveStoreRequest(json);
-    }
-
+    const json = JSON.stringify(removeStoreRequest);
     function handleRemoveStoreResponse(response) {
         setRemoveStoreResponse(response);
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
+    const requestOptions= {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json',
-            //'Access-Control-Allow-Origin': '*',
-            //'Access-Control-Allow-Headers': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
             },
             body: JSON.stringify(removeStoreRequest)
         };
 
-        fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
             .then(response => {
                 console.log(response);
                 response.json();
@@ -165,9 +161,11 @@ export function RemoveStoreRequest(props)
             .then(data => {
             console.log(data);
             setRemoveStoreResponse(data);
-            //return data;
+            return data;
             })
         }, []);
+
+    return removeStoreResponse;
 
 }
 
