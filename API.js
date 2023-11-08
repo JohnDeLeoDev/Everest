@@ -1,3 +1,4 @@
+import { wait } from '@testing-library/user-event/dist/utils';
 import React, { useEffect, useState } from 'react'; 
 
 //**************************************************************** */
@@ -178,18 +179,10 @@ export function AddComputerRequest(props)
     
     function handleAddComputer(response) {
         if (response !== null && response !== undefined) {
-            if (JSON.parse(response["body-json"])) {
-                let responseJson = JSON.parse(response["body-json"]);
-                console.log(responseJson);
-                if (responseJson !== null && responseJson !== undefined) {
-                    if (responseJson.statusCode === 400) {
-                        console.log("Error: " + responseJson.body);
-                    } else if (responseJson.statusCode === 200) {
-                        let body = responseJson.body;
-                        props.setCreateStoreResponse(body);
-                    }
-                }
-            }  
+            let body = response["body-json"];
+            props.handleComputerAdded(true);
+        } else {
+            console.log("Error: response is null or undefined.");
         }
     }
 
@@ -207,7 +200,11 @@ export function AddComputerRequest(props)
 
             fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addcomputer', requestOptions)
                 .then(response => response.json())
-                .then(data => handleAddComputer(data));
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleAddComputer(data);
+                    }
+                });
         } else {
             console.log("All fields must be filled out.");
         }

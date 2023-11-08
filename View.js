@@ -109,7 +109,7 @@ function OwnerView(props)
         inventory={props.inventory}/>
     
     if (props.addComputer){
-        callback = <AddComputer user={props.user} addComputer={props.addComputer}/>
+        callback = <AddComputer user={props.user} addComputer={props.addComputer} computerAdded={props.computerAdded} handleAddComputer={props.handleAddComputer} handleComputerAdded={props.handleComputerAdded}/>
     } 
     
     if (props.inventoryReport){
@@ -225,6 +225,9 @@ export default function View(props)
                 handleInventory={props.handleInventory}
                 inventory={props.inventory}
                 addComputer={props.addComputer}
+                computerAdded={props.computerAdded}
+                handleAddComputer={props.handleAddComputer}
+                handleComputerAdded={props.handleComputerAdded}
                 inventoryReport={props.inventoryReport}
                 handleInventoryReport={props.handleInventoryReport}
                 search={props.search}

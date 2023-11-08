@@ -7,6 +7,7 @@ import React from 'react';
 */
 
 import { computer_cfg } from "../computer_cfg";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 //get computer memory options
 function getOptions(keyword, options){
@@ -118,8 +119,9 @@ export default function AddComputer(props) {
 
                 <button onClick={handleSubmit} id='c3'>Add Computer</button>
             </form>
-            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} setAddComputerResponse={setAddComputerResponse}/> : null}
-            {addComputerResponse !== null ? props.addComputer = false : null}
+            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} setAddComputerResponse={setAddComputerResponse} computerAdded={props.computerAdded} handleComputerAdded={props.handleComputerAdded} /> : null}
+            {props.computerAdded === true ? <h1>Computer added successfully!</h1> : null}
+            {props.computerAdded === true ? <button onClick={() => props.handleAddComputer(false)}>Back</button> : null}
         </div>
     )
 }
