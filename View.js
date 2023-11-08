@@ -4,11 +4,13 @@ import {Login} from './Login.js';
 import About from './About.js';
 import { SearchComputer, SearchStores } from "./Customer/Search";
 
+//owner use cases
 import Create from './Owner/Create.js';
 import Inventory from "./Owner/Inventory";
 import AddComputer from "./Owner/AddComputer";
 import InventoryReport from "./Owner/InventoryReport";
 
+//manager use cases
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
 import { GenerateAllStoreInventoryReport , GenerateStoreInventoryReport} from "./Manager/GenerateReport";
 import RemoveStore from "./Manager/RemoveStore";

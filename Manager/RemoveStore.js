@@ -13,20 +13,22 @@ export default function RemoveStore(props)
 {
     // setCreateStoreRequest triggers a POST request to the server
     const [removeStoreRequest, setRemoveStoreRequest] = React.useState(null);
-    const json = '';
 
     function handleRemoveStoreRequest(event) {
-        let storeName_ = document.getElementsByName("storeName");
-        let data = {"storeID":storeName_};
-        console.log(data);
-        console.log(json);
-        setRemoveStoreRequest(data);
+        const form = document.forms.remove;
+        const formData = new FormData(form);
+        let storeName = formData.get("storeName");
+
+        let json = {
+            "name": JSON.stringify(storeName),
+        };
+
+        setRemoveStoreRequest(json);
     }
 
-    console.log("remove computer ID "+ props.removeId)
     return (
         <div>
-            <form>
+            <form id={"remove"}>
             <div>
                 <label>Search for Store by Name</label>
                 <input 
@@ -39,6 +41,7 @@ export default function RemoveStore(props)
                 <button onClick={() => handleRemoveStoreRequest(json)}>Remove</button>
             </div>
             </form>
+            {removeStoreRequest && <RemoveStoreRequest request={removeStoreRequest} />}
         </div>
     )
 

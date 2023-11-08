@@ -5,7 +5,6 @@ import React from 'react';
 export default function Create(props) 
 /**
  * @brief a user creates a store
- *        after which a login is created
  *******************************************************/
 {
 

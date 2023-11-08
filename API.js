@@ -135,21 +135,17 @@ export function RemoveStoreRequest(props)
  *******************************************************************/
 {
     //todo
-    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
+    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.request);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
-    function handleRemoveStoreRequest(json) {
-        setRemoveStoreRequest(json);
-    }
-
+    const json = JSON.stringify(removeStoreRequest);
     function handleRemoveStoreResponse(response) {
         setRemoveStoreResponse(response);
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
+    const requestOptions= {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*'

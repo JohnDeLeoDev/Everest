@@ -140,7 +140,17 @@ function getSiteManagerNav(props)
         </div>
     )
 
-    
+    /*
+    return (
+        <div>
+            <button className="Button" onClick={() => {props.handleLogout(true)}}>Logout</button>
+            <button className="Button" onClick={() => {props.handleSetStoreReport("All Stores")}}>Total Inventory Report</button>
+            <button className="Button" onClick={() => {props.handleShowBalances("All Stores")}}>Sales Reports</button>
+            {search}
+            <button className="Button">?</button>
+        </div>
+    )*/
+
     return (
         <div>
             <button className="Button" onClick={() => {props.handleLogout(true)}}>Logout</button>
