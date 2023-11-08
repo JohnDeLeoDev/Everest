@@ -174,7 +174,7 @@ export function Landing(props)
     }
 
     if (props.createStore=== true){
-        callback = <Create handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore} storeCreated={props.storeCreated} handleStoreCreated={props.handleStoreCreated} /> 
+        callback = <Create handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore} storeCreated={props.storeCreated} handleStoreCreated={props.handleStoreCreated} handleCreateStore={props.handleCreateStore}  /> 
     }
 
     if (props.about === true){
@@ -214,6 +214,7 @@ export default function View(props)
                     stores={props.stores} 
                     failedLogin={props.failedLogin}
                     handleFailedLogin={props.handleFailedLogin}
+                    handleCreateStore={props.handleCreateStore}
                     />
             </div>
         )
@@ -269,6 +270,7 @@ export default function View(props)
                 createStore={props.createStore} 
                 storeCreated={props.storeCreated}
                 handleStoreCreated={props.handleStoreCreated} 
+                handleCreateStore={props.handleCreateStore}
                 about={props.about}   
                 stores={props.stores} 
                 />

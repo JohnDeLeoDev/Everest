@@ -83,8 +83,8 @@ export function CreateStoreRequest(props)
     }
 
     function handleCreateStoreResponse(response) {
+        console.log(response);
         if (response !== null && response !== undefined) {
-            console.log(response);
                 if (response["statusCode"] === 200) {                
                     let jsonBody = response["body"];
                     let user = jsonBody["user"];
@@ -116,7 +116,6 @@ export function CreateStoreRequest(props)
     fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data !== null && data !== undefined) {
                 handleCreateStoreResponse(data);
             }

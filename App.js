@@ -278,6 +278,7 @@ function App() {
             search={search} handleSearch={handleSearch}
             setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
             removeStore={removeStore} setRemoveStore={setRemoveStore}
+            handleCreateStore={handleCreateStore}
             />
     </div>
   );

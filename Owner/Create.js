@@ -184,7 +184,7 @@ export default function Create(props)
                 </div>
             </form>
 
-            {createStoreRequest !== null ? <CreateStoreRequest json={createStoreRequest} handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore} storeCreated={props.storeCreated} handleStoreCreated={props.handleStoreCreated}  /> : null}
+            {createStoreRequest !== null ? <CreateStoreRequest json={createStoreRequest} handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore} storeCreated={props.storeCreated} handleStoreCreated={props.handleStoreCreated} handleCreateStore={props.handleCreateStore}  /> : null}
             {props.failedCreateStore ? <h3>Failed to create store.</h3> : null}
             {props.storeCreated === true ? <h1>Store created successfully!</h1> : null}
             {props.storeCreated === true ? <button onClick={backButton}>Back</button> : null}
