@@ -305,19 +305,16 @@ export function GetSiteInventoryBalances(props)
 export function GetStoreInventory(props) {
     function handleGetStoreInventoryResponse(response) {
         if (response !== null && response !== undefined) {
-            if (JSON.parse(response["body-json"])) {
-                let responseJson = JSON.parse(response["body-json"]);
-                if (responseJson["statusCode"] === 200) {
-                    if (responseJson.statusCode === 400) {
-                        console.log("Error: " + responseJson.body);
-                    } else if (responseJson.statusCode === 200) {
-                        let body = JSON.parse(responseJson.body);
-                        props.handleInventory(body);
-                    }
-                }
+            if (response.statusCode === 200) {
+                let body = JSON.parse(response.body);
+                props.handleInventory(body);
+                console.log(body);
             }
         }
     }
+
+
+    
 
     useEffect(() => {
         if (props.userID !== null && props.userID !== undefined) {
@@ -337,7 +334,11 @@ export function GetStoreInventory(props) {
 
             fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
                 .then(response => response.json())
-                .then(data => handleGetStoreInventoryResponse(data));
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleGetStoreInventoryResponse(data);
+                    }
+                });   
     } else {
         console.log("Error: userID is null or undefined.");
         props.handleInventory(null);
