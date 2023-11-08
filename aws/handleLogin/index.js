@@ -98,7 +98,26 @@ exports.handler = async (event) => {
 
     let storeDB = result2[0];
 
+    let computerQuery = "SELECT * FROM Computers WHERE storeID = '" + store + "';";
 
+    var result3 = await new Promise((resolve, reject) => {
+        pool.query(computerQuery, (err, res) => {
+            if (err) {
+                console.log(err);
+                response = {
+                    computers: 'Store does not have any computers.',
+                };
+            } else {
+                if (res.length === 0) {
+                    console.log("Store does not have any computers.");
+                    response = {
+                        computers: 'Store does not have any computers.',
+                    };
+                }
+                resolve(res);
+            }
+        });
+    });
 
     let constructed = ("{ userID: " + user + ", result: " + responseBody +  "}"); 
 

@@ -1,3 +1,4 @@
+import { wait } from '@testing-library/user-event/dist/utils';
 import React, { useEffect, useState } from 'react'; 
 
 //**************************************************************** */
@@ -82,36 +83,44 @@ export function CreateStoreRequest(props)
     }
 
     function handleCreateStoreResponse(response) {
-        if (response !== null || response !== undefined) {
-            if (response["body-json"]["statusCode"] === 200) {
-                let json = response["body-json"];
-                let body = json.body;
-                let user = body.user;
-                let userType = body.userType;
-                props.handleUser([user, userType]);
-            } else {
-                handleFailedStore();
+        console.log(response);
+        if (response !== null && response !== undefined) {
+                if (response["statusCode"] === 200) {                
+                    let jsonBody = response["body"];
+                    let user = jsonBody["user"];
+                    let userType = jsonBody["userType"];
+                    props.handleStoreCreated(true);
+                    console.log(props.storeCreated);
+                    // let userType = jsonBody.userType;
+                    // props.handleUser([user, userType]);
+            } else if (response["errorMessage"]) {
+                console.log("Duplicate entry...ignoring.");
+            }else {
+                if (props.storeCreated === null || props.storeCreated === undefined) {
+                    console.log("INSIDE THE HANDLECREATESTORERESPONSE FAIL")
+                    handleFailedStore();
+                }
             }
         }
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
+    const requestOptions= {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
-            },
-            body: createStoreRequest
-        };
+            'Access-Control-Allow-Headers': '*' 
+        },
+        body: createStoreRequest
+    };
 
-        console.log(requestOptions);
-
-        fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
-            .then(response => response.json())
-            .then(data => handleCreateStoreResponse(data));
-    }, []);
+    fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            if (data !== null && data !== undefined) {
+                handleCreateStoreResponse(data);
+            }
+        });
     }
 
 //**************************************************************** */
@@ -176,22 +185,14 @@ export function AddComputerRequest(props)
     
     function handleAddComputer(response) {
         if (response !== null && response !== undefined) {
-            let responseJson = JSON.parse(response["body-json"]);
-            if (responseJson !== null && responseJson !== undefined) {
-                if (responseJson.statusCode === 400) {
-                    console.log("Error: " + responseJson.body);
-                } else if (responseJson.statusCode === 200) {
-                    let body = JSON.parse(responseJson.body);
-                    props.handleInventory(body);
-                }
-            }
+            let body = response["body-json"];
+            props.handleComputerAdded(true);
+        } else {
+            console.log("Error: response is null or undefined.");
         }
     }
 
-    console.log(props.json);
-
     useEffect(() => {
-        console.log(props.json);
         if (props.json !== null && props.json !== undefined) {
             const requestOptions = {
                 method: 'POST',
@@ -203,15 +204,17 @@ export function AddComputerRequest(props)
                 body: JSON.stringify(props.json)
             };
 
-            console.log(requestOptions);
-
             fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addcomputer', requestOptions)
                 .then(response => response.json())
-                .then(data => handleAddComputer(data));
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleAddComputer(data);
+                    }
+                });
         } else {
             console.log("All fields must be filled out.");
         }
-        }, []);
+        }, [props.json]);
     
 }
 
@@ -222,7 +225,7 @@ export function GetSiteInventoryBalancesRequest(props)
  *      on the website
  *          
  * @param 
- *        props.handlSiteInventoryBalances
+ *        props.handlSiteInventoryBalances: returns response to the calling function
  ****************************************************************************************************/
 {
     const [getSiteInventoryBalReqest, setGetSiteInventoryBalRequest] = React.useState(props.json);
@@ -260,34 +263,20 @@ export function GetSiteInventoryBalancesRequest(props)
             .then(response => response.json())
             .then(data => handleSiteInventoryBalResponse(data));
         }, []);        
-}
+}    
 
-//*************************************************************************** */
-export function GetStoreInventory(props) 
-/**
- * @brief function to get the inventory of the store whose owner is logged in
- * 
- * @parameters props:
- *      userID: the login handle, which is saved in a store context in DB
- *  
- ******************************************************************************/
-{
+//**************************************************************** */
+export function GetStoreInventory(props) {
     function handleGetStoreInventoryResponse(response) {
-        if (response !== null || response !== undefined) {
-            let responseJson = JSON.parse(response["body-json"]);
-            console.log(responseJson);
-            if (responseJson["statusCode"] === 200) {
-                if (responseJson !== null && responseJson !== undefined) {
-                    if (responseJson.statusCode === 400) {
-                        console.log("Error: " + responseJson.body);
-                    } else if (responseJson.statusCode === 200) {
-                        let body = JSON.parse(responseJson.body);
-                        props.handleInventory(body);
-                    }
-                }
+        if (response !== null && response !== undefined) {
+            if (response.statusCode === 200) {
+                let body = JSON.parse(response.body);
+                props.handleInventory(body);
+                console.log(body);
             }
         }
     }
+
 
     useEffect(() => {
         if (props.userID !== null && props.userID !== undefined) {
@@ -307,7 +296,11 @@ export function GetStoreInventory(props)
 
             fetch('https://wq3n7gl1h0.execute-api.us-east-1.amazonaws.com/Initial/getStoreInventory', requestOptions)
                 .then(response => response.json())
-                .then(data => handleGetStoreInventoryResponse(data));
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleGetStoreInventoryResponse(data);
+                    }
+                });   
     } else {
         console.log("Error: userID is null or undefined.");
         props.handleInventory(null);

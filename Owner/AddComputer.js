@@ -7,6 +7,7 @@ import React from 'react';
 */
 
 import { computer_cfg } from "../computer_cfg";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 //get computer memory options
 function getOptions(keyword, options){
@@ -23,6 +24,7 @@ function getOptions(keyword, options){
 export default function AddComputer(props) {
 
     const [addComputerRequest, setAddComputerRequest] = React.useState(null);
+    const [addComputerResponse, setAddComputerResponse] = React.useState(null);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -51,10 +53,15 @@ export default function AddComputer(props) {
             "processor": processor,
             "processGen": processGen,
             "isSold": 0,
-
         };
 
         setAddComputerRequest(json);
+
+    }
+
+    function backButton() {
+        props.handleAddComputer(false);
+        props.handleComputerAdded(false);
     }
 
     return (
@@ -80,6 +87,10 @@ export default function AddComputer(props) {
                         type="text"
                         name="price"
                     />
+                    <br clear='right'/>
+                    <br clear='right'/>
+
+
                 
                     <label htmlFor="description"  id='text-inputs'>Description:</label>
                     <input
@@ -117,7 +128,9 @@ export default function AddComputer(props) {
 
                 <button onClick={handleSubmit} id='c3'>Add Computer</button>
             </form>
-            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} /> : null}
+            {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} setAddComputerResponse={setAddComputerResponse} computerAdded={props.computerAdded} handleComputerAdded={props.handleComputerAdded} /> : null}
+            {props.computerAdded === true ? <h1>Computer added successfully!</h1> : null}
+            {props.computerAdded === true ? <button onClick={backButton}>Back</button> : null}
         </div>
     )
 }

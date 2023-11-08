@@ -17,8 +17,10 @@ function App() {
   const [search, setSearch] = React.useState(null);
   const [about, setAbout] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
+  const [storeCreated, setStoreCreated] = React.useState(null);
   const [logout, setLogout] = React.useState(null);
   const [addComputer, setAddComputer] = React.useState(null);
+  const [computerAdded, setComputerAdded] = React.useState(null);
   const [inventoryView, setInventoryView] = React.useState(null)
   const [inventory, setInventory] = React.useState(null);
   const [inventoryReport, setInventoryReport] = React.useState(null);
@@ -32,6 +34,7 @@ function App() {
   const [storeBalance, setStoreBalance] = React.useState(null);
   const [storeReport, setStoreReport] = React.useState(null);
   const [removeStore, setRemoveStore] = React.useState(null);
+
 
   function clear(){
     setLogin(false)
@@ -103,6 +106,14 @@ function App() {
   function handleAddComputer(bool){
     clear();
     setAddComputer(bool);
+  }
+  function handleStoreCreated(bool){
+    setFailedCreateStore(false);
+    setStoreCreated(bool);
+  }
+
+  function handleComputerAdded(bool){
+    setComputerAdded(bool);
   }
 
   //function to set the store inventory 
@@ -247,7 +258,12 @@ function App() {
             handleLogin={handleLogin}
             about={about} 
             createStore={createStore} 
+            storeCreated={storeCreated}
+            handleStoreCreated={handleStoreCreated}
             addComputer={addComputer}
+            handleAddComputer={handleAddComputer}
+            computerAdded={computerAdded}
+            handleComputerAdded={handleComputerAdded}
             inventory={inventory} handleInventory={handleInventory}
             inventoryView={inventoryView} handleInventoryView={handleInventoryView}
             logout={logout} handleLogout={handleLogout}
@@ -263,6 +279,7 @@ function App() {
             search={search} handleSearch={handleSearch}
             setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
             removeStore={removeStore} setRemoveStore={setRemoveStore}
+            handleCreateStore={handleCreateStore}
             />
     </div>
   );
