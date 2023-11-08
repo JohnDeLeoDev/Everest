@@ -25,6 +25,17 @@ export default function Create(props)
         props.handleStoreCreated(false);
     }
 
+    /* RM USERNAME COS IT IS EMAIL
+        <div>
+                    <label>Username *</label>
+                    <input 
+                        type="text"
+                        name="userID"
+                        required={false}
+                    />
+                </div>
+    */
+
     //<button><input type="file" />Upload Logo</button>
     return (
         <div className='format-form'>
@@ -42,14 +53,7 @@ export default function Create(props)
                 <br />
 
                 <div>
-                    <div>
-                    <label>Username *</label>
-                    <input 
-                        type="text"
-                        name="userID"
-                        required={false}
-                    />
-                </div>
+                    
 
                 <div>
                     <label>Password*</label>
