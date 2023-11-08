@@ -95,10 +95,11 @@ export function CreateStoreRequest(props)
                     // props.handleUser([user, userType]);
             } else if (response["errorMessage"]) {
                 console.log("Duplicate entry...ignoring.");
-                handleFailedStore();
             }else {
-                console.log("INSIDE THE HANDLECREATESTORERESPONSE FAIL")
-                handleFailedStore();
+                if (props.storeCreated === null || props.storeCreated === undefined) {
+                    console.log("INSIDE THE HANDLECREATESTORERESPONSE FAIL")
+                    handleFailedStore();
+                }
             }
         }
     }

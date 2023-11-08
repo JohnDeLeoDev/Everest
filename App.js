@@ -108,6 +108,7 @@ function App() {
     setAddComputer(bool);
   }
   function handleStoreCreated(bool){
+    setFailedCreateStore(false);
     setStoreCreated(bool);
   }
 
