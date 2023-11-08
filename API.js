@@ -135,7 +135,7 @@ export function RemoveStoreRequest(props)
  *******************************************************************/
 {
     console.log("IN REMOVE REQ")
-    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.removeStoreRequest);
+    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
     const json = JSON.stringify(removeStoreRequest);
@@ -144,9 +144,9 @@ export function RemoveStoreRequest(props)
     }
 
      //contact server
-     /*useEffect(() => {
+     useEffect(() => {
 
-        console.log("requesting",removeStoreRequest)
+        console.log("requesting ",props.json)
         //the request
         const requestOptions = {
             method: 'POST',
@@ -155,19 +155,20 @@ export function RemoveStoreRequest(props)
             //'Access-Control-Allow-Origin': '*',
             //'Access-Control-Allow-Headers': '*'
             },
+            //body: JSON.stringify(props.json)
             body: JSON.stringify(removeStoreRequest)
         };
 
-        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+        fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
             .then(response => {
                 //console.log(response);
                 response.json();
             })
             .then(data => handleRemoveStoreResponse(data));
-        }, []);   */
+        }, []);   
 
     
-    const requestOptions= {
+   /* const requestOptions= {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -186,9 +187,10 @@ export function RemoveStoreRequest(props)
             console.log(data);
             setRemoveStoreResponse(data);
             return data;
-            }) ;
+            })
+        }, []);*/
 
-    return removeStoreResponse;
+   // return removeStoreResponse;
 
 }
 
@@ -287,7 +289,12 @@ export function GetSiteInventoryBalancesRequest(props)
 }    
 
 //**************************************************************** */
-export function GetStoreInventory(props) {
+export function GetStoreInventory(props) 
+/**
+ * @brief get the inventory of the store (default store owner page on login)
+ * 
+ *****************************************************************************/
+{
     function handleGetStoreInventoryResponse(response) {
         if (response !== null && response !== undefined) {
             if (response.statusCode === 200) {

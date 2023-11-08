@@ -17,11 +17,15 @@ export default function RemoveStore(props)
     let json = null;
 
     console.log("IN REMOVE")
-
+    
     function handleRemoveStoreRequest(event) {
-        const form = document.forms.remove;
-        const formData = new FormData(form);
-        let storeName = formData.get("storeName");
+
+        var storeName = document.getElementById("remove-store").value; 
+        console.log("vlue is", storeName)
+
+        //const form = document.forms.remove;
+        //const formData = new FormData(form);
+        //let storeName = formData.get("storeName");
         console.log("STORENAME", storeName)
         json = {
             "name": JSON.stringify(storeName),
@@ -29,10 +33,11 @@ export default function RemoveStore(props)
         console.log("requesting", json)
         setRemoveStoreRequest(json);
     }
+//<form id={"remove"}>,            </form>
 
     return (
         <div>
-            <form id={"remove"}>
+            
             <div>
                 <label>Search for Store by Name</label>
                 <input 
@@ -41,10 +46,9 @@ export default function RemoveStore(props)
                     placeholder="Search for store to remove"
                 />
                 <br/>
-                <button onClick={() => handleRemoveStoreRequest}>Remove</button>
+                <button onClick={() => handleRemoveStoreRequest()}>Remove</button>
             </div>
-            </form>
-            {removeStoreRequest && <RemoveStoreRequest removeStoreRequest={removeStoreRequest} />}
+            {removeStoreRequest && <RemoveStoreRequest json={removeStoreRequest} />}
         </div>
     )
 
