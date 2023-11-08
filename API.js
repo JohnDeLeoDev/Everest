@@ -314,8 +314,6 @@ export function GetStoreInventory(props) {
     }
 
 
-    
-
     useEffect(() => {
         if (props.userID !== null && props.userID !== undefined) {
             let json = {
