@@ -134,8 +134,8 @@ export function RemoveStoreRequest(props)
  *      status good (200) if success, else error
  *******************************************************************/
 {
-    //todo
-    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.request);
+    console.log("IN REMOVE REQ")
+    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.removeStoreRequest);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
     const json = JSON.stringify(removeStoreRequest);
@@ -143,14 +143,38 @@ export function RemoveStoreRequest(props)
         setRemoveStoreResponse(response);
     }
 
+     //contact server
+     /*useEffect(() => {
+
+        console.log("requesting",removeStoreRequest)
+        //the request
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': '*'
+            },
+            body: JSON.stringify(removeStoreRequest)
+        };
+
+        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+            .then(response => {
+                //console.log(response);
+                response.json();
+            })
+            .then(data => handleRemoveStoreResponse(data));
+        }, []);   */
+
+    
     const requestOptions= {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': '*'
             },
-            body: JSON.stringify(removeStoreRequest)
+            body: JSON.stringify(props.removeStoreRequest)
         };
 
         fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
@@ -162,8 +186,7 @@ export function RemoveStoreRequest(props)
             console.log(data);
             setRemoveStoreResponse(data);
             return data;
-            })
-        }, []);
+            }) ;
 
     return removeStoreResponse;
 
