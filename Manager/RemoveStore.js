@@ -38,7 +38,7 @@ export default function RemoveStore(props)
                     placeholder="Search for store to remove"
                 />
                 <br/>
-                <button onClick={() => handleRemoveStoreRequest(json)}>Remove</button>
+                <button onClick={handleRemoveStoreRequest}>Remove</button>
             </div>
             </form>
             {removeStoreRequest && <RemoveStoreRequest request={removeStoreRequest} />}
