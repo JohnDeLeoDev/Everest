@@ -31,7 +31,7 @@ export default function RemoveStore(props)
             "name": JSON.stringify(storeName),
         };
         console.log("requesting", json)
-        setRemoveStoreRequest(json);
+        setRemoveStoreRequest(storeName);
     }
 //<form id={"remove"}>,            </form>
 

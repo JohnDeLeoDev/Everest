@@ -156,8 +156,12 @@ export function RemoveStoreRequest(props)
             //'Access-Control-Allow-Headers': '*'
             },
             //body: JSON.stringify(props.json)
-            body: JSON.stringify(removeStoreRequest)
+            body: {
+                "name": removeStoreRequest
+            }
         };
+
+        requestOptions.body = JSON.stringify(requestOptions.body);
 
         fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
             .then(response => {
