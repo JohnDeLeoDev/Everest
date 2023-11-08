@@ -83,36 +83,44 @@ export function CreateStoreRequest(props)
     }
 
     function handleCreateStoreResponse(response) {
-        if (response !== null || response !== undefined) {
-            if (response["body-json"]["statusCode"] === 200) {
-                let json = response["body-json"];
-                let body = json.body;
-                let user = body.user;
-                let userType = body.userType;
-                props.handleUser([user, userType]);
-            } else {
+        if (response !== null && response !== undefined) {
+            console.log(response);
+                if (response["statusCode"] === 200) {                
+                    let jsonBody = response["body"];
+                    let user = jsonBody["user"];
+                    let userType = jsonBody["userType"];
+                    props.handleStoreCreated(true);
+                    console.log(props.storeCreated);
+                    // let userType = jsonBody.userType;
+                    // props.handleUser([user, userType]);
+            } else if (response["errorMessage"]) {
+                console.log("Duplicate entry...ignoring.");
+                handleFailedStore();
+            }else {
+                console.log("INSIDE THE HANDLECREATESTORERESPONSE FAIL")
                 handleFailedStore();
             }
         }
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
+    const requestOptions= {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
-            },
-            body: createStoreRequest
-        };
+            'Access-Control-Allow-Headers': '*' 
+        },
+        body: createStoreRequest
+    };
 
-        console.log(requestOptions);
-
-        fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
-            .then(response => response.json())
-            .then(data => handleCreateStoreResponse(data));
-    }, []);
+    fetch('https://3wg7dcs0o4.execute-api.us-east-1.amazonaws.com/default/createStore', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data !== null && data !== undefined) {
+                handleCreateStoreResponse(data);
+            }
+        });
     }
 
 //**************************************************************** */
