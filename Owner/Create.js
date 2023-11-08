@@ -50,11 +50,6 @@ export default function Create(props)
                     />
                 </div>
 
-                <br />
-
-                <div>
-                    
-
                 <div>
                     <label>Password*</label>
                     <input 
@@ -63,6 +58,13 @@ export default function Create(props)
                         required={false}
                     />
                 </div>
+
+                <br />
+
+                <div>
+                    
+
+                
 
                 <div>
                     <label>First Name</label>
