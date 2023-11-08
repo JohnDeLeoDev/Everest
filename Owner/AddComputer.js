@@ -87,6 +87,10 @@ export default function AddComputer(props) {
                         type="text"
                         name="price"
                     />
+                    <br clear='right'/>
+                    <br clear='right'/>
+
+
                 
                     <label htmlFor="description"  id='text-inputs'>Description:</label>
                     <input
