@@ -59,6 +59,11 @@ export default function AddComputer(props) {
 
     }
 
+    function backButton() {
+        props.handleAddComputer(false);
+        props.handleComputerAdded(false);
+    }
+
     return (
         <div>
             <br clear='right'/>
@@ -121,7 +126,7 @@ export default function AddComputer(props) {
             </form>
             {addComputerRequest !== null ? <AddComputerRequest json={addComputerRequest} setAddComputerResponse={setAddComputerResponse} computerAdded={props.computerAdded} handleComputerAdded={props.handleComputerAdded} /> : null}
             {props.computerAdded === true ? <h1>Computer added successfully!</h1> : null}
-            {props.computerAdded === true ? <button onClick={() => props.handleAddComputer(false)}>Back</button> : null}
+            {props.computerAdded === true ? <button onClick={backButton}>Back</button> : null}
         </div>
     )
 }
