@@ -24,6 +24,60 @@ function compareBalance (a, b)
     }
 }
 
+//************************************************************** */
+function calculateInventoryBalance(siteInventoryData)
+/**
+ * @brief helper function to calculate the inventory total per store
+ *        in lambda, join is done to return an array of store names
+ *          and computer prices
+ * 
+ * @parameters data recieved is in the format:
+ *      siteInventoryData: {"name":Store.name, "price":Computer.price}
+ * 
+ * @returns the siteInventoryBalances - a Set of all names is keys, 
+ *          value per key is the sum of all computers in the store
+ ********************************************************************/
+{
+    //create a dictionary init to 0
+    //keys are unique store names
+    let storeList = []
+    let balanceTable = []
+
+    for (let i of siteInventoryData){
+        storeList.push(i.name);
+    }
+
+    //the unique list of stores
+    let newset = new Set(storeList);    
+
+    //map
+    let map = new Map();
+    for (let i of newset){
+        map.set(i, 0)
+    }
+
+    //add values to map
+    for (let i of siteInventoryData){
+        let tmpVal = map.get(i.name)
+        tmpVal += i.price
+        map.set(i.name, tmpVal)
+    }
+
+    //get the return
+    for (let [key, value] of map) {
+        balanceTable.push(
+            <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {key}</td>
+                <td>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  {value.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</td>
+            </tr>
+        )
+        console.log(key + " = " + value.toLocaleString());
+    }
+    
+
+    return balanceTable
+}
+
 //*********************************************************** */
 export function GenerateAllStoreInventoryReport(props)
 /**
@@ -41,11 +95,20 @@ export function GenerateAllStoreInventoryReport(props)
 
     // GenerateReport triggers a GET request to the server
     const [siteInventoryRequest, setSiteInventoryRequest] = React.useState(null);
+    //this
     const [siteInventoryBalances, setSiteInventoryBalances] = React.useState(null);
 
     //set the balances from the data string
     function handleSiteInventoryBalances(balances){
-        setSiteInventoryBalances(JSON.parse(balances));
+        console.log("Received balances")
+        let resp = JSON.parse(balances.body)
+        console.log("RESPONSE", resp)
+        let balanceSet = calculateInventoryBalance(resp)
+
+        //now set the values
+        setSiteInventoryBalances(balanceSet)
+        console.log(siteInventoryBalances)
+        console.log(balanceSet)
     }
 
     //handle the event
@@ -55,12 +118,27 @@ export function GenerateAllStoreInventoryReport(props)
         
     }
 
-    //return (
+    return (
+        <div>
         <GetSiteInventoryBalancesRequest 
-            siteInventoryRequest={props.siteInventoryRequest}   //the request name
-            handleSiteInventoryBalances={props.handleSiteInventoryBalances} //this sets the balances                   //
-        />
-   // )
+            handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
+        />    
+        <p> 
+                Store Inventory Total Report 
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th><h2>&nbsp; &nbsp; &nbsp; Store Name</h2></th>
+                        <th><h2>&nbsp; &nbsp; &nbsp; Balance</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+        {siteInventoryBalances}
+        </tbody>
+            </table>
+        </div>
+    )
     
 /*
     if (props.descending){

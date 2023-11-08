@@ -142,13 +142,13 @@ export function RemoveStoreRequest(props)
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': '*'
             },
             body: JSON.stringify(removeStoreRequest)
         };
 
-        fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+        fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
             .then(response => {
                 console.log(response);
                 response.json();
@@ -156,11 +156,9 @@ export function RemoveStoreRequest(props)
             .then(data => {
             console.log(data);
             setRemoveStoreResponse(data);
-            return data;
+            //return data;
             })
         }, []);
-
-    return removeStoreResponse;
 
 }
 
@@ -217,46 +215,15 @@ export function AddComputerRequest(props)
     
 }
 
-//************************************************************** */
-function calculateInventoryBalance(siteInventoryData)
-/**
- * @brief helper function to calculate the inventory total per store
- *        in lambda, join is done to return an array of store names
- *          and computer prices
- * 
- * @parameters data recieved is in the format:
- *      siteInventoryData: {"name":Store.name, "price":Computer.price}
- * 
- * @returns the siteInventoryBalances - a Set of all names is keys, 
- *          value per key is the sum of all computers in the store
- ********************************************************************/
-{
-    //debug prints - verify 
-    let puterlist = siteInventoryData.body;
-    console.log(puterlist);
-    console.log(puterlist.name[0])
-    console.log(puterlist.price[0])
-
-    //create a dictionary init to 0
-    //keys are unique store names
-    let newset = new Set(puterlist.store);
-    console.log(newset);
-    //create dict and init
-    let balances = {}
-
-    //loop through data param val, 
-    //balances[]+=price[i]
-}
-
-//*********************************************** */
+//************************************************************************************************* */
 export function GetSiteInventoryBalancesRequest(props)
 /**
- * @brief this function connects the web app to lambda
- *          to get the inventory balance for stores
+ * @brief this function connects the web app to lambda to get the inventory balance for all stores
+ *      on the website
+ *          
  * @param 
- *        props.storeID (int): the id of the store req.
- *                  if null, get all stores
- ****************************************************/
+ *        props.handlSiteInventoryBalances
+ ****************************************************************************************************/
 {
     const [getSiteInventoryBalReqest, setGetSiteInventoryBalRequest] = React.useState(props.json);
     const [getSiteInventoryBalResponse, setGetSiteInventoryBalResponse] = React.useState(null);
@@ -266,45 +233,45 @@ export function GetSiteInventoryBalancesRequest(props)
         setGetSiteInventoryBalRequest(json);
     }
 
-    //get back the balances
+    //get back the balances to the calling function
     function handleSiteInventoryBalResponse(response) {
-        setGetSiteInventoryBalResponse(response);
-        props.handleSiteInventoryBalances(response);
+        if(response !== null && response !== undefined){
+            setGetSiteInventoryBalResponse(response);
+            props.handleSiteInventoryBalances(response);
+        } else {
+            console.log("ERROR SITE INVENTORY RESPONSE")
+        }
+        
     }
 
     //contact server
     useEffect(() => {
+        //the request
         const requestOptions = {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*',
-            'Access-Control-Allow-Headers':'*'
+            //'Access-Control-Allow-Origin':'*',        //seems this get shit works better without this nonsense
+            //'Access-Control-Allow-Headers':'*'
             }
         };
 
         fetch('https://zxs5scvkbc.execute-api.us-east-1.amazonaws.com/default/getSiteInventory', requestOptions)
-            .then(response => {
-                console.log(response);
-                response.json();
-            })
-            .then(data => {     //this it the payload from server
-            
-            //setGetSiteInventoryBalResponse(JSON.parse(data));
-            console.log(data);
-            //props.handleSiteInventoryBalances(data);
-            return data;
-            })
-        }, []
-
-    )
-
-    return getSiteInventoryBalResponse;
-        
+            .then(response => response.json())
+            .then(data => handleSiteInventoryBalResponse(data));
+        }, []);        
 }
 
-//**************************************************************** */
-export function GetStoreInventory(props) {
+//*************************************************************************** */
+export function GetStoreInventory(props) 
+/**
+ * @brief function to get the inventory of the store whose owner is logged in
+ * 
+ * @parameters props:
+ *      userID: the login handle, which is saved in a store context in DB
+ *  
+ ******************************************************************************/
+{
     function handleGetStoreInventoryResponse(response) {
         if (response !== null || response !== undefined) {
             let responseJson = JSON.parse(response["body-json"]);
