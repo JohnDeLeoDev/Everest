@@ -134,8 +134,8 @@ export function RemoveStoreRequest(props)
  *      status good (200) if success, else error
  *******************************************************************/
 {
-    //todo
-    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.request);
+    console.log("IN REMOVE REQ")
+    const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
     const json = JSON.stringify(removeStoreRequest);
@@ -143,14 +143,43 @@ export function RemoveStoreRequest(props)
         setRemoveStoreResponse(response);
     }
 
-    const requestOptions= {
+     //contact server
+     useEffect(() => {
+
+        console.log("requesting ",props.json)
+        //the request
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': '*'
+            },
+            //body: JSON.stringify(props.json)
+            body: {
+                "name": removeStoreRequest
+            }
+        };
+
+        requestOptions.body = JSON.stringify(requestOptions.body);
+
+        fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
+            .then(response => {
+                //console.log(response);
+                response.json();
+            })
+            .then(data => handleRemoveStoreResponse(data));
+        }, []);   
+
+    
+   /* const requestOptions= {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': '*'
             },
-            body: JSON.stringify(removeStoreRequest)
+            body: JSON.stringify(props.removeStoreRequest)
         };
 
         fetch('https://huwr60n96b.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
@@ -163,9 +192,9 @@ export function RemoveStoreRequest(props)
             setRemoveStoreResponse(data);
             return data;
             })
-        }, []);
+        }, []);*/
 
-    return removeStoreResponse;
+   // return removeStoreResponse;
 
 }
 
@@ -264,7 +293,12 @@ export function GetSiteInventoryBalancesRequest(props)
 }    
 
 //**************************************************************** */
-export function GetStoreInventory(props) {
+export function GetStoreInventory(props) 
+/**
+ * @brief get the inventory of the store (default store owner page on login)
+ * 
+ *****************************************************************************/
+{
     function handleGetStoreInventoryResponse(response) {
         if (response !== null && response !== undefined) {
             if (response.statusCode === 200) {

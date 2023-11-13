@@ -64,6 +64,9 @@ function App() {
     if (bool === true) {
       clear()
       setUser(null)
+      setInventory(null)
+      setStores(null)
+      setLogin(false)
     }
     setLogout(bool)
     localStorage.removeItem('user');

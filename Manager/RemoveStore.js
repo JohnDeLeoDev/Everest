@@ -14,34 +14,41 @@ export default function RemoveStore(props)
     // setCreateStoreRequest triggers a POST request to the server
     const [removeStoreRequest, setRemoveStoreRequest] = React.useState(null);
 
-    function handleRemoveStoreRequest(event) {
-        const form = document.forms.remove;
-        const formData = new FormData(form);
-        let storeName = formData.get("storeName");
+    let json = null;
 
-        let json = {
+    console.log("IN REMOVE")
+    
+    function handleRemoveStoreRequest(event) {
+
+        var storeName = document.getElementById("remove-store").value; 
+        console.log("vlue is", storeName)
+
+        //const form = document.forms.remove;
+        //const formData = new FormData(form);
+        //let storeName = formData.get("storeName");
+        console.log("STORENAME", storeName)
+        json = {
             "name": JSON.stringify(storeName),
         };
-
-        setRemoveStoreRequest(json);
+        console.log("requesting", json)
+        setRemoveStoreRequest(storeName);
     }
+//<form id={"remove"}>,            </form>
 
     return (
         <div>
-            <form id={"remove"}>
+            
             <div>
                 <label>Search for Store by Name</label>
                 <input 
-                    type='search' 
                     id="remove-store" 
                     name="storeName"
                     placeholder="Search for store to remove"
                 />
                 <br/>
-                <button onClick={() => handleRemoveStoreRequest(json)}>Remove</button>
+                <button onClick={() => handleRemoveStoreRequest()}>Remove</button>
             </div>
-            </form>
-            {removeStoreRequest && <RemoveStoreRequest request={removeStoreRequest} />}
+            {removeStoreRequest && <RemoveStoreRequest json={removeStoreRequest} />}
         </div>
     )
 

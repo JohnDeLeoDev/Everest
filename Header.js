@@ -171,7 +171,7 @@ export function Header(props)
     let navList = getDefaultNav(props);
     let viewName = "Everest Home";
     let msg = ""
-    var dflt_storename = "Test Store"
+    var dflt_storename = "Beta"
     let banner = <></>
     
     //check login status
