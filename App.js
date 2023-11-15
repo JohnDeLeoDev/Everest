@@ -15,6 +15,7 @@ function App() {
   const [failedLogin, setFailedLogin] = React.useState(false);
   const [failedCreateStore, setFailedCreateStore] = React.useState(null);
   const [search, setSearch] = React.useState(null);
+  const [searchResults, setSearchResults] = React.useState(null);
   const [about, setAbout] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
   const [storeCreated, setStoreCreated] = React.useState(null);
@@ -70,6 +71,10 @@ function App() {
     }
     setLogout(bool)
     localStorage.removeItem('user');
+  }
+
+  function handleSearchResults(results) {
+    setSearchResults(results);
   }
 
   //render the login view
@@ -282,6 +287,7 @@ function App() {
             search={search} handleSearch={handleSearch}
             setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
             removeStore={removeStore} setRemoveStore={setRemoveStore}
+            searchResults={searchResults} handleSearchResults={handleSearchResults}
             handleCreateStore={handleCreateStore}
             />
     </div>

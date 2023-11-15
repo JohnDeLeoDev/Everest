@@ -339,3 +339,41 @@ export function GetStoreInventory(props)
     }
     }, []);
 }
+
+export function SearchComputersRequest(props) {
+    const [searchComputersRequest, setSearchComputersRequest] = React.useState(props.json);
+    const [searchComputersResponse, setSearchComputersResponse] = React.useState(null);
+
+    function handleSearchComputersRequest(json) {
+        setSearchComputersRequest(json);
+    }
+
+    function handleSearchComputersResponse(response) {
+        if (response !== null && response !== undefined) {
+            props.handleSearchResults(response);
+        }
+    }
+
+    useEffect(() => {
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+            fetch('https://5zdrqejw41.execute-api.us-east-1.amazonaws.com/default/searchComputers', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleSearchComputersResponse(data);
+                    }
+                });
+        } else {
+            console.log("Error occurred.");
+        }
+        }, [props.json]);
+}

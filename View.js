@@ -69,7 +69,7 @@ export function ManagerView(props)
         callback = <SearchStores
             stores={props.stores}/>
     } else if  (props.search === "Computers"){
-        callback = <SearchComputer/>
+        callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}/>
     }
 
     if (props.setStoreReport  === "One Store"){
@@ -128,7 +128,7 @@ function OwnerView(props)
         callback = <SearchStores
             stores={props.stores}/>
     } else if  (props.search === "Computers"){
-        callback = <SearchComputer/>
+        callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}/>
     }
 
     if (props.inventoryReport === true) {
@@ -172,7 +172,8 @@ export function Landing(props)
         callback = <SearchStores
             stores={props.stores}/>
     } else if  (props.search === "Computers"){
-        callback = <SearchComputer/>
+        callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
+        />
     }
 
     if (props.createStore=== true){
@@ -217,6 +218,7 @@ export default function View(props)
                     failedLogin={props.failedLogin}
                     handleFailedLogin={props.handleFailedLogin}
                     handleCreateStore={props.handleCreateStore}
+                    searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
                     />
             </div>
         )
@@ -237,6 +239,7 @@ export default function View(props)
                 handleInventoryReport={props.handleInventoryReport}
                 search={props.search}
                 about={props.about}
+                searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
                 />
         )
     } 
@@ -255,6 +258,7 @@ export default function View(props)
                 removeStore={props.removeStore} 
                 handleRemoveStore={props.handleRemoveStore}
                 inventory={props.inventory}
+                searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
             />
         </div>
         )
@@ -275,6 +279,7 @@ export default function View(props)
                 handleCreateStore={props.handleCreateStore}
                 about={props.about}   
                 stores={props.stores} 
+                searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
                 />
             </div>
         )

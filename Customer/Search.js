@@ -1,3 +1,8 @@
+import React from 'react';
+import { SearchComputersRequest } from '../API';
+
+
+
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
  *          
@@ -40,15 +45,63 @@ export function SearchComputer(props)
  *          "more" loads i+1..i+i, while i < n)
  ***************************************************************************************/
 {
-    //get the filter boxes
+    const [filter, setFilter] = React.useState({});
+    const [search, setSearch] = React.useState(null);
 
-    //titles are the keys
-    //array values are the check boxes
+    function handleSearch(e){
+        e.preventDefault()
+        const form = document.getElementById("filter-form");
+        console.log(form);
+        const formData = new FormData(form);
 
+        let filters = {}
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+
+            if (filters[key.toLowerCase()] === undefined){
+                filters[key.toLowerCase()] = []
+            }
+            filters[key.toLowerCase()].push(value) 
+        }
+        setFilter(filters);
+        setSearch(true);
+    }
+
+    function computerCards() {
+        let searchResults = props.searchResults;
+        if (searchResults === null) {
+            return (
+                <div className="search-results">
+                    <div className="computer-card">
+                        <h2>No results found</h2>
+                    </div>
+                </div>
+            )
+        } else return (
+            <>
+                <div className="search-results">
+                    {searchResults.map((computer) => {
+                        return (
+                            <div className="computer-card">
+                                <h2>{computer.brand} {computer.model}</h2> 
+                                <p>Price: {computer.price}</p>
+                                <p>Memory: {computer.memory}</p>
+                                <p>Storage: {computer.storage}</p>
+                                <p>Processor: {computer.processor}</p>
+                                <p>Process Generation: {computer.processGen}</p>
+                                <p>Graphics: {computer.graphics}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </>
+        )
+    }
+    
     return (
         <div>
             <div id="filter_boxes"> 
-                <form onSubmit={props.handleSubmit} className='features'>
+                <form id={"filter-form"} onSubmit={handleSearch} className='features'>
                 <div id='c1'>
                 <label>Price</label>
                 {getOptions("Price", computer_filter_labels.Price)}
@@ -79,8 +132,12 @@ export function SearchComputer(props)
                 {getOptions("Graphics", computer_filter_labels.Graphics)}
                 </div>
 
-                <button id='c3'>Search</button>
+                <button id='c3' onClick={handleSearch} >Search</button>
             </form>
+            </div>
+            <div id='results'>
+                {search && <SearchComputersRequest searchResults={props.searchResults} handleSearchResults={props.handleSearchResults} json={filter} />}
+                {props.searchResults && computerCards()}
             </div>
 
         </div>
