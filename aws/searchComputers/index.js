@@ -18,7 +18,7 @@ exports.handler = async (event) => {
     var filter = {};
     
     if (event.body !== null || event.body !== undefined) {
-        filter = event.body;
+        filter = JSON.parse(event.body);
     }  
     
     
@@ -35,15 +35,14 @@ exports.handler = async (event) => {
     });
 
     let filtered = [];
-    let keys = [];
+    let values = [];
 
 
     for (let i = 0; i < result.length; i++) {
         let comp = result[i];
         let add = false;
         for (let key in filter) {
-            keys.push(key);
-            if (key.toLowerCase === "price") {
+            if (key === "price") {
                 for (let j = 0; j <  filter[key].length; j++) {
                     if (filter[key][j] == "$500 or less") {
                         if (comp.price <= 500) {
@@ -68,9 +67,159 @@ exports.handler = async (event) => {
                     }
                 }
             }  
-        }
-        if (add) {
-            filtered.push(comp);
+            if (key === "memory") {
+                for (let j = 0; j <  filter[key].length; j++) {
+                    let value = comp.memory.match(/(\d+)/);
+                    if (value !== null) {    
+
+                        if (filter[key][j] == "4 GB or less") {
+                            if (value[0] == "4") {
+                                add = true;
+                            }
+                        } else if (filter[key][j] == "8 GB") {
+                            if (value[0] == "8") {
+                                add = true;
+                            }
+                        } else if (filter[key][j] == "16 GB") {
+                            if (value[0] == "16") {
+                                add = true;
+                            }
+                        } else if (filter[key][j] == "32 GB") {
+                            if (value[0] == "32") {
+                                add = true;
+                            }
+                        } 
+                    }
+     
+                }
+            }
+            
+            if (key === "storage") {
+                for (let j = 0; j <  filter[key].length; j++) {
+                    let value = comp.storageSize.match(/(\d+)/);
+                    values.push(value);
+                    if (filter[key][j] == "256 GB or less") {
+                        if (value[0] == "256") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "512 GB") {
+                        if (value[0] == "512") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "1 TB") {
+                        if (value[0] == "1") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "2 TB") {
+                        if (value[0] == "2") {
+                            add = true;
+                        }
+                    }  
+                }
+            }
+
+            if (key === "processor") {
+                for (let j = 0; j <  filter[key].length; j++) {
+                    if (filter[key][j] == "Intel Core i3") {
+                        if (comp.processor == "Intel Core i3") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "Intel Core i5") {
+                        if (comp.processor == "Intel Core i5") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "Intel Core i7") {
+                        if (comp.processor == "Intel Core i7") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "Intel Core i9") {
+                        if (comp.processor == "Intel Core i9") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 3") {
+                        if (comp.processor == "AMD Ryzen 3") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 5") {
+                        if (comp.processor == "AMD Ryzen 5") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 7") {
+                        if (comp.processor == "AMD Ryzen 7") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 9") {
+                        if (comp.processor == "AMD Ryzen 9") {
+                            add = true
+                        }
+                    }
+                }
+            }
+
+            if (key === "processGen") {
+                for (let j = 0; j <  filter[key].length; j++) {
+                    if (filter[key][j] == "9th Gen or older Intel") {
+                        if (comp.processGen == "9th Gen or older Intel") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "10th Gen Intel") {
+                        if (comp.processGen == "10th Gen Intel") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "11th Gen Intel") {
+                        if (comp.processGen == "11th Gen Intel") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "12th Gen Intel") {
+                        if (comp.processGen == "12th Gen Intel") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "13th Gen Intel") {
+                        if (comp.processGen == "13th Gen Intel") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 6000 Series") {
+                        if (comp.processGen == "AMD Ryzen 6000 Series") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 7000 Series") {
+                        if (comp.processGen == "AMD Ryzen 7000 Series") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 8000 Series") {
+                        if (comp.processGen == "AMD Ryzen 8000 Series") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "AMD Ryzen 9000 Series") {
+                        if (comp.processGen == "AMD Ryzen 9000 Series") {
+                            add = true;
+                        }
+                    } 
+                }
+            }
+
+            if (key === "graphics") {
+                for (let j = 0; j <  filter[key].length; j++) {
+                    if (filter[key][j] == "All Intel Graphics") {
+                        if (comp.graphics == "Intel UHD Graphics") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "All AMD Graphics") {
+                        if (comp.graphics == "AMD Radeon Graphics") {
+                            add = true;
+                        }
+                    } else if (filter[key][j] == "All NVIDIA Graphics") {
+                        if (comp.graphics == "NVIDIA GeForce Graphics") {
+                            add = true;
+                        }
+                    } 
+                }
+            }
+            
+            if (add) {
+                filtered.push(comp);
+            }
+            
         }
     }
 
@@ -81,7 +230,7 @@ exports.handler = async (event) => {
         headers: {
             "Access-Control-Allow-Origin": "*"
         },
-        body: JSON.stringify(keys)
+        body: JSON.stringify(values)
     };
 
     return response;
