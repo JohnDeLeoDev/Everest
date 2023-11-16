@@ -435,5 +435,41 @@ export function RemoveComputerRequest(props) {
 }
 
 export function ModifyComputerRequest(props) {
+    const [modifyComputerRequest, setModifyComputerRequest] = React.useState(props.json);
+
+    function handleModifyComputerRequest(json) {
+        setModifyComputerRequest(json);
+    }
+
+    function handleModifyComputerResponse(response) {
+        if (response !== null && response !== undefined) {
+            console.log(response);
+            props.handleModifyComputerResponse(response);
+        }
+    }
+
+    useEffect(() => {
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+            fetch('https://zgah4gqjia.execute-api.us-east-1.amazonaws.com/default/modifyComputer', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleModifyComputerResponse(data);
+                    }
+                });
+        } else {
+            console.log("Error occurred.");
+        }
+        }, [props.json]);
+
 
 }
