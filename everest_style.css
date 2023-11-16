@@ -115,6 +115,10 @@ body {
     color: black;
 }
 
+.bodybag label {
+	padding: 3px;
+}
+
 body p {
     text-align: center;
 }

@@ -36,10 +36,10 @@ export function Login(props)
         <form name="login" onSubmit={handleLoginRequest}>
             <label htmlFor="userID">User ID</label>
             <input type="text" name="userID" />
-            <br/>
+            <br/><br/>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
-            <br/>
+            <br/> <br/>
             <button id="submit" type="submit" onClick={handleLoginRequest}>Login</button>
         </form>
 
