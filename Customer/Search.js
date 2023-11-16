@@ -86,7 +86,7 @@ export function SearchComputer(props)
                                 <h2>{computer.brand} {computer.model}</h2> 
                                 <p>Price: {computer.price}</p>
                                 <p>Memory: {computer.memory}</p>
-                                <p>Storage: {computer.storage}</p>
+                                <p>Storage: {computer.storageSize}</p>
                                 <p>Processor: {computer.processor}</p>
                                 <p>Process Generation: {computer.processGen}</p>
                                 <p>Graphics: {computer.graphics}</p>
