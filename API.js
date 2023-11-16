@@ -90,14 +90,12 @@ export function CreateStoreRequest(props)
     }
 
     function handleCreateStoreResponse(response) {
-        console.log(response);
         if (response !== null && response !== undefined) {
                 if (response["statusCode"] === 200) {                
                     let jsonBody = response["body"];
                     let user = jsonBody["user"];
                     let userType = jsonBody["userType"];
                     props.handleStoreCreated(true);
-                    console.log(props.storeCreated);
                     // let userType = jsonBody.userType;
                     // props.handleUser([user, userType]);
             } else if (response["errorMessage"]) {
@@ -141,7 +139,6 @@ export function RemoveStoreRequest(props)
  *      status good (200) if success, else error
  *******************************************************************/
 {
-    console.log("IN REMOVE REQ")
     const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
     const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
@@ -153,7 +150,6 @@ export function RemoveStoreRequest(props)
      //contact server
      useEffect(() => {
 
-        console.log("requesting ",props.json)
         //the request
         const requestOptions = {
             method: 'POST',
@@ -317,7 +313,6 @@ export function GetStoreInventory(props)
             if (response.statusCode === 200) {
                 let body = JSON.parse(response.body);
                 props.handleInventory(body);
-                console.log(body);
             }
         }
     }
@@ -399,4 +394,46 @@ export function SearchComputersRequest(props)
             console.log("Error occurred.");
         }
         }, [props.json]);
+}
+
+export function RemoveComputerRequest(props) {
+    const [removeComputerRequest, setRemoveComputerRequest] = React.useState(props.json);
+
+    function handleRemoveComputerRequest(json) {
+        setRemoveComputerRequest(json);
+    }
+
+    function handleRemoveComputerResponse(response) {
+        if (response !== null && response !== undefined) {
+            props.handleRemoveComputerResponse(response);
+        }
+    }
+    useEffect(() => {
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+
+            console.log(requestOptions);
+            fetch('https://2k1f90kjwa.execute-api.us-east-1.amazonaws.com/default/removeComputer', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleRemoveComputerResponse(data);
+                    }
+                });
+        } else {
+            console.log("Error occurred.");
+        }
+        }, [props.json]);
+}
+
+export function ModifyComputerRequest(props) {
+
 }

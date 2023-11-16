@@ -128,7 +128,6 @@ function App() {
   //data is an array of json computer objects
   function handleInventory(data) {
     setInventory(data);
-    console.log(inventory);
   }
 
   //owner view
@@ -150,7 +149,6 @@ function App() {
   function handleModifyComp(bool, id) {
     setRemoveComp([false, null, false]);
     if (modifyComp[2] === true) {
-      console.log("Modify confirmed");
       setModifyComp([false, null, false]);
     } else {
       setModifyComp([bool, id, true]);
@@ -162,7 +160,6 @@ function App() {
   function handleRemoveComp(bool, id) {
     setModifyComp([false, null, false]);
     if (removeComp[2] === true) {
-      console.log("Remove confirmed");
       setRemoveComp([false, null, false]);
     } else {
       setRemoveComp([bool, id, true]);

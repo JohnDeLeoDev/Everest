@@ -1,8 +1,6 @@
 import React from 'react';
 import { SearchComputersRequest } from '../API';
 
-
-
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
  *          
