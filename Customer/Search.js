@@ -68,7 +68,7 @@ export function SearchComputer(props)
 
     function computerCards() {
         let searchResults = props.searchResults;
-        if (searchResults === null) {
+        if (searchResults === null || searchResults.length === 0) {
             return (
                 <div className="search-results">
                     <div className="computer-card">
