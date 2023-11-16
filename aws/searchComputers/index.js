@@ -145,41 +145,19 @@ exports.handler = async (event) => {
     }
 
     function processorTest(comp) {
-        if (filter.processor !== undefined) {
-            for (let i = 0; i < filter.processor.length; i++) {
-                if (filter.processor[i] == "Intel Core i3") {
-                    if (comp.processor == "Intel Core i3") {
+        if (filter["processor"] !== undefined) {
+            for (let i = 0; i < filter["processor"].length; i++) {
+                if (filter["processor"][i] == "All Intel Processors") {
+                    if (comp.processor.includes("Intel")) {
                         return true;
                     } 
-                } else if (filter.processor[i] == "Intel Core i5") {
-                    if (comp.processor == "Intel Core i5") {
+                } else if (filter["processor"][i] == "All AMD Processors") {
+                    if (comp.processor.includes("AMD")) {
                         return true;
                     } 
-                } else if (filter.processor[i] == "Intel Core i7") {
-                    if (comp.processor == "Intel Core i7") {
-                        return true;
-                    } 
-                } else if (filter.processor[i] == "Intel Core i9") {
-                    if (comp.processor == "Intel Core i9") {
-                        return true;
-                    } 
-                } else if (filter.processor[i] == "AMD Ryzen 3") {
-                    if (comp.processor == "AMD Ryzen 3") {
-                        return true;
-                    } 
-                } else if (filter.processor[i] == "AMD Ryzen 5") {
-                    if (comp.processor == "AMD Ryzen 5") {
-                        return true;
-                    } 
-                } else if (filter.processor[i] == "AMD Ryzen 7") {
-                    if (comp.processor == "AMD Ryzen 7") {
-                        return true;
-                    } 
-                } else if (filter.processor[i] == "AMD Ryzen 9") {
-                    if (comp.processor == "AMD Ryzen 9") {
-                        return true
-                    } 
-                }
+                } else if (filter["processor"][i] == "Any Processors") {
+                    return true;
+                } 
             }
             return false;
         } else {
@@ -188,26 +166,30 @@ exports.handler = async (event) => {
     }
 
     function processGenTest(comp) {
-        if (filter.processGen !== undefined) {
-            for (let i = 0; i < filter.processGen.length; i++) {
-                if (filter.processGen[i] == "7th Gen or older") {
-                    if (comp.processGen == "7th Gen or older") {
+        if (filter["processgen"] !== undefined) {
+            for (let i = 0; i < filter["processgen"].length; i++) {
+                if (filter["processgen"][i] == "11th Gen Intel") {
+                    if (comp.processGen.includes("11th")) {
                         return true;
                     } 
-                } else if (filter.processGen[i] == "8th Gen") {
-                    if (comp.processGen == "8th Gen") {
+                } 
+                if (filter["processgen"][i] == "12th Gen Intel") {
+                    if (comp.processGen.includes("12th")) {
                         return true;
                     } 
-                } else if (filter.processGen[i] == "9th Gen") {
-                    if (comp.processGen == "9th Gen") {
+                } 
+                if (filter["processgen"][i] == "13th Gen Intel") {
+                    if (comp.processGen.includes("13th")) {
                         return true;
                     } 
-                } else if (filter.processGen[i] == "10th Gen") {
-                    if (comp.processGen == "10th Gen") {
+                } 
+                if (filter["processgen"][i] == "AMD Ryzen 6000 Series") {
+                    if (comp.processGen.includes("6000")) {
                         return true;
                     } 
-                } else if (filter.processGen[i] == "11th Gen") {
-                    if (comp.processGen == "11th Gen") {
+                } 
+                if (filter["processgen"][i] == "AMD Ryzen 7000 Series") {
+                    if (comp.processGen.includes("7000")) {
                         return true;
                     } 
                 }
@@ -219,45 +201,26 @@ exports.handler = async (event) => {
     }
 
     function graphicsTest(comp) {
-        if (filter.graphics !== undefined) {
-            for (let i = 0; i < filter.graphics.length; i++) {
-                if (filter.graphics[i] == "Intel UHD Graphics") {
-                    if (comp.graphics == "Intel UHD Graphics") {
+        if (filter["graphics"] !== undefined) {
+            for (let i = 0; i < filter["graphics"].length; i++) {
+                if (filter["graphics"][i] == "All Intel Graphics") {
+                    if (comp.graphics.includes("Intel")) {
                         return true;
                     } 
-                } else if (filter.graphics[i] == "Intel Iris Xe Graphics") {
-                    if (comp.graphics == "Intel Iris Xe Graphics") {
+                } 
+                if (filter["graphics"][i] == "All AMD Graphics") {
+                    if (comp.graphics.includes("AMD")) {
                         return true;
                     } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce GTX 1650") {
-                    if (comp.graphics == "NVIDIA GeForce GTX 1650") {
+                } 
+                if (filter["graphics"][i] == "All NVIDIA Graphics") {
+                    if (comp.graphics.includes("NVIDIA")) {
                         return true;
                     } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce GTX 1660 Ti") {
-                    if (comp.graphics == "NVIDIA GeForce GTX 1660 Ti") {
-                        return true;
-                    } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce RTX 2060") {
-                    if (comp.graphics == "NVIDIA GeForce RTX 2060") {
-                        return true;
-                    } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce RTX 2070") {
-                    if (comp.graphics == "NVIDIA GeForce RTX 2070") {
-                        return true;
-                    } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce RTX 2080") {
-                    if (comp.graphics == "NVIDIA GeForce RTX 2080") {
-                        return true;
-                    } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce RTX 3060") {
-                    if (comp.graphics == "NVIDIA GeForce RTX 3060") {
-                        return true;
-                    } 
-                } else if (filter.graphics[i] == "NVIDIA GeForce RTX 3070") {
-                    if (comp.graphics == "NVIDIA GeForce RTX 3070") {
-                        return true;
-                    } 
-                }
+                } 
+                if (filter["graphics"][i] == "Any Graphics") {
+                    return true;
+                } 
             }
             return false;
         } else {
@@ -279,8 +242,6 @@ exports.handler = async (event) => {
             filtered.push(comp)
         }     
     }
-
-
 
     let response = {
         statusCode: 200,

@@ -51,7 +51,6 @@ export function SearchComputer(props)
     function handleSearch(e){
         e.preventDefault()
         const form = document.getElementById("filter-form");
-        console.log(form);
         const formData = new FormData(form);
 
         let filters = {}

@@ -22,9 +22,9 @@ export const computer_filter_labels = {
     "Price" : ["$500 or less", "$501-$1000", "$1001-$1,500", "$1,501-$2000", "$2001 or more"],
     "Memory" : ["4 GB or less", "8 GB", "16 GB", "32 GB"],
     "Storage" : ["256 GB or less", "512 GB", "1 TB", "2 TB"],
-    "Processor" : ["All IntIntel Processors", "All AMD Processors", "Any Processors"],
+    "Processor" : ["All Intel Processors", "All AMD Processors", "Any Processors"],
     "ProcessGen" : ["11th Gen Intel", "12th Gen Intel", "13th Gen Intel", 
-                    "AMD Ryzan 6000 Series", "AMD Ryzan 7000 Series"],
+                    "AMD Ryzen 6000 Series", "AMD Ryzen 7000 Series"],
     "Graphics" : ["All NVIDIA Graphics", "All AMD Graphics", "All Intel Graphics", "Any Graphics"]
 }
 
