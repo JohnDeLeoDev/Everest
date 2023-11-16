@@ -69,6 +69,13 @@ export function LoginRequest(props)
 export function CreateStoreRequest(props) 
 /**
  * @brief create a new store
+ * @parameters
+ *      json: the info from the create store intake form
+ *      storeCreated: value indicating successful store creation
+ *      handleFailedStore: function to set boolean indicating if store is created
+ *      
+ * @returns
+ *      good, or error
  **************************************************************/
 {
     const [createStoreRequest, setCreateStoreRequest] = React.useState(props.json);
@@ -251,8 +258,9 @@ export function GetSiteInventoryBalancesRequest(props)
  * @brief this function connects the web app to lambda to get the inventory balance for all stores
  *      on the website
  *          
- * @param 
- *        props.handlSiteInventoryBalances: returns response to the calling function
+ * @parameters
+ *        handlSiteInventoryBalances: returns response to the calling function
+ *        json: the json string with 
  ****************************************************************************************************/
 {
     const [getSiteInventoryBalReqest, setGetSiteInventoryBalRequest] = React.useState(props.json);
@@ -296,7 +304,12 @@ export function GetSiteInventoryBalancesRequest(props)
 export function GetStoreInventory(props) 
 /**
  * @brief get the inventory of the store (default store owner page on login)
- * 
+ * @parameters
+ *      userID: userID of the store for the inventory request
+ *      handleInventory: the function to set the inventory in
+ * @returns
+ *      status good or error 
+ *      the inventory is set and ready to propagate on the page
  *****************************************************************************/
 {
     function handleGetStoreInventoryResponse(response) {
@@ -340,7 +353,17 @@ export function GetStoreInventory(props)
     }, []);
 }
 
-export function SearchComputersRequest(props) {
+//********************************************************************************** */
+export function SearchComputersRequest(props) 
+/**
+ * @brief function to request computer search filters
+ * @parameters 
+ *      json: the body of the POST request - name:value strings
+ * @returns
+ *      data is returned for display access by setting in fetch
+ *      handleSearchComputersResponse(data)
+ **************************************************************************************/
+{
     const [searchComputersRequest, setSearchComputersRequest] = React.useState(props.json);
     const [searchComputersResponse, setSearchComputersResponse] = React.useState(null);
 
