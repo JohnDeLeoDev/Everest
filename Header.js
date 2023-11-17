@@ -13,9 +13,10 @@ function DropdownNav(submenu, callback)
  ********************************************************/
 {
     let opts = submenu.options
+    let keyNum = 0
     return opts.map((opt) => {
         return(
-            <option onClick={() => 
+            <option key={"submenu"+(keyNum+= 1)} onClick={() => 
                 {callback(opt)}}>{opt}</option> 
         )
     });
@@ -35,7 +36,7 @@ function getDefaultNav(props)
     const searchOpts = {"options":["Stores", "Computers"]}
     let search = (
         <div>
-            <button className="Button">Search
+            <button key={"searchButton"} className="Button">Search
             <select>
                 {DropdownNav(searchOpts, props.handleSearch)}
             </select>
@@ -45,11 +46,11 @@ function getDefaultNav(props)
 
     return(
         <div>
-            <button className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
-            <button className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
-            <button className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
+            <button key={"loginButton"} className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
+            <button key={"createStoreButton"} className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
+            <button key={"aboutButton"} className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
             {search}
-            <button className="Button">?</button>
+            <button key={"questionsButton"} className="Button">?</button>
         </div>
     )
 }
