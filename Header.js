@@ -200,16 +200,16 @@ export function Header(props)
 
     return (
         <header>
-            <head>
-                <title>{viewName}</title>
-                <meta charset="UTF-8" />
-                <meta name="author" content="Ellen Mackey, John DeLeo" />
-                <meta name="keywords" content="computers, used computers, computer consignment" />
-                <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
+            
+            <title>{viewName}</title>
+            <meta charSet="UTF-8" />
+            <meta name="author" content="Ellen Mackey, John DeLeo" />
+            <meta name="keywords" content="computers, used computers, computer consignment" />
+            <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
             rel="stylesheet"/>
-            </head>
-            <p class="logo"><img src={logo} height="150" width="150" align="left" alt="Everest"/></p>
-	        <nav class="horizontalNAV">
+            
+            <p className="logo"><img src={logo} height="150" width="150" align="left" alt="Everest"/></p>
+	        <nav className="horizontalNAV">
             {navList}
             </nav>
             <br clear="right" />
@@ -217,8 +217,8 @@ export function Header(props)
 	            Everest Computer Consignment
             </h1>
     
-            <h2 class="tagline">Second Hand Computer Sellers</h2>
-            {props.user !== null && props.user !== undefined ? <h2 class="tagline">Welcome {props.user[0]}</h2> : <></>}
+            <h2 className="tagline">Second Hand Computer Sellers</h2>
+            {props.user !== null && props.user !== undefined ? <h2 className="tagline">Welcome {props.user[0]}</h2> : <></>}
             {banner}
         </header>
     )
