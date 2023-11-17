@@ -444,21 +444,34 @@ export function ModifyComputerRequest(props) {
     function handleModifyComputerResponse(response) {
         if (response !== null && response !== undefined) {
             console.log(response);
-            props.handleModifyComputerResponse(response);
         }
+    }
+    var json = JSON.parse(props.json)
+
+    var jsonBody = {
+        "inventoryID": json.inventoryID,
+        "brand": json.brand,
+        "model": json.model,
+        "description": json.description,
+        "price": json.price,
+        "memory": json.memory,
+        "storageSize": json.storageSize,
+        "processor": json.processor,
+        "processGen": json.processGen,
+        "graphics": json.graphics
     }
 
     useEffect(() => {
-        if (props.json !== null && props.json !== undefined) {
             const requestOptions = {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Headers': '*',
+                    'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(props.json)
+                body: JSON.stringify(jsonBody)
             };
+
             fetch('https://zgah4gqjia.execute-api.us-east-1.amazonaws.com/default/modifyComputer', requestOptions)
                 .then(response => response.json())
                 .then(data => {
@@ -466,10 +479,5 @@ export function ModifyComputerRequest(props) {
                         handleModifyComputerResponse(data);
                     }
                 });
-        } else {
-            console.log("Error occurred.");
-        }
-        }, [props.json]);
-
-
+        }, []);
 }
