@@ -1,0 +1,10 @@
+{
+    "name": "addBalanceSM",
+    "version": "1.0.0",
+  
+    "dependencies": {
+      "mysql": "^2.18.1",
+      "bcryptjs": "^2.4.3"
+    }
+}
+  

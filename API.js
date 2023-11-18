@@ -425,7 +425,6 @@ export function RemoveComputerRequest(props)
                 body: JSON.stringify(props.json)
             };
 
-            console.log(requestOptions);
             fetch('https://2k1f90kjwa.execute-api.us-east-1.amazonaws.com/default/removeComputer', requestOptions)
                 .then(response => response.json())
                 .then(data => {
@@ -495,4 +494,47 @@ export function ModifyComputerRequest(props)
                     }
                 });
         }, []);
+}
+
+export function AddBalanceRequest(props) {
+    let userID = props.userID;
+    let amount = props.amount;
+    let json = {
+        "userID": userID,
+        "amount": amount
+    };
+
+    const [addBalanceRequest, setAddBalanceRequest] = React.useState(props.json);
+    const [addBalanceResponse, setAddBalanceResponse] = React.useState(null);
+
+    function handleAddBalanceRequest(json) {
+        setAddBalanceRequest(json);
+    }
+
+    function handleAddBalanceResponse(response) {
+        if (response !== null && response !== undefined) {
+            console.log(response);
+        }
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(json)
+        };
+        console.log(requestOptions);
+
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/addBalanceSM', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleAddBalanceResponse(data);
+                }
+            });
+    }, []);
 }
