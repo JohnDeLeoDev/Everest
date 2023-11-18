@@ -9,9 +9,15 @@ export function GenerateStoreBalance(props)
  * @brief Generate the Sales Balance for All Stores
  ****************************************************/
 {
+    //build structure ascending (default)
+    // store name : "name"
+    // store balance : "balance"
+    let storeBalances = props.storeBalances;
+
     return (
         <div>
             Get the balances from all stores
+            
             <button className="Button" onClick={() => {props.handleStoreBalance(false)}}>Close</button>
         </div>
     )

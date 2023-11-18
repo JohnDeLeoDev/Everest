@@ -3,6 +3,7 @@ import './everest_style.css'
 import { Header } from './Header';
 import View from './View';
 import {testInventory} from './Owner/testInventory.js';
+import { testCustomerInventory } from './Customer/testInventory.js';
 import { test_stores } from './Manager/testStores';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
 
@@ -28,13 +29,16 @@ function App() {
   const [modifyComp, setModifyComp] = React.useState(false, null, false);
   const [removeComp, setRemoveComp] = React.useState(false, null, false);
   const [stores, setStores] = React.useState(test_stores);  //init test data for stores
-  const [showStores, setShowStores] = React.useState(null);
+  const [showStores, setShowStores] = React.useState(null); //the filter boxes - all stores
   const [descending, setDescending] = React.useState(null);
   const [showBalances, setShowBalances] = React.useState(null); 
   const [siteManagerBalance, setSiteManagerBalance] = React.useState(null);
   const [storeBalance, setStoreBalance] = React.useState(null);
   const [storeReport, setStoreReport] = React.useState(null);
   const [removeStore, setRemoveStore] = React.useState(null);
+  const [listFilteredStores, setListFilteredStores] = React.useState(null); //view selected stores inventory
+  const [customerStoreInventory, setCustomerStoreInventory] = React.useState(testCustomerInventory);
+
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -50,6 +54,7 @@ function App() {
     setStoreReport(false)
     setSearch(null)
     setRemoveStore(null)
+    setListFilteredStores(false)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -109,6 +114,17 @@ function App() {
   function handleShowStores(bool){
     clear()
     setShowStores(bool)
+  }
+
+  //function to display the inventory from a store selected from search
+  function handleListFilteredStores(bool){
+    clear();
+    setListFilteredStores(bool)
+  }
+
+  //function to populate the inventory for the filtered store display
+  function handleCustomerStoreInventory(inventory){
+    setCustomerStoreInventory(inventory)
   }
 
   //ABOUT US ##################################
@@ -301,7 +317,7 @@ function App() {
             handleModifyComp={handleModifyComp} modifyComp={modifyComp} 
             handleRemoveComp={handleRemoveComp} removeComp={removeComp}
             inventoryReport={inventoryReport} handleInventoryReport={handleInventoryReport} 
-            stores={stores} 
+            stores={stores} handleStores={handleStores}
             showStores={showStores} handleShowStores={handleShowStores}
             descending={descending} handleDescending={handleDescending}
             showBalances={showBalances} 
@@ -312,6 +328,8 @@ function App() {
             removeStore={removeStore} setRemoveStore={setRemoveStore}
             searchResults={searchResults} handleSearchResults={handleSearchResults}
             handleCreateStore={handleCreateStore}
+            listFilteredStores={listFilteredStores} handleListFilteredStores={handleListFilteredStores}
+            customerStoreInventory={customerStoreInventory} handleCustomerStoreInventory={handleCustomerStoreInventory}
             />
     </div>
   );

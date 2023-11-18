@@ -1,3 +1,7 @@
+/**
+ * test data file for store inventory view
+ */
+
 export const testInventory = [
     {
         id: 1,

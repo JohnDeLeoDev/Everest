@@ -3,6 +3,7 @@ import './everest_style.css';
 import {Login} from './Login.js';
 import About from './About.js';
 import { SearchComputer, SearchStores } from "./Customer/Search";
+import { GenerateStore } from "./Customer/GenerateInventory.js";
 
 //owner use cases
 import Create from './Owner/Create.js';
@@ -67,7 +68,9 @@ export function ManagerView(props)
     //search for stores
     if (props.search === "Stores"){
         callback = <SearchStores
-            stores={props.stores}/>
+            stores={props.stores}
+            handleListFilteredStores={props.handleListFilteredStores}
+            />
     } 
     //search for computers
     else if  (props.search === "Computers"){  
@@ -165,9 +168,22 @@ export function Landing(props)
 
     if (props.search === "Stores"){
         callback = <SearchStores
-            stores={props.stores}/>
+            stores={props.stores}
+            handleStores={props.handleStores}
+            handleListFilteredStores={props.handleListFilteredStores}
+            handleCustomerStoreInventory={props.handleCustomerStoreInventory}
+        />
     } else if  (props.search === "Computers"){
-        callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
+        callback = <SearchComputer 
+            searchResults={props.searchResults} 
+            handleSearchResults={props.handleSearchResults}
+        />
+    }
+
+    if(props.listFilteredStores == true){
+        callback = <GenerateStore 
+            listFilteredStores={props.listFilteredStores}
+            customerStoreInventory={props.customerStoreInventory}
         />
     }
 
@@ -209,12 +225,16 @@ export default function View(props)
                     handleFailedStore={props.handleFailedStore}
                     failedCreateStore={props.failedCreateStore}  
                     about={props.about}   
-                    stores={props.stores} 
+                    stores={props.stores} handleStores={props.handleStores}
                     failedLogin={props.failedLogin}
                     handleFailedLogin={props.handleFailedLogin}
                     handleCreateStore={props.handleCreateStore}
                     searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
-                    />
+                    handleListFilteredStores={props.handleListFilteredStores}
+                    listFilteredStores={props.listFilteredStores}
+                    customerStoreInventory = {props.customerStoreInventory}
+                    handleCustomerStoreInventory = {props.handleCustomerStoreInventory}
+                   />
             </div>
         )
     } else if (props.user[1] === 0){            //STORE OWNER
@@ -274,8 +294,12 @@ export default function View(props)
                 handleStoreCreated={props.handleStoreCreated} 
                 handleCreateStore={props.handleCreateStore}
                 about={props.about}   
-                stores={props.stores} 
+                stores={props.stores} handleStores={props.handleStores}
                 searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
+                listFilteredStores={props.listFilteredStores}
+                handleListFilteredStores={props.handleListFilteredStores}
+                customerStoreInventory = {props.customerStoreInventory}
+                handleCustomerStoreInventory = {props.handleCustomerStoreInventory}   
                 />
             </div>
         )

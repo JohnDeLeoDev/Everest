@@ -399,7 +399,7 @@ export function SearchComputersRequest(props)
 //**************************************************************************** */
 export function RemoveComputerRequest(props) 
 /**
- * @brief function to remove a computer
+ * @brief function to remove a computer, must also add 25$ to SiteManager profit
  *******************************************************************************/
 {
     const [removeComputerRequest, setRemoveComputerRequest] = React.useState(props.json);
@@ -495,4 +495,30 @@ export function ModifyComputerRequest(props)
                     }
                 });
         }, []);
+}
+
+//******************************************************************************* */
+export function GetCustomerStoreInventory(props)
+/**
+ * @brief function to get the inventory from one store to display for the customer
+ * 
+ * @parameters
+ *      json: the request - the storeID passed from the Search > Stores
+ **********************************************************************************/
+{
+    var json = JSON.parse(props.json)
+    var jsonBody = json.inventoryID;
+
+    //this is the info we need from the query 
+    /*
+        {computer.brand} 
+        {computer.model}
+        {computer.description}
+        {computer.price}
+        {computer.memory}
+        {computer.storageSize}
+        {computer.processor}
+        {computer.processGen}
+        {computer.graphics}
+    */
 }

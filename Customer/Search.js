@@ -1,5 +1,7 @@
 import React from 'react';
 import { SearchComputersRequest } from '../API';
+import { testCustomerInventory } from "./testInventory"
+import { GenerateStore } from './GenerateInventory';
 
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
@@ -64,7 +66,17 @@ export function SearchComputer(props)
         setSearch(true);
     }
 
-    function computerCards() {
+    //******************************************************************* */
+    function computerCards() 
+    /**
+     * @brief function to display computers fitting values selected in Search
+     * 
+     * @parameters
+     *      searchResults: the computers that are returned from the search filters
+     * @returns
+     *      View displaying all computers returned from filter search
+     *************************************************************************/
+    {
         let searchResults = props.searchResults;
         if (searchResults === null || searchResults.length === 0) {
             return (
@@ -133,7 +145,10 @@ export function SearchComputer(props)
             </form>
             </div>
             <div id='results'>
-                {search && <SearchComputersRequest searchResults={props.searchResults} handleSearchResults={props.handleSearchResults} json={filter} />}
+                {search && <SearchComputersRequest 
+                    searchResults={props.searchResults} 
+                    handleSearchResults={props.handleSearchResults} 
+                    json={filter} />}
                 {props.searchResults && computerCards()}
             </div>
 
@@ -155,6 +170,23 @@ export function SearchStores(props)
         submit = 'radio'
     }
 
+    //these to set the inventory from the requested Store(s)
+    const [generateStore, setGenerateStore] = React.useState(null);
+    const [customerStoreInventory, setCustomerStoreInventory] = React.useState(testCustomerInventory);
+
+     //show one store's inventory
+    function handleGenerateStore(){
+        //this is where we would call the function to make the request, but testing now
+        //everything will use the default test data
+
+        //set storeID(s) from option here to pass back to app
+        props.handleStores("");
+        props.handleListFilteredStores(true)
+
+        //set the store inventory (customer view) from the request when store is chosen
+        //props.handleCustomerStoreInventory(response)
+    }
+
     //make check boxes
     let storeSearch = []
     for (let s of stores){
@@ -163,6 +195,7 @@ export function SearchStores(props)
                 <td>
                 <input type={submit} name={s.storeID} value={s.name}/>   
                 <label>{s.name}</label>
+                <button onClick={() => handleGenerateStore()}>GO</button>
                 </td>
             </tr> 
         )
@@ -177,9 +210,6 @@ export function SearchStores(props)
                     {storeSearch}
                     </tbody>
                 </table>
-            </div>
-            <div id="c2">
-                <button onClick={props.handleSubmit}>GO</button>
             </div>
         </div>
     )
