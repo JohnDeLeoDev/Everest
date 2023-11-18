@@ -23,9 +23,6 @@ export default function RemoveStore(props)
         var storeName = document.getElementById("remove-store").value; 
         console.log("vlue is", storeName)
 
-        //const form = document.forms.remove;
-        //const formData = new FormData(form);
-        //let storeName = formData.get("storeName");
         console.log("STORENAME", storeName)
         json = {
             "name": JSON.stringify(storeName),
@@ -33,7 +30,6 @@ export default function RemoveStore(props)
         console.log("requesting", json)
         setRemoveStoreRequest(storeName);
     }
-//<form id={"remove"}>,            </form>
 
     return (
         <div>

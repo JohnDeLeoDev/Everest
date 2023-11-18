@@ -396,7 +396,12 @@ export function SearchComputersRequest(props)
         }, [props.json]);
 }
 
-export function RemoveComputerRequest(props) {
+//**************************************************************************** */
+export function RemoveComputerRequest(props) 
+/**
+ * @brief function to remove a computer
+ *******************************************************************************/
+{
     const [removeComputerRequest, setRemoveComputerRequest] = React.useState(props.json);
 
     function handleRemoveComputerRequest(json) {
@@ -434,7 +439,17 @@ export function RemoveComputerRequest(props) {
         }, [props.json]);
 }
 
-export function ModifyComputerRequest(props) {
+//*************************************************************************************** */
+export function ModifyComputerRequest(props) 
+/**
+ * @brief function to modify the price of a computer
+ * @parameters
+ *      json: request body
+ *      handleModifyCOmputerResponse(response): returns request status to calling function
+ * @returns 
+ *      returns request status good, or error
+ ******************************************************************************************/
+{
     const [modifyComputerRequest, setModifyComputerRequest] = React.useState(props.json);
 
     function handleModifyComputerRequest(json) {

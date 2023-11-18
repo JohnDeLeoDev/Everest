@@ -1,10 +1,11 @@
 import React from "react";
+import {useState} from "react";
 import './everest_style.css'
 import logo from './everest.jpg'
 import RemoveStore from "./Manager/RemoveStore";
 
 /****************************************************** */
-function DropdownNav(submenu, callback)
+function DropdownNav(props)
 /**
  * @brief packs a dropdown nav button
  * @parameters 
@@ -12,13 +13,35 @@ function DropdownNav(submenu, callback)
  *      callback: the props.<function> to select for option
  ********************************************************/
 {
-    let opts = submenu.options
-    return opts.map((opt) => {
-        return(
-            <option onClick={() => 
-                {callback(opt)}}>{opt}</option> 
-        )
-    });
+    const [display, setDisplay] = useState(false)
+
+    
+    return  (
+        <div>
+            <button
+                 className="dropdown"
+                onClick={() => setDisplay(!display)}>
+                {props.navName}
+            </button>
+            {
+                display && (
+                    <div className="dropdown-cont">
+                        {props.navSelect}
+                    </div>
+                )
+            }
+
+        </div>
+    )
+}
+
+function DropdownElement(props)
+{
+    return (
+        <div>
+            {props.name}
+        </div>
+    )
 }
 
 //********************************************************* */
@@ -105,58 +128,38 @@ function getSiteManagerNav(props)
  *          -for store(s) --double check this
  ******************************************************************/
 {
-    const items = {"options": ["Site Manager", "All Stores"]}
-    let balances = 
-        <div>
-            <button className="Button">Generate Reports
-            <select>
-                {DropdownNav(items, props.handleShowBalances)}
-            </select>
-            </button>
-        </div>
 
-    //longer path to remove/search
-    /*
-    const searchOpts = {"options":["Stores", "Computers"]}
-    let search = (
-        <div>
-            <button className="Button">Search
-            <select>
-                {DropdownNav(searchOpts, props.handleSearch)}
-            </select>
+    //dropdown for inventory
+    let inventory = 
+        <>
+            <button    
+                onClick={() => {props.handleSetStoreReport("All Stores")}}>
+                    Inventory Totals by Store
             </button>
-        </div>
-    )*/
-    let search = <button onClick={() => props.handleRemoveStore(true)}>Remove Store</button>               //<RemoveStore />
+            <button 
+                onClick={() => {props.handleSetStoreReport("Site")}}>
+                    Site Inventory Total
+            </button>    
+        </>
 
-    const reportOpts = {"options":["All Stores", "One Store"]}
-    let inventoryReport = (
-        <div>
-            <button>Generate Inventory Report
-            <select>
-                {DropdownNav(reportOpts, props.handleSetStoreReport)}
-            </select>
+    //dropdown for profits
+    let profit = 
+        <>
+            <button className="Button" onClick={() => {props.handleShowBalances("All Stores")}}>
+                Sales Reports by Store
             </button>
-        </div>
-    )
+            <button className="Button" onClick={() => {props.handleShowBalances("Site")}}>
+                Site Manager Profit
+            </button>
+        </>
 
-    /*
-    return (
-        <div>
-            <button className="Button" onClick={() => {props.handleLogout(true)}}>Logout</button>
-            <button className="Button" onClick={() => {props.handleSetStoreReport("All Stores")}}>Total Inventory Report</button>
-            <button className="Button" onClick={() => {props.handleShowBalances("All Stores")}}>Sales Reports</button>
-            {search}
-            <button className="Button">?</button>
-        </div>
-    )*/
 
     return (
         <div>
             <button className="Button" onClick={() => {props.handleLogout(true)}}>Logout</button>
-            <button className="Button" onClick={() => {props.handleSetStoreReport("All Stores")}}>Total Inventory Report</button>
-            <button className="Button" onClick={() => {props.handleShowBalances("All Stores")}}>Sales Reports</button>
-            {search}
+            <DropdownNav navName={"Inventory Reports"} navSelect={inventory}/>
+            <DropdownNav navName={"Sales Reports"} navSelect={profit} />
+            <button onClick={() => props.handleRemoveStore(true)}>Remove Store</button>  
             <button className="Button">?</button>
         </div>
     )

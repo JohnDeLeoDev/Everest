@@ -24,24 +24,11 @@ function compareBalance (a, b)
     }
 }
 
-//************************************************************** */
-function calculateInventoryBalance(siteInventoryData)
-/**
- * @brief helper function to calculate the inventory total per store
- *        in lambda, join is done to return an array of store names
- *          and computer prices
- * 
- * @parameters data recieved is in the format:
- *      siteInventoryData: {"name":Store.name, "price":Computer.price}
- * 
- * @returns the siteInventoryBalances - a Set of all names is keys, 
- *          value per key is the sum of all computers in the store
- ********************************************************************/
+function helpCalculate(siteInventoryData)
 {
     //create a dictionary init to 0
     //keys are unique store names
     let storeList = []
-    let balanceTable = []
 
     for (let i of siteInventoryData){
         storeList.push(i.name);
@@ -63,6 +50,27 @@ function calculateInventoryBalance(siteInventoryData)
         map.set(i.name, tmpVal)
     }
 
+    return map;
+}
+
+//************************************************************** */
+function calculateInventoryBalance(siteInventoryData)
+/**
+ * @brief helper function to calculate the inventory total per store
+ *        in lambda, join is done to return an array of store names
+ *          and computer prices
+ * 
+ * @parameters data recieved is in the format:
+ *      siteInventoryData: {"name":Store.name, "price":Computer.price}
+ * 
+ * @returns the siteInventoryBalances - a Set of all names is keys, 
+ *          value per key is the sum of all computers in the store
+ ********************************************************************/
+{
+    let balanceTable = []       //an html table
+
+    let map = helpCalculate(siteInventoryData)
+
     //get the return
     for (let [key, value] of map) {
         balanceTable.push(
@@ -74,15 +82,35 @@ function calculateInventoryBalance(siteInventoryData)
         console.log(key + " = " + value.toLocaleString());
     }
     
-
     return balanceTable
 }
 
+//****************************************************************
+function totalInventoryTotals(inventoryData)
+/**
+ * @brief calculate the total of all store totals (SITE WIDE TOTAL)
+ * 
+ * @parameters
+ *      
+ ********************************************************************/
+{
+    let sitewideTotal = 0;
+
+    //add values to map
+    for (let i of inventoryData){
+        sitewideTotal += i.price
+        console.log("total: " + sitewideTotal)
+    }
+
+    return sitewideTotal;
+} 
+
 //*********************************************************** */
-export function GenerateAllStoreInventoryReport(props)
+export function GenerateInventoryReport(props)
 /**
  * @brief generate inventory balances for every store
- *      TODO: put a button in to sort ascending/descending
+ *      TODO: add functionality to sort ascending/descending buttons
+ *      TODO: center the page display
  **************************************************************/
 {
     //const objArray = JSON.parse(props.stores);
@@ -92,18 +120,29 @@ export function GenerateAllStoreInventoryReport(props)
     const day = date.getDay();
     const month = date.getMonth();
     const year = date.getFullYear();
+    let siteTotal = 0;
 
     // GenerateReport triggers a GET request to the server
     const [siteInventoryRequest, setSiteInventoryRequest] = React.useState(null);
-    //this
+    
+    //set all store inventory balances
     const [siteInventoryBalances, setSiteInventoryBalances] = React.useState(null);
+    
+    //set the total inventory for entire site
+    const [siteInventoryTotal, setSiteInventoryTotal] = React.useState(null);
+
+    //ascending/descending sort for inventory - TODO - by final iteration
+    const [sortDirection, setSortDirection] = React.useState("");
 
     //set the balances from the data string
     function handleSiteInventoryBalances(balances){
-        console.log("Received balances")
+        console.log("Received inventory balances")
         let resp = JSON.parse(balances.body)
         console.log("RESPONSE", resp)
         let balanceSet = calculateInventoryBalance(resp)
+        siteTotal = totalInventoryTotals(resp)
+        console.log("SITE TOTAL " + siteTotal)
+        setSiteInventoryTotal(siteTotal.toLocaleString('us-US', { style: 'currency', currency: 'USD' }));
 
         //now set the values
         setSiteInventoryBalances(balanceSet)
@@ -112,17 +151,28 @@ export function GenerateAllStoreInventoryReport(props)
     }
 
     //handle the event
-    function handleSiteInventoryRequest(event) {
-        event.preventDefault();
-        setSiteInventoryRequest("SiteInventoryBalances");
-        
-    }
+    
+
+    if (props.setStoreReport === "Site"){
+        return (
+            <div>
+                <GetSiteInventoryBalancesRequest 
+                    handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
+                /> 
+                Total Site Inventory Value
+                <h3>{siteInventoryTotal}</h3>
+                <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
+            </div>
+        )
+    } else {
 
     return (
         <div>
-        <GetSiteInventoryBalancesRequest 
-            handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
-        />    
+            <button onClick={() =>{setSortDirection("Ascending")}}>Sort Ascending</button>
+            <button onClick={() => {setSortDirection("Descending")}}>Sort Descending</button>
+            <GetSiteInventoryBalancesRequest 
+                handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
+            />    
         <p> 
                 Store Inventory Total Report 
             </p>
@@ -130,16 +180,17 @@ export function GenerateAllStoreInventoryReport(props)
                 <thead>
                     <tr>
                         <th><h2>&nbsp; &nbsp; &nbsp; Store Name</h2></th>
-                        <th><h2>&nbsp; &nbsp; &nbsp; Balance</h2></th>
+                        <th><h2>&nbsp; &nbsp; &nbsp; Inventory Total</h2></th>
                     </tr>
                 </thead>
                 <tbody>
         {siteInventoryBalances}
         </tbody>
             </table>
+            <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
         </div>
     )
-    
+}
 /*
     if (props.descending){
         //build structure ascending
@@ -186,20 +237,4 @@ export function GenerateAllStoreInventoryReport(props)
     )*/
 }
 
-export function GenerateStoreInventoryReport(props) {
-    
-    //by store - search for store and click on store to go to store site
 
-    //by all stores - for each store on the site generate inventory report
-    //with computers listed in ascending or descending order by price
-
-    return (
-        <div>
-            Select Store to Generate Report
-            <SearchStores 
-                stores={props.stores}
-                user={props.user}
-                />
-        </div>
-    )
-}

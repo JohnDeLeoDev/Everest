@@ -6,12 +6,13 @@
 //*************************************************** */
 export function GenerateStoreBalance(props)
 /**
- * @brief Generate the Balance for One Store
+ * @brief Generate the Sales Balance for All Stores
  ****************************************************/
 {
     return (
         <div>
-            Get the balance from store with -storeID-
+            Get the balances from all stores
+            <button className="Button" onClick={() => {props.handleStoreBalance(false)}}>Close</button>
         </div>
     )
 }
@@ -27,7 +28,6 @@ export function GenerateSiteManagerBalance(props)
         <div>
             <h3>SITE MANAGER BALANCE</h3>
             <br/>
-            <h3>$670,887.26</h3>
             <button className="Button" onClick={() => {props.handleSiteManagerBalance(false)}}>Close</button>
         </div>
     )

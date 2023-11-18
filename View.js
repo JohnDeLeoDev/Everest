@@ -12,7 +12,7 @@ import InventoryReport from "./Owner/InventoryReport";
 
 //manager use cases
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
-import { GenerateAllStoreInventoryReport , GenerateStoreInventoryReport} from "./Manager/GenerateReport";
+import { GenerateInventoryReport} from "./Manager/GenerateReport";
 import RemoveStore from "./Manager/RemoveStore";
 
 //*********************************************** */
@@ -46,40 +46,35 @@ export function ManagerView(props)
 {
     let callback = ''
     console.log("MANAGER VIEW")
-    if (props.showBalances === "Site Manager"){
+
+    //profit for site manager
+    if (props.showBalances === "Site"){
         callback = <GenerateSiteManagerBalance
                handleSiteManagerBalance={props.handleSiteManagerBalance} />
-    } else if (props.showBalances === ''){
-
+    } else if (props.showBalances === 'All Stores'){
+        callback = <GenerateStoreBalance handleStoreBalance={props.handleStoreBalance}/>
     }
 
-    if (props.setStoreReport === "One Store" ){
-        //props.searchStores=(true)
-        callback = <GenerateStoreInventoryReport
-                        stores={props.stores}
-                        //searchStores={props.searchStores}
-                    />
-    } else if (props.setStoreReport === "All Stores") {
-        callback = <GenerateAllStoreInventoryReport
+    //get total inventory balance for all stores as one value
+    if (props.setStoreReport === "All Stores" || props.setStoreReport === "Site" ) {     //get total inventory for each store
+        callback = <GenerateInventoryReport
                     stores={props.stores}
+                    setStoreReport={props.setStoreReport}
+                    handleSetStoreReport={props.handleSetStoreReport}
                     />
     }
 
+    //search for stores
     if (props.search === "Stores"){
         callback = <SearchStores
             stores={props.stores}/>
-    } else if  (props.search === "Computers"){
+    } 
+    //search for computers
+    else if  (props.search === "Computers"){  
         callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}/>
     }
 
-    if (props.setStoreReport  === "One Store"){
-        callback = <GenerateStoreInventoryReport 
-                        descending={props.descending}
-                        stores={props.stores}
-                        handleSetStoreReport={props.handleSetStoreReport}
-                        user={props.user}/>
-    }
-
+    //remove store from site
     if (props.removeStore){
         callback = <RemoveStore 
                         handleRemoveStore={props.handleRemoveStore}/>
@@ -222,9 +217,9 @@ export default function View(props)
                     />
             </div>
         )
-    } else if (props.user[1] === 0){
+    } else if (props.user[1] === 0){            //STORE OWNER
         return (
-            <OwnerView 
+            <OwnerView                  
                 user={props.user}
                 modifyComp={props.modifyComp} 
                 removeComp={props.removeComp} handleRemoveComp={props.handleRemoveComp}  
@@ -243,7 +238,7 @@ export default function View(props)
                 />
         )
     } 
-    else if (props.user[1] === 1){
+    else if (props.user[1] === 1){          //MANAGER VIEW
         return (
         <div>
             <ManagerView 
@@ -251,6 +246,7 @@ export default function View(props)
                 handleSiteManagerBalance={props.handleSiteManagerBalance}
                 setStoreReport={props.setStoreReport}
                 handleSetStoreReport={props.handleSetStoreReport}
+                handleStoreBalance={props.handleStoreBalance}
                 descending={props.descending}
                 stores={props.stores}
                 search={props.search}
@@ -262,7 +258,7 @@ export default function View(props)
             />
         </div>
         )
-    } else {
+    } else {                //DEFAULT VIEW
         return (
             <div> 
             <Landing 

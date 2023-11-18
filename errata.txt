@@ -1,12 +1,35 @@
 TO DO:
     Site Manager Use Cases
-        Remove Store
-        put a button into GenerateStore__ to sort ascending or descending
+        1. Generate Site Balance - ITERATION 2
+        -----------------------------------------
+        2. Generate Store Profit Balances - FINAL
+        3. Add functionality to Ascending/Descending buttons - FINAL 
+    
+    Store Owner Use Cases
+        1. Remove Computer - must put 25$ into Site Manager Balance (profit) - ITERATION 2
+        --------------------------------------------------------------------
+        2. Modify Price - FINAL
+
+    Customer (Default) Use Cases
+        1. Search for Stores - returns listing of all stores on site, each store must 
+            be selectable to "go to" (display inventory for that store) - ITERATION 2
+        2. View Inventory for One Store - shows all computers in one store - ITERATION 2
+        ---------------------------------------------------------------------------------
+        3. Buy Computer - FINAL
+        4. Search Computers with filters - FINAL
+        5. Compare Two Computers - FINAL
+        
 
 Things to fix:
-    1. screen h is > 100% but does not need to be
-    3. adding the computer (pushing the button) seems to log out store owner - goes to landing
-    4. auto-adjust nav button width for N buttons out of the view (owner wraps)
+    HIGH PRIORITY
+        Site Manager - Remove Store
+            1. cascading delete 
 
+    LOW PRIORITY
+        General view items:
+            1. navigation dropdowns just going horizontal not vertical :((
+            2. auto-adjust nav button width for N buttons out of the view
 
+        SiteManager items:
+ *          2. center the page display
 

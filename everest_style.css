@@ -146,8 +146,6 @@ body p {
   }
 
 /* Top of Page navigation styles */
-
-
 nav a {
 	text-decoration: none;
 	font-family: 'Open Sans', sans-serif;
@@ -157,7 +155,6 @@ nav a {
 nav.horizontalNAV {
 	margin-left: 0%;
 	width: 95%;
-	
 }
 
 nav.horizontalNAV Button {
@@ -173,6 +170,27 @@ nav.horizontalNAV Button {
     margin-left: 5px;
 }
 
+/* The dropdown container */
+/*
+.dropdown {
+	overflow: hidden;
+	position: absolute;
+ }*/
+ 
+ .dropdown-cont {
+	position: relative;
+	display: block;
+	list-style-type: none;
+	z-index: 1;
+	}
+
+.dropdownSelect {
+	clear: left;
+	height: auto;
+	display: block;
+	z-index: 1;
+
+}
 
 nav.horizontalNAV Button:hover {
     background-color: white;

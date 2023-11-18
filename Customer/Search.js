@@ -7,7 +7,7 @@ import { SearchComputersRequest } from '../API';
  *          Search for Computer
  *          Search by Store
  * 
- * @author EM
+ * @author EM, JD
  * 
  * TODO:
  *      n/a
