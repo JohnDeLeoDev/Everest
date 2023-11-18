@@ -11,13 +11,20 @@ exports.handler = async (event) => {
         database: db_access.config.database
     });
 
+    /* Takes JSON body with:
+     * userID
+     * amount
+     */
 
+   
+
+    let storeOwner = event["userID"];
     let amount = event["amount"];
 
-    let siteQuery = "UPDATE Site_Balances SET balanceAmount = balanceAmount + ? WHERE (balanceName = 'Profit');";
+    let storeQuery = "UPDATE Stores SET storeBalance = storeBalance - ? WHERE storeOwner = ?";
 
-    let siteResult = await new Promise((resolve, reject) => {
-        pool.query(siteQuery, [amount], function (error, results, fields) {
+    let storeResult = await new Promise((resolve, reject) => {
+        pool.query(storeQuery, [amount, storeOwner], function (error, results, fields) {
             if (error) {
                 reject(error);
             }
@@ -25,10 +32,10 @@ exports.handler = async (event) => {
         });
     });
 
-    let siteQuery2 = "SELECT * FROM Site_Balances";
+    let storeQuery2 = "SELECT storeBalance FROM Stores WHERE storeOwner = ?";
 
-    let siteResult2 = await new Promise((resolve, reject) => {
-        pool.query(siteQuery2, function (error, results, fields) {
+    let storeResult2 = await new Promise((resolve, reject) => {
+        pool.query(storeQuery2, [storeOwner], function (error, results, fields) {
             if (error) {
                 reject(error);
             }
@@ -43,7 +50,7 @@ exports.handler = async (event) => {
         headers: {
             "Access-Control-Allow-Origin": "*"
         },
-        body: JSON.stringify(siteResult2)
+        body: JSON.stringify(storeResult2)
     };
 
     return response;

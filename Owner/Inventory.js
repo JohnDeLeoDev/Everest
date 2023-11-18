@@ -3,6 +3,7 @@ import { GetStoreInventory } from '../API';
 import { RemoveComputerRequest } from '../API';
 import { ModifyComputerRequest } from '../API';
 import { AddBalanceRequest } from '../API';
+import { RemoveBalanceRequest } from '../API';
 
 
 /**********************************************************
@@ -120,6 +121,7 @@ export default function Inventory(props) {
             {modifyCompSubmit && <ModifyComputerRequest json={modifyCompState} />}
             {removeCompResponse && <p>{removeCompResponse.message}</p>}
             {removeCompResponse && <AddBalanceRequest userID={props.user[0]} amount={"25"}/>}
+            {removeCompResponse && <RemoveBalanceRequest userID={props.user[0]} amount={"25"}/>}
             {removeCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
             {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
             {modifyCompRequest && <ModifyComputerRequest json={modifyCompRequest} handleModifyComputerResponse={handleModifyComputerResponse}/>}

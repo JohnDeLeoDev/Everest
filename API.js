@@ -497,10 +497,8 @@ export function ModifyComputerRequest(props)
 }
 
 export function AddBalanceRequest(props) {
-    let userID = props.userID;
     let amount = props.amount;
     let json = {
-        "userID": userID,
         "amount": amount
     };
 
@@ -534,6 +532,48 @@ export function AddBalanceRequest(props) {
             .then(data => {
                 if (data !== null && data !== undefined) {
                     handleAddBalanceResponse(data);
+                }
+            });
+    }, []);
+}
+
+export function RemoveBalanceRequest(props) {
+    let userID = props.userID;
+    let amount = props.amount;
+    let json = {
+        "userID": userID,
+        "amount": amount
+    };
+
+    const [removeBalanceRequest, setRemoveBalanceRequest] = React.useState(props.json);
+    const [removeBalanceResponse, setRemoveBalanceResponse] = React.useState(null);
+
+    function handleRemoveBalanceRequest(json) {
+        setRemoveBalanceRequest(json);
+    }
+
+    function handleRemoveBalanceResponse(response) {
+        if (response !== null && response !== undefined) {
+            console.log(response);
+        }
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(json)
+        };
+
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/removeBalanceSO', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleRemoveBalanceResponse(data);
                 }
             });
     }, []);
