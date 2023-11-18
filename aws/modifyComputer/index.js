@@ -15,6 +15,9 @@ exports.handler = async (event) => {
         database: db_access.config.database
     });
     
+    
+    var response;
+
     let inventoryID = event.inventoryID;
     let brand = event.brand;
     let model = event.model;
@@ -26,26 +29,74 @@ exports.handler = async (event) => {
     let processGen = event.processGen;
     let graphics = event.graphics;
 
+    let computer = {
+        "inventoryID": inventoryID,
+        "brand": brand,
+        "model": model,
+        "description": description,
+        "price": price,
+        "memory": memory,
+        "storageSize": storageSize,
+        "processor": processor,
+        "processGen": processGen,
+        "graphics": graphics
+    }
+
+    var errorMessages = [];
+    var resultMessages = [];
+    var response;
+
+    
     let compQuery = "UPDATE Computers SET brand = '" + brand + "', model = '" + model + "', description = '" + description + "', price = '" + price + "', memory = '" + memory + "', storageSize = '" + storageSize + "', processor = '" + processor + "', processGen = '" + processGen + "', graphics = '" + graphics + "' WHERE inventoryID = '" + inventoryID + "';";
 
     let compResult = await new Promise((resolve, reject) => {
         pool.query(compQuery, (error, results) => {
             if (error) {
-                console.log(error);
+                errorMessages.push(error);
                 resolve(false);
             } else {
+                resultMessages.push(results);
                 resolve(true);
             }
         });
     });
-
-    let response = {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        },
-        body: "Computer updated successfully."
-    };
+    
+    if (compResult) {
+        let compQuery2 = "SELECT * FROM Computers WHERE inventoryID = '" + inventoryID + "';";
+        let compResult2 = await new Promise((resolve, reject) => {
+            pool.query(compQuery2, (error, results) => {
+                if (error) {
+                    errorMessages.push(error);
+                    resolve(error);
+                } else {
+                    resultMessages.push(results);
+                    resolve(results);
+                }
+            });
+        });
+    
+        response = {
+            "isBase64Encoded": false,
+            "statusCode": 200,
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Methods": "*",    
+            },
+            "body": JSON.stringify(compResult2)
+        };
+    } else {
+        response = {
+            "isBase64Encoded": false,
+            "statusCode": 400,
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Methods": "*",    
+            },
+            "body": JSON.stringify(errorMessages)
+        }
+    }
     
     pool.end();
 

@@ -58,7 +58,7 @@ function getDefaultNav(props)
     const searchOpts = {"options":["Stores", "Computers"]}
     let search = (
         <div>
-            <button className="Button">Search
+            <button key={"searchButton"} className="Button">Search
             <select>
                 {DropdownNav(searchOpts, props.handleSearch)}
             </select>
@@ -68,11 +68,11 @@ function getDefaultNav(props)
 
     return(
         <div>
-            <button className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
-            <button className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
-            <button className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
+            <button key={"loginButton"} className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
+            <button key={"createStoreButton"} className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
+            <button key={"aboutButton"} className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
             {search}
-            <button className="Button">?</button>
+            <button key={"questionsButton"} className="Button">?</button>
         </div>
     )
 }
@@ -203,16 +203,16 @@ export function Header(props)
 
     return (
         <header>
-            <head>
-                <title>{viewName}</title>
-                <meta charset="UTF-8" />
-                <meta name="author" content="Ellen Mackey, John DeLeo" />
-                <meta name="keywords" content="computers, used computers, computer consignment" />
-                <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
+            
+            <title>{viewName}</title>
+            <meta charSet="UTF-8" />
+            <meta name="author" content="Ellen Mackey, John DeLeo" />
+            <meta name="keywords" content="computers, used computers, computer consignment" />
+            <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans" 
             rel="stylesheet"/>
-            </head>
-            <p class="logo"><img src={logo} height="150" width="150" align="left" alt="Everest"/></p>
-	        <nav class="horizontalNAV">
+            
+            <p className="logo"><img src={logo} height="150" width="150" align="left" alt="Everest"/></p>
+	        <nav className="horizontalNAV">
             {navList}
             </nav>
             <br clear="right" />
@@ -220,8 +220,8 @@ export function Header(props)
 	            Everest Computer Consignment
             </h1>
     
-            <h2 class="tagline">Second Hand Computer Sellers</h2>
-            {props.user !== null && props.user !== undefined ? <h2 class="tagline">Welcome {props.user[0]}</h2> : <></>}
+            <h2 className="tagline">Second Hand Computer Sellers</h2>
+            {props.user !== null && props.user !== undefined ? <h2 className="tagline">Welcome {props.user[0]}</h2> : <></>}
             {banner}
         </header>
     )

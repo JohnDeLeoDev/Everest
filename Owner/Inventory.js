@@ -47,8 +47,8 @@ export default function Inventory(props) {
         for (let [key, value] of formData.entries()) {
             json[key] = value;
         }
-        json["inventoryID"] = String(modifyCompState.inventoryID);
-        setModifyCompRequest(json);
+        json.inventoryID = String(modifyCompState.inventoryID);
+        setModifyCompRequest(JSON.stringify(json));
     }
 
     function handleModifyComputerResponse(json) {
@@ -121,7 +121,6 @@ export default function Inventory(props) {
             {removeCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
             {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
             {modifyCompRequest && <ModifyComputerRequest json={modifyCompRequest} handleModifyComputerResponse={handleModifyComputerResponse}/>}
-            {modifyCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
             {modifyCompState && modifyComputer(modifyCompState)}
             <table>
                 <thead>
