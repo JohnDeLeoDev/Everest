@@ -8,7 +8,7 @@ TO DO:
     Store Owner Use Cases
         1. Remove Computer - must put 25$ into Site Manager Balance (profit) - ITERATION 2
         --------------------------------------------------------------------
-        2. Modify Price - FINAL
+        2. Modify Computer Price - FINAL
 
     Customer (Default) Use Cases
         1. Search for Stores - returns listing of all stores on site, each store must 
@@ -22,13 +22,14 @@ TO DO:
 
 Things to fix:
     HIGH PRIORITY
-        Site Manager - Remove Store
-            1. cascading delete 
+        ------ WE ARE GOOD!!
+
+    MEDIUM PRIORITY
+        1. navigation dropdowns just going horizontal not vertical :((
 
     LOW PRIORITY
         General view items:
-            1. navigation dropdowns just going horizontal not vertical :((
-            2. auto-adjust nav button width for N buttons out of the view
+            1. auto-adjust nav button width for N buttons out of the view
 
         SiteManager items:
  *          2. center the page display

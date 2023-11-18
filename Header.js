@@ -56,7 +56,7 @@ function getDefaultNav(props)
  ************************************************************/
 {
     const searchOpts = {"options":["Stores", "Computers"]}
-    let search = (
+    /*let search = (
         <div>
             <button key={"searchButton"} className="Button">Search
             <select>
@@ -64,14 +64,15 @@ function getDefaultNav(props)
             </select>
             </button>
         </div>
-        ) 
+        ) */
 
     return(
         <div>
             <button key={"loginButton"} className="Button" onClick={() => {props.handleLogin(true)}}>Login</button>
             <button key={"createStoreButton"} className="Button" onClick={() => {props.handleCreateStore(true)}}>Create Store</button>
             <button key={"aboutButton"} className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
-            {search}
+            <button className="Button" onClick={() => {props.handleSearch("Stores")}}>Search Stores</button>
+            <button className="Button" onClick={() => {props.handleSearch("Computers")}}>Search Computers</button>
             <button key={"questionsButton"} className="Button">?</button>
         </div>
     )
@@ -92,7 +93,7 @@ function getStoreOwnerNav(props)
  ************************************************************/
 {
     const searchOpts = {"options":["Stores", "Computers"]}
-    let search = (
+    /*let search = (
         <div>
             <button className="Button">Search
             <select>
@@ -100,7 +101,7 @@ function getStoreOwnerNav(props)
             </select>
             </button>
         </div>
-        )
+        )*/
 
     return(
     <div>
@@ -108,7 +109,8 @@ function getStoreOwnerNav(props)
         <button className="Button" onClick={() => {props.handleAddComputer(true)}}> Add Computer </button>
         <button className="Button" onClick={() => {props.handleInventoryReport(true)}}> Generate Reports</button>
         <button className="Button" onClick={() => {props.handleAbout(true)}}> About Us</button>
-        {search}
+        <button className="Button" onClick={() => {props.handleSearch("Stores")}}>Search Stores</button>
+        <button className="Button" onClick={() => {props.handleSearch("Computers")}}>Search Computers</button>
         <button className="Button"> ? </button>
     </div>
     )
