@@ -68,7 +68,7 @@ export function ManagerView(props)
     //search for stores
     if (props.search === "Stores"){
         callback = <SearchStores
-            stores={props.stores}
+            stores={props.stores} handleStores={props.handleStores}
             handleListFilteredStores={props.handleListFilteredStores}
             />
     } 
@@ -124,7 +124,7 @@ function OwnerView(props)
 
     if (props.search === "Stores"){
         callback = <SearchStores
-            stores={props.stores}/>
+            stores={props.stores} handleStores={props.handleStores}/>
     } else if  (props.search === "Computers"){
         callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}/>
     }
@@ -253,6 +253,7 @@ export default function View(props)
                 inventoryReport={props.inventoryReport}
                 handleInventoryReport={props.handleInventoryReport}
                 search={props.search}
+                stores={props.stores} handleStores={props.handleStores}
                 about={props.about}
                 searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
                 />
@@ -268,7 +269,7 @@ export default function View(props)
                 handleSetStoreReport={props.handleSetStoreReport}
                 handleStoreBalance={props.handleStoreBalance}
                 descending={props.descending}
-                stores={props.stores}
+                stores={props.stores} handleStores={props.handleStores}
                 search={props.search}
                 user={props.user}
                 removeStore={props.removeStore} 
