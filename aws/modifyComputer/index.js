@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-
 const mysql = require('mysql');
 const db_access = require('/opt/nodejs/db_access');
 
@@ -14,33 +12,21 @@ exports.handler = async (event) => {
         password: db_access.config.password,
         database: db_access.config.database
     });
-    
-    
-    var response;
 
-    let inventoryID = event.inventoryID;
-    let brand = event.brand;
-    let model = event.model;
-    let description = event.description;
-    let price = event.price;
-    let memory = event.memory;
-    let storageSize = event.storageSize;
-    let processor = event.processor;
-    let processGen = event.processGen;
-    let graphics = event.graphics;
+    let body = event.body;
 
-    let computer = {
-        "inventoryID": inventoryID,
-        "brand": brand,
-        "model": model,
-        "description": description,
-        "price": price,
-        "memory": memory,
-        "storageSize": storageSize,
-        "processor": processor,
-        "processGen": processGen,
-        "graphics": graphics
-    }
+    body = JSON.parse(body);
+
+    let inventoryID = body.inventoryID;
+    let brand = body.brand;
+    let model = body.model;
+    let description = body.description;
+    let price = body.price;
+    let memory = body.memory;
+    let storageSize = body.storageSize;
+    let processor = body.processor;
+    let processGen = body.processGen;
+    let graphics = body.graphics;
 
     var errorMessages = [];
     var resultMessages = [];
@@ -74,28 +60,30 @@ exports.handler = async (event) => {
                 }
             });
         });
-    
-        response = {
+
+        response = 
+        {
             "isBase64Encoded": false,
             "statusCode": 200,
+            "body": JSON.stringify(compResult2),
             "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                "Access-Control-Allow-Methods": "*",    
-            },
-            "body": JSON.stringify(compResult2)
-        };
-    } else {
-        response = {
-            "isBase64Encoded": false,
-            "statusCode": 400,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                "Access-Control-Allow-Methods": "*",    
-            },
-            "body": JSON.stringify(errorMessages)
+                "content-type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
         }
+        
+    } else {
+        response = 
+        {
+            "isBase64Encoded": false,
+            "statusCode": 200,
+            "body": JSON.stringify(errorMessages),
+            "headers": {
+                "content-type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        }
+        
     }
     
     pool.end();

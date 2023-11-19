@@ -42,7 +42,8 @@ export default function Inventory(props) {
         setModifyCompState(computer);
     }
 
-    function handleModifyComputerSubmit() {
+    function handleModifyComputerSubmit(event) {
+        event.preventDefault();
         let form = document.getElementById("modify-form");
         let formData = new FormData(form);
         let json = {};
@@ -126,6 +127,8 @@ export default function Inventory(props) {
             {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
             {modifyCompRequest && <ModifyComputerRequest json={modifyCompRequest} handleModifyComputerResponse={handleModifyComputerResponse}/>}
             {modifyCompState && modifyComputer(modifyCompState)}
+            {modifyCompResponse && <p>{modifyCompResponse.message}</p>}
+
 
             <table>
                 <thead>

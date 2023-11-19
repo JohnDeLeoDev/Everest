@@ -457,37 +457,28 @@ export function ModifyComputerRequest(props)
 
     function handleModifyComputerResponse(response) {
         if (response !== null && response !== undefined) {
-            console.log(response);
+            props.handleModifyComputerResponse(response);
         }
     }
-    var json = JSON.parse(props.json)
 
-    var jsonBody = {
-        "inventoryID": json.inventoryID,
-        "brand": json.brand,
-        "model": json.model,
-        "description": json.description,
-        "price": json.price,
-        "memory": json.memory,
-        "storageSize": json.storageSize,
-        "processor": json.processor,
-        "processGen": json.processGen,
-        "graphics": json.graphics
-    }
+    let json = JSON.parse(props.json);
 
     useEffect(() => {
             const requestOptions = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Headers': '*',
                     'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(jsonBody)
+                body: JSON.stringify(json)
             };
 
-            fetch('https://zgah4gqjia.execute-api.us-east-1.amazonaws.com/default/modifyComputer', requestOptions)
-                .then(response => response.json())
+            fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/modifyComputer', requestOptions)
+                .then(response => {
+                    response.json();
+                    wait(10000);
+                
+                })
                 .then(data => {
                     if (data !== null && data !== undefined) {
                         handleModifyComputerResponse(data);
