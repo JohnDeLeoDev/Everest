@@ -15,6 +15,7 @@ export default function Inventory(props) {
     const [removeCompState, setRemoveCompState] = React.useState(null);
     const [removeCompResponse, setRemoveCompResponse] = React.useState(null);
     const [modifyCompState, setModifyCompState] = React.useState(null);
+    const [modifyCompForm, setModifyCompForm] = React.useState(null);
     const [modifyCompSubmit, setModifyCompSubmit] = React.useState(null);
     const [modifyCompResponse, setModifyCompResponse] = React.useState(null);
     const [modifyCompRequest, setModifyCompRequest] = React.useState(null);
@@ -25,6 +26,13 @@ export default function Inventory(props) {
 
     function handleModifyComputerResponse(json) {
         setModifyCompResponse(json);
+        setModifyCompState(null);
+        setModifyCompForm(null);
+
+    }
+
+    function handleModifyCompState(state) {
+        setModifyCompState(state);
     }
 
     function handleRemoveComputerResponse(json) {
@@ -39,7 +47,9 @@ export default function Inventory(props) {
     }
 
     function handleModifyComputerRequest(computer) {
+        setModifyCompForm(true);
         setModifyCompState(computer);
+        
     }
 
     function handleModifyComputerSubmit(event) {
@@ -56,9 +66,14 @@ export default function Inventory(props) {
 
     function handleModifyComputerResponse(json) {
         setModifyCompResponse(json);
+        setModifyCompState(null);
+        setModifyCompForm(null);
+        setModifyCompSubmit(null);
+        setModifyCompRequest(null);
     }
 
-    function modifyComputer(computer) {
+    function ModifyComputer(props) {
+        let computer = props.computer;
         let inventoryID = computer.inventoryID;
         let brand = computer.brand;
         let model = computer.model;
@@ -118,17 +133,20 @@ export default function Inventory(props) {
     return (
         <>
             <h1>Inventory</h1>
-            {removeCompState && <RemoveComputerRequest json={removeCompState} handleRemoveComputerResponse={handleRemoveComputerResponse}/>}
-            {modifyCompSubmit && <ModifyComputerRequest json={modifyCompState} />}
-            {removeCompResponse && <p>{removeCompResponse.message}</p>}
-            {removeCompResponse && <AddBalanceRequest userID={props.user[0]} amount={"25"}/>}
-            {removeCompResponse && <RemoveBalanceRequest userID={props.user[0]} amount={"25"}/>}
-            {removeCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
-            {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
-            {modifyCompRequest && <ModifyComputerRequest json={modifyCompRequest} handleModifyComputerResponse={handleModifyComputerResponse}/>}
-            {modifyCompState && modifyComputer(modifyCompState)}
-            {modifyCompResponse && <p>{modifyCompResponse.message}</p>}
 
+            <div>
+                {removeCompState && <RemoveComputerRequest json={removeCompState} handleRemoveComputerResponse={handleRemoveComputerResponse}/>}
+                {modifyCompSubmit && <ModifyComputerRequest json={modifyCompState} />}
+                {removeCompResponse && <p>{removeCompResponse.message}</p>}
+                {removeCompResponse && <AddBalanceRequest userID={props.user[0]} amount={"25"}/>}
+                {removeCompResponse && <RemoveBalanceRequest userID={props.user[0]} amount={"25"}/>}
+                {removeCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
+                {(props.user[0] !== null && props.user[0] !== undefined) ? <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/> : null}
+                {modifyCompRequest && <ModifyComputerRequest json={modifyCompRequest} handleModifyComputerResponse={handleModifyComputerResponse}/>}
+                {modifyCompForm && <ModifyComputer computer={modifyCompState}/>}
+                {modifyCompResponse && <GetStoreInventory userID={props.user[0]} handleInventory={props.handleInventory}/>}
+                {modifyCompResponse && <alert>Computer modified successfully!</alert>}
+            </div>
 
             <table>
                 <thead>

@@ -456,9 +456,7 @@ export function ModifyComputerRequest(props)
     }
 
     function handleModifyComputerResponse(response) {
-        if (response !== null && response !== undefined) {
-            props.handleModifyComputerResponse(response);
-        }
+        props.handleModifyComputerResponse(response);
     }
 
     let json = JSON.parse(props.json);
@@ -474,16 +472,8 @@ export function ModifyComputerRequest(props)
             };
 
             fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/modifyComputer', requestOptions)
-                .then(response => {
-                    response.json();
-                    wait(10000);
-                
-                })
-                .then(data => {
-                    if (data !== null && data !== undefined) {
-                        handleModifyComputerResponse(data);
-                    }
-                });
+                .then(response => response.json())
+                .then(data => handleModifyComputerResponse(data));
         }, []);
 }
 
