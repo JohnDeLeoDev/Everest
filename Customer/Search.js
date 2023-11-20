@@ -3,6 +3,7 @@ import { SearchComputersRequest } from '../API';
 import { testCustomerInventory } from "./testInventory"
 import { GenerateStore } from './GenerateInventory';
 import { ListStoresRequest } from '../API';
+import {CompareSelected} from './Compare';
 
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
@@ -48,6 +49,7 @@ export function SearchComputer(props)
 {
     const [filter, setFilter] = React.useState({});
     const [search, setSearch] = React.useState(null);
+    const [compareState, setCompareState] = React.useState(null);
 
     function handleSearch(e){
         e.preventDefault()
@@ -65,6 +67,23 @@ export function SearchComputer(props)
         }
         setFilter(filters);
         setSearch(true);
+    }
+
+    function handleCompare(e){
+        e.preventDefault()
+        const computers = document.querySelectorAll('input[type=checkbox]:checked');
+        let computerIDs = []
+        for (let c of computers){
+            computerIDs.push(c.value)
+        }
+        console.log(computerIDs)
+        setCompareState(computerIDs)
+    }
+
+    function handleCompareClear(e){
+        e.preventDefault()
+        setCompareState(null)
+        document.querySelectorAll('input[type=checkbox]:checked').forEach( el => el.checked = false );
     }
 
     //******************************************************************* */
@@ -93,6 +112,10 @@ export function SearchComputer(props)
                     {searchResults.map((computer) => {
                         return (
                             <div className="computer-card">
+                                <div className="compare-check">
+                                    <input type="checkbox" id="computer-compare" value={computer.inventoryID}/>
+                                    <label for="computer-compare">Compare</label>
+                                </div>
                                 <h2>{computer.brand} {computer.model}</h2> 
                                 <p>Price: {computer.price}</p>
                                 <p>Memory: {computer.memory}</p>
@@ -143,6 +166,17 @@ export function SearchComputer(props)
                 </div>
 
                 <button id='c3' onClick={handleSearch} >Search</button>
+                <div id="compare-selected">
+                    <button onClick={handleCompare} >Compare Selected</button>
+                
+                {compareState && (
+                    <div id="compare-selected">
+                        <button onClick={handleCompareClear} >Clear Compare</button>
+                    </div>
+                
+                )}
+                </div>
+                {compareState && <CompareSelected compareState={compareState} searchResults={props.searchResults}/>}
             </form>
             </div>
             <div id='results'>
@@ -152,6 +186,8 @@ export function SearchComputer(props)
                     json={filter} />}
                 {props.searchResults && computerCards()}
             </div>
+
+            
 
         </div>
     )
