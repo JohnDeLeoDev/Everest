@@ -265,7 +265,7 @@ export function SearchStores(props)
                 storeResults.push(
                     <div className="store-results">
                         <div className="store-card">
-                            <h2>Store {storeName}</h2>
+                            <h2>{storeName}</h2>
                         </div>
                         <div className="computer-results">
                             {customerStoreInventory[storeName].map((computer) => {
