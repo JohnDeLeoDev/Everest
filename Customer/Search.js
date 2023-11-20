@@ -4,6 +4,7 @@ import { testCustomerInventory } from "./testInventory"
 import { GenerateStore } from './GenerateInventory';
 import { ListStoresRequest } from '../API';
 import {CompareSelected} from './Compare';
+import { SearchStoreInventoryRequest } from '../API';
 
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
@@ -58,7 +59,6 @@ export function SearchComputer(props)
 
         let filters = {}
         for (let [key, value] of formData.entries()) {
-            console.log(key, value);
 
             if (filters[key.toLowerCase()] === undefined){
                 filters[key.toLowerCase()] = []
@@ -76,7 +76,6 @@ export function SearchComputer(props)
         for (let c of computers){
             computerIDs.push(c.value)
         }
-        console.log(computerIDs)
         setCompareState(computerIDs)
     }
 
@@ -223,32 +222,76 @@ export function SearchStores(props)
 
      //show one store's inventory
     function handleGenerateStore(){
-        //this is where we would call the function to make the request, but testing now
-        //everything will use the default test data
+        const stores = document.querySelectorAll('input[type=checkbox]:checked');
+        let storeIDs = [];
+        for (let s of stores){
+            storeIDs.push(s.value);
+        }
+        let json = {
+            "stores": storeIDs
+        }
 
-        //set storeID(s) from option here to pass back to app
-        props.handleStores("");
-        props.handleListFilteredStores(true)
-
-        //set the store inventory (customer view) from the request when store is chosen
-        //props.handleCustomerStoreInventory(response)
+        setGenerateStore(json);        
     }
 
-    // function generateSelector(){
-    //make check boxes
     let storeSearch = []
     if(stores !== null){
         for (let s of stores){
             storeSearch.push(
                 <tr>
                     <td>
-                    <input type={submit} name={s.storeID} value={s.name}/>   
+                    <input type={submit} name={s.name} value={s.storeID}/>   
                     <label>{s.name}</label>
-                    <button onClick={() => handleGenerateStore()}>GO</button>
                     </td>
                 </tr> 
             )
         }
+    }
+
+    function storeResults(){
+        var storeResults = [];
+
+
+        if (generateStore === null || generateStore.length === 0) {
+            return (
+                <div className="search-results">
+                    <div className="computer-card">
+                        <h2>No results found</h2>
+                    </div>
+                </div>
+            )
+        } else {
+            for (let storeName in customerStoreInventory){
+                storeResults.push(
+                    <div className="store-results">
+                        <div className="store-card">
+                            <h2>Store {storeName}</h2>
+                        </div>
+                        <div className="computer-results">
+                            {customerStoreInventory[storeName].map((computer) => {
+                                    return (
+                                        <div className="computer-card">
+                                            <h2>{computer.brand} {computer.model}</h2> 
+                                            <p>Price: {computer.price}</p>
+                                            <p>Memory: {computer.memory}</p>
+                                            <p>Storage: {computer.storageSize}</p>
+                                            <p>Processor: {computer.processor}</p>
+                                            <p>Process Generation: {computer.processGen}</p>
+                                            <p>Graphics: {computer.graphics}</p>
+                                        </div>
+                                    )
+                                })}
+                        </div>
+                    </div>
+                )
+            }
+            return (
+                <>
+                    {storeResults}
+                </>
+            )
+        }
+        
     }
 
     return (
@@ -263,6 +306,11 @@ export function SearchStores(props)
             </div>
             <div id='results'>
                 {<ListStoresRequest handleStores={props.handleStores} stores={props.stores}/>}
+                <button onClick={handleGenerateStore}>GO</button>
+            </div>
+            <div id='inventory-results'>
+                {generateStore && <SearchStoreInventoryRequest json={generateStore} handleCustomerStoreInventory={setCustomerStoreInventory}/>}
+                {customerStoreInventory && storeResults()}
             </div>
         </div>
     )

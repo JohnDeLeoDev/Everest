@@ -623,3 +623,43 @@ export function ListStoresRequest(props)
 
     }, []);
 }
+
+//**************************************************************** */
+export function SearchStoreInventoryRequest(props) {
+    const [searchStoreInventoryRequest, setSearchStoreInventoryRequest] = React.useState(props.json);
+    const [searchStoreInventoryResponse, setSearchStoreInventoryResponse] = React.useState(null);
+
+    function handleSearchStoreInventoryRequest(json) {
+        setSearchStoreInventoryRequest(json);
+    }
+
+    function handleSearchStoreInventoryResponse(response) {
+        if (response !== null && response !== undefined) {
+            props.handleCustomerStoreInventory(response);
+        }
+    }
+
+    useEffect(() => {
+        if (props.json !== null && props.json !== undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(props.json)
+            };
+            console.log(requestOptions);
+            fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/searchStoreInventory', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    if (data !== null && data !== undefined) {
+                        handleSearchStoreInventoryResponse(data);
+                    }
+                });
+        } else {
+            console.log("Error occurred.");
+        }
+        }, [props.json]);
+}
