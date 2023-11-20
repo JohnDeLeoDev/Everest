@@ -1,5 +1,7 @@
+import { type } from '@testing-library/user-event/dist/type';
 import { wait } from '@testing-library/user-event/dist/utils';
 import React, { useEffect, useState } from 'react'; 
+import { test_stores } from './Manager/testStores';
 
 //**************************************************************** */
 export function LoginRequest(props) 
@@ -11,7 +13,8 @@ export function LoginRequest(props)
  * @returns
  *      success (200) or error
  ********************************************************************/
-{
+{   // PRE POPULATE THE LOGINREQUEST WITH ALL THE JSON DATA PASSED TO THE FUNCTION
+    // THIS IS THE USERNAME AND PASSWORD INFO COLLECTED FROM THE LOGIN VIEW
     const [loginRequest, setLoginRequest] = React.useState(props.json);
     const [loginResponse, setLoginResponse] = React.useState(null);
 
@@ -317,7 +320,6 @@ export function GetStoreInventory(props)
         }
     }
 
-
     useEffect(() => {
         if (props.userID !== null && props.userID !== undefined) {
             let json = {
@@ -585,4 +587,39 @@ export function GetCustomerStoreInventory(props)
         {computer.processGen}
         {computer.graphics}
     */
+}
+
+
+//**************************************************************** */
+export function ListStoresRequest(props) 
+/**
+ * @brief get the a list of all stores in the database
+ * @parameters
+ *      
+ *      
+ * @returns
+ *      list of stores
+ *      
+ *****************************************************************************/
+{
+   function handleListStoresResponse(response) { 
+    
+
+        if (response !== null && response !== undefined) {
+                
+                props.handleStores(response)
+            }
+    }
+
+    useEffect(() => {
+    
+        fetch('https://nrhklg72za.execute-api.us-east-1.amazonaws.com/default/getStores')
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleListStoresResponse(data);
+                }
+            });
+
+    }, []);
 }

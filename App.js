@@ -28,7 +28,7 @@ function App() {
   const [inventoryReport, setInventoryReport] = React.useState(null);
   const [modifyComp, setModifyComp] = React.useState(false, null, false);
   const [removeComp, setRemoveComp] = React.useState(false, null, false);
-  const [stores, setStores] = React.useState(test_stores);  //init test data for stores
+  const [stores, setStores] = React.useState(null);  //init test data for stores
   const [showStores, setShowStores] = React.useState(null); //the filter boxes - all stores
   const [descending, setDescending] = React.useState(null);
   const [showBalances, setShowBalances] = React.useState(null); 
@@ -106,7 +106,7 @@ function App() {
    //load stores 
   //json array of store objects
   function handleStores(stores){
-    clear()
+    // clear()
     setStores(stores)
   }
 
