@@ -595,14 +595,13 @@ export function ListStoresRequest(props)
 /**
  * @brief get the a list of all stores in the database
  * @parameters
- *      
+ *      handleStores: the response from the request
  *      
  * @returns
  *      list of stores
  *      
  *****************************************************************************/
 {
-    console.log("IN LIST STORES")
    function handleListStoresResponse(response) { 
     
         if (response !== null && response !== undefined) {
@@ -647,7 +646,6 @@ export function SearchStoreInventoryRequest(props)
             props.handleCustomerStoreInventory(response);
         }
     }
-    console.log("INVENTORY REQ")
 
     useEffect(() => {
         if (props.json !== null && props.json !== undefined) {
@@ -670,7 +668,6 @@ export function SearchStoreInventoryRequest(props)
                 });
         } else {
             console.log("Error occurred.");
-            console.log(props.json)
         }
         }, [props.json]);
 }

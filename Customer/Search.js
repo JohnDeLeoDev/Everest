@@ -258,8 +258,7 @@ export function SearchStores(props)
                     <input type={submit} name={s.name} value={s.storeID}/>   
                     <a 
                         id="link"
-                        onClick={() => {handleReturnOneStoreInventory(s.storeID)
-                            } }
+                        onClick={() => {handleReturnOneStoreInventory(s.storeID)} }
                         style={{cursor: 'pointer'}}>
                             {s.name}
                     </a>
@@ -319,6 +318,9 @@ export function SearchStores(props)
     return (
         <div>
             SEARCH STORES
+            <p>Click Store Name to go to store inventory, select multiple stores
+                 to display computers from all stores selected.
+            </p>
             <div id="c1">
                 <table>
                     <tbody>

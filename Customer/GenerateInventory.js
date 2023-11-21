@@ -77,15 +77,8 @@ export function GenerateStore(props)
 
     let displayComputers = {}
 
-    if (inventory == null || inventory == undefined){
-        displayComputers =
-            <div>
-                <h2>Empty Store</h2>
-            </div>
-            
-    } else {
-       displayComputers = <>{storeResults(inventory)}</>
-    }
+    displayComputers = <>{storeResults(inventory)}</>
+    
 
     return (
         <div>
