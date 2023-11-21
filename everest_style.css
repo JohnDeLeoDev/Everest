@@ -191,6 +191,12 @@ body p {
 	margin: 10px;
 }
 
+#highlight-text{
+	color: yellow;
+}
+
+
+
 /* Top of Page navigation styles */
 nav a {
 	text-decoration: none;
@@ -396,7 +402,7 @@ nav.policy a {
 	text-decoration: none;
 }
 
-nav.policy a:hover {
+a:hover {
 	color: rgb(0, 255, 255);
 }
 	

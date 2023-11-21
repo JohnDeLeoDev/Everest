@@ -602,9 +602,9 @@ export function ListStoresRequest(props)
  *      
  *****************************************************************************/
 {
+    console.log("IN LIST STORES")
    function handleListStoresResponse(response) { 
     
-
         if (response !== null && response !== undefined) {
                 
                 props.handleStores(response)
@@ -625,7 +625,16 @@ export function ListStoresRequest(props)
 }
 
 //**************************************************************** */
-export function SearchStoreInventoryRequest(props) {
+export function SearchStoreInventoryRequest(props) 
+/**
+ * @brief function to get the inventory from selecting store(s) to retrieve 
+ *        ** use case from req. doc is ONE store or ALL Stores **
+ * @parameters
+ *      json: the request from calling function
+ *      handleCustomerStoreInventory: set the store inventory from 
+ *          response
+ *********************************************************************/
+{
     const [searchStoreInventoryRequest, setSearchStoreInventoryRequest] = React.useState(props.json);
     const [searchStoreInventoryResponse, setSearchStoreInventoryResponse] = React.useState(null);
 
@@ -638,6 +647,7 @@ export function SearchStoreInventoryRequest(props) {
             props.handleCustomerStoreInventory(response);
         }
     }
+    console.log("INVENTORY REQ")
 
     useEffect(() => {
         if (props.json !== null && props.json !== undefined) {
@@ -660,6 +670,7 @@ export function SearchStoreInventoryRequest(props) {
                 });
         } else {
             console.log("Error occurred.");
+            console.log(props.json)
         }
         }, [props.json]);
 }

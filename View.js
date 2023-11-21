@@ -15,6 +15,7 @@ import InventoryReport from "./Owner/InventoryReport";
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
 import { GenerateInventoryReport} from "./Manager/GenerateReport";
 import RemoveStore from "./Manager/RemoveStore";
+import { ListStores } from "./Customer/ListStores.js";
 
 //*********************************************** */
 function Footer()
@@ -181,7 +182,7 @@ export function Landing(props)
     }
 
     if(props.listFilteredStores == true){
-        callback = <GenerateStore 
+        callback = <ListStores
             listFilteredStores={props.listFilteredStores}
             customerStoreInventory={props.customerStoreInventory}
         />

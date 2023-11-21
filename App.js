@@ -3,7 +3,6 @@ import './everest_style.css'
 import { Header } from './Header';
 import View from './View';
 import {testInventory} from './Owner/testInventory.js';
-import { testCustomerInventory } from './Customer/testInventory.js';
 import { test_stores } from './Manager/testStores';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
 
@@ -37,7 +36,7 @@ function App() {
   const [storeReport, setStoreReport] = React.useState(null);
   const [removeStore, setRemoveStore] = React.useState(null);
   const [listFilteredStores, setListFilteredStores] = React.useState(null); //view selected stores inventory
-  const [customerStoreInventory, setCustomerStoreInventory] = React.useState(testCustomerInventory);
+  const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
 
 
   //clear function should be called between view to remove old render
@@ -124,6 +123,7 @@ function App() {
 
   //function to populate the inventory for the filtered store display
   function handleCustomerStoreInventory(inventory){
+    console.log("inventory in app: ", inventory)
     setCustomerStoreInventory(inventory)
   }
 

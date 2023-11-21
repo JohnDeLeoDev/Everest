@@ -5,6 +5,7 @@ import { GenerateStore } from './GenerateInventory';
 import { ListStoresRequest } from '../API';
 import {CompareSelected} from './Compare';
 import { SearchStoreInventoryRequest } from '../API';
+import { storeResults } from './GenerateInventory';
 
 /***************************************************************
  * @brief File to implement Customer Search by Filter Feature
@@ -196,8 +197,13 @@ export function SearchComputer(props)
 export function SearchStores(props)
 /**
  * @brief function to search for all stores on site
- *        **when calling from manager view, use radio buttons
- *        **when calling from default view, use checkboxes
+ * 
+ * @parameters
+ *      stores: stores to display
+ *      handleCustomerInventory: 
+ *          this sets the storeID to open a single store page for one store
+ *          it is used to hold all stores in multi-search option
+ *      
  *************************************************************/
 {
 
@@ -206,21 +212,29 @@ export function SearchStores(props)
     //     {<ListStoresRequest handleStores={props.handleStores} stores={props.stores}/>}
     // </div>
 
-    
 
     let stores = props.stores
     let submit = "checkbox"
-    if (props.user === 'manager'){
-        submit = 'radio'
-    }
 
     //these to set the inventory from the requested Store(s)
     const [generateStore, setGenerateStore] = React.useState(null);
-    // const [customerStoreInventory, setCustomerStoreInventory] = React.useState(testCustomerInventory);
     const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
 
 
-     //show one store's inventory
+     //one case is to click on the store name to "link" to 
+     function handleReturnOneStoreInventory(storeID){
+        let storeIDs = []
+        storeIDs.push(storeID)
+        let json = {"stores":storeIDs}
+        console.log(json)
+
+        props.handleCustomerStoreInventory(json)
+        props.handleStores("");
+        props.handleListFilteredStores(true)
+        
+     }
+
+     //show multiple store's inventory (selected with checkboxes)
     function handleGenerateStore(){
         const stores = document.querySelectorAll('input[type=checkbox]:checked');
         let storeIDs = [];
@@ -234,6 +248,7 @@ export function SearchStores(props)
         setGenerateStore(json);        
     }
 
+    //display the stores to go to or display computers from
     let storeSearch = []
     if(stores !== null){
         for (let s of stores){
@@ -241,16 +256,22 @@ export function SearchStores(props)
                 <tr>
                     <td>
                     <input type={submit} name={s.name} value={s.storeID}/>   
-                    <label>{s.name}</label>
+                    <a 
+                        id="link"
+                        onClick={() => {handleReturnOneStoreInventory(s.storeID)
+                            } }
+                        style={{cursor: 'pointer'}}>
+                            {s.name}
+                    </a>
                     </td>
                 </tr> 
             )
         }
     }
 
+    //this is the function for the filter boxes - multi-select
     function storeResults(){
         var storeResults = [];
-
 
         if (generateStore === null || generateStore.length === 0) {
             return (
@@ -294,8 +315,9 @@ export function SearchStores(props)
         
     }
 
+    //search stores with button to set filters by multiple stores
     return (
-        <div className="bodybag">
+        <div>
             SEARCH STORES
             <div id="c1">
                 <table>
@@ -310,8 +332,9 @@ export function SearchStores(props)
             </div>
             <div id='inventory-results'>
                 {generateStore && <SearchStoreInventoryRequest json={generateStore} handleCustomerStoreInventory={setCustomerStoreInventory}/>}
-                {customerStoreInventory && storeResults()}
+                {customerStoreInventory && storeResults(generateStore, customerStoreInventory)}
             </div>
         </div>
     )
+
 }

@@ -3,11 +3,61 @@
 /*****************************************************************************************
  * @author EM
  * @date First draft - Nov 18 2023
+ * update Nov 20, adding display function from JD
  * 
  * This file will provide the Customer view to "go to" a store from the Search > Stores 
  *      navigation selection
  * The page will display all of the computers for the store (storeID)
  ****************************************************************************************/
+
+//this is the function for the filter boxes
+export function storeResults(customerStoreInventory){
+    var storeResults = [];
+
+    if (customerStoreInventory === null 
+        || customerStoreInventory === undefined 
+        || customerStoreInventory === 0) {
+        return (
+            <div className="search-results">
+                <div className="computer-card">
+                    <h2>No results found</h2>
+                </div>
+            </div>
+        )
+    } else {
+        for (let storeName in customerStoreInventory){
+            storeResults.push(
+                <div className="store-results">
+                    <div className="store-card">
+                        <h1 className="banner">{storeName}</h1>
+                    </div>
+                    <div className="computer-results">
+                        {customerStoreInventory[storeName].map((computer) => {
+                                return (
+                                    <div className="computer-card">
+                                        <h2>{computer.brand} {computer.model}</h2> 
+                                        <p>Price: {computer.price}</p>
+                                        <p>Memory: {computer.memory}</p>
+                                        <p>Storage: {computer.storageSize}</p>
+                                        <p>Processor: {computer.processor}</p>
+                                        <p>Process Generation: {computer.processGen}</p>
+                                        <p>Graphics: {computer.graphics}</p>
+                                        <p className="highlight-text">{computer.description}</p>
+                                    </div>
+                                )
+                            })}
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <>
+                {storeResults}
+            </>
+        )
+    }
+    
+}
 
 //************************************************************************************* */
 export function GenerateStore(props)
@@ -21,9 +71,9 @@ export function GenerateStore(props)
  ***************************************************************************************/
 {
 
-    let inventory = props.customerStoreInventory;
+    let inventory = props.computers;
 
-    console.log("IN GENERATE STORE");
+    console.log(inventory)
 
     let displayComputers = {}
 
@@ -33,31 +83,13 @@ export function GenerateStore(props)
                 <h2>Empty Store</h2>
             </div>
             
-        
     } else {
-        displayComputers =
-        <div>
-            {inventory.map((computer) => (
-                <div className="computer-card">
-                    <h2>{computer.brand} {computer.model}</h2> 
-                    <p>Description: {computer.description}</p>
-                    <p>Price: {computer.price}</p>
-                    <p>Memory: {computer.memory}</p>
-                    <p>Storage: {computer.storageSize}</p>
-                    <p>Processor: {computer.processor}</p>
-                    <p>Process Generation: {computer.processGen}</p>
-                    <p>Graphics: {computer.graphics}</p>
-                    <br/>
-                    <button>Buy</button>
-                </div>
-            ))}
-        </div>
-        
+       displayComputers = <>{storeResults(inventory)}</>
     }
 
     return (
         <div>
-            <h3>Store Name</h3>
+            <h3></h3>
             <div>
                 {displayComputers}
             </div>
