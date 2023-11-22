@@ -1,3 +1,6 @@
+import React from 'react';
+import {SiteMgrBalanceRequest} from '../API.js';
+
 /**
  * @brief Generate reports for site manager
  */
@@ -29,12 +32,15 @@ export function GenerateSiteManagerBalance(props)
  *  @brief Generate the Site Manager's Balance
  *******************************************************/
 {
-    //this is one value we retrieve from database?
+    const [siteMgrBalanceRequest, setSiteMgrBalanceRequest] = React.useState(true);    
+
     return (
         <div>
             <h3>SITE MANAGER BALANCE</h3>
             <br/>
+            <p>{props.siteBalance}</p>
             <button className="Button" onClick={() => {props.handleSiteManagerBalance(false)}}>Close</button>
+            {siteMgrBalanceRequest && <SiteMgrBalanceRequest  handleSiteBalance={props.handleSiteBalance}/>}
         </div>
     )
 }

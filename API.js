@@ -671,3 +671,38 @@ export function SearchStoreInventoryRequest(props)
         }
         }, [props.json]);
 }
+
+export function SiteMgrBalanceRequest(props) {
+    const [siteMgrBalanceRequest, setSiteMgrBalanceRequest] = React.useState(props.json);
+    const [siteMgrBalanceResponse, setSiteMgrBalanceResponse] = React.useState(null);
+
+    function handleSiteMgrBalanceRequest(json) {
+        setSiteMgrBalanceRequest(json);
+    }
+
+    function handleSiteMgrBalanceResponse(response) {
+        let body = response.body;
+        body = JSON.parse(body);
+        let balanceAmount = body.balanceAmount;
+        props.handleSiteBalance(balanceAmount);   
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*'
+            },
+        };
+        console.log(requestOptions);
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/reportSiteMgrBalance', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleSiteMgrBalanceResponse(data);
+                }
+            });
+        }, [props.json]);
+}

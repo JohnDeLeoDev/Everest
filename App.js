@@ -37,6 +37,7 @@ function App() {
   const [removeStore, setRemoveStore] = React.useState(null);
   const [listFilteredStores, setListFilteredStores] = React.useState(null); //view selected stores inventory
   const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
+  const [siteBalance, setSiteBalance] = React.useState(null);
 
 
   //clear function should be called between view to remove old render
@@ -274,6 +275,10 @@ function App() {
     setRemoveStore(bool);
   }
 
+  function handleSiteBalance(balance) {
+    setSiteBalance(balance);
+  }
+
   //------------------------------ END SITE MANAGER VIEW
 
   //App returns a header and a view
@@ -330,6 +335,7 @@ function App() {
             handleCreateStore={handleCreateStore}
             listFilteredStores={listFilteredStores} handleListFilteredStores={handleListFilteredStores}
             customerStoreInventory={customerStoreInventory} handleCustomerStoreInventory={handleCustomerStoreInventory}
+            siteBalance={siteBalance} handleSiteBalance={handleSiteBalance}
             />
     </div>
   );

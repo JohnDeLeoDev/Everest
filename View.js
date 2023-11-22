@@ -52,7 +52,9 @@ export function ManagerView(props)
     //profit for site manager
     if (props.showBalances === "Site"){
         callback = <GenerateSiteManagerBalance
-               handleSiteManagerBalance={props.handleSiteManagerBalance} />
+               handleSiteManagerBalance={props.handleSiteManagerBalance}
+               siteBalance={props.siteBalance} handleSiteBalance={props.handleSiteBalance}
+               />
     } else if (props.showBalances === 'All Stores'){
         callback = <GenerateStoreBalance handleStoreBalance={props.handleStoreBalance}/>
     }
@@ -277,7 +279,8 @@ export default function View(props)
                 handleRemoveStore={props.handleRemoveStore}
                 inventory={props.inventory}
                 searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
-            />
+                siteBalance={props.siteBalance} handleSiteBalance={props.handleSiteBalance}
+                />
         </div>
         )
     } else {                //DEFAULT VIEW
