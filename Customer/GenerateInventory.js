@@ -43,6 +43,7 @@ export function storeResults(customerStoreInventory){
                                         <p>Process Generation: {computer.processGen}</p>
                                         <p>Graphics: {computer.graphics}</p>
                                         <p className="highlight-text">{computer.description}</p>
+                                        <button>Buy</button>
                                     </div>
                                 )
                             })}

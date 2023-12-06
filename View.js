@@ -183,7 +183,7 @@ export function Landing(props)
         />
     }
 
-    if(props.listFilteredStores == true){
+    if(props.listFilteredStores === true){
         callback = <ListStores
             listFilteredStores={props.listFilteredStores}
             customerStoreInventory={props.customerStoreInventory}
