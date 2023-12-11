@@ -38,7 +38,9 @@ function App() {
   const [listFilteredStores, setListFilteredStores] = React.useState(null); //view selected stores inventory
   const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
   const [siteBalance, setSiteBalance] = React.useState(null);
-  const [buyComputer, setBuyComputer] = React.useState(null, null, null);
+  const [buyComputer, setBuyComputer] = React.useState(null);
+  const [computerInfo, setcomputerInfo] = React.useState(null);
+  const [coordinatesIntake, setCoordinatesIntake] = React.useState(null, null);
   const [customerCoordinates, setCustomerCoordinates] = React.useState(0.0, 0.0); //customer coordinates
 
 
@@ -57,7 +59,8 @@ function App() {
     setSearch(null)
     setRemoveStore(null)
     setListFilteredStores(false)
-    setBuyComputer(false, -1, 0)
+    setCoordinatesIntake(false)
+    setBuyComputer(false)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -132,15 +135,25 @@ function App() {
   }
 
   //function to get to the coordinate entry view after clicking "Buy" button
-  function handleBuyComputer(bool, computerID, price){
+  function handleCoordinatesIntake(bool, computer){
     clear();
-    setBuyComputer(bool, computerID, price);
+    setCoordinatesIntake(bool)
+    setcomputerInfo(computer)
+    console.log("computer id: " + computer.inventoryID + " price: " + computer.price)
+  }
+
+  //function to "Buy" after getting coordinates
+  function handleBuyComputer(bool){
+    clear();
+    setBuyComputer(bool);
   }
 
   //function to get the customer's coordinates when they're buying a computer
   function handleCustomerCoordinates(lat, lon){
+    clear()
     console.log("coordinates: " + lat + "," + lon)
     setCustomerCoordinates(lat, lon)
+    setBuyComputer(true)
   }
 
   //ABOUT US ##################################
@@ -351,8 +364,10 @@ function App() {
             listFilteredStores={listFilteredStores} handleListFilteredStores={handleListFilteredStores}
             customerStoreInventory={customerStoreInventory} handleCustomerStoreInventory={handleCustomerStoreInventory}
             siteBalance={siteBalance} handleSiteBalance={handleSiteBalance}
+            coordinatesIntake={coordinatesIntake} handleCoordinatesIntake={handleCoordinatesIntake} 
             customerCoordinates={customerCoordinates} handleCustomerCoordinates={handleCustomerCoordinates}
             buyComputer={buyComputer} handleBuyComputer={handleBuyComputer}
+            computerInfo={computerInfo}
             />
     </div>
   );

@@ -11,7 +11,7 @@ import {Login} from './Login.js';
 import About from './About.js';
 import { SearchComputer, SearchStores } from "./Customer/Search";
 import { GenerateStore } from "./Customer/GenerateInventory.js";
-import { GetCoordinatesView } from "./Customer/Buy.js";
+import { GetCoordinatesView, Buy } from "./Customer/Buy.js";
 import { ListStores } from "./Customer/ListStores.js";
 
 //owner use cases
@@ -174,6 +174,8 @@ export function Landing(props)
                         <p>Find rare models and features at low costs</p>
                         <p>New deals every day</p>
                     </div>
+    
+    //LOGIN
     if (props.login === true){
         callback = <Login 
             failedLogin={props.failedLogin} 
@@ -182,22 +184,24 @@ export function Landing(props)
         />
     } 
 
+    //SEARCH STORES or COMPUTERS
     if (props.search === "Stores"){
         callback = <SearchStores
             stores={props.stores}
             handleStores={props.handleStores}
             handleListFilteredStores={props.handleListFilteredStores}
             handleCustomerStoreInventory={props.handleCustomerStoreInventory}
-            handleBuyComputer={props.handleBuyComputer}
+            handleCoordinatesIntake={props.handleCoordinatesIntake}
         />
     } else if  (props.search === "Computers"){
         callback = <SearchComputer 
             searchResults={props.searchResults} 
             handleSearchResults={props.handleSearchResults}
-            handleBuyComputer={props.handleBuyComputer}
+            handleCoordinatesIntake={props.handleCoordinatesIntake}
         />
     }
 
+    //STORE FILTERS
     if(props.listFilteredStores === true){
         callback = <ListStores
             listFilteredStores={props.listFilteredStores}
@@ -205,17 +209,28 @@ export function Landing(props)
         />
     }
 
+    //CREATE STORE
     if (props.createStore=== true){
         callback = <Create handleFailedStore={props.handleFailedStore} failedCreateStore={props.failedCreateStore} storeCreated={props.storeCreated} handleStoreCreated={props.handleStoreCreated} handleCreateStore={props.handleCreateStore}  /> 
     }
 
+    //ABOUT US PAGE
     if (props.about === true){
         callback = <About/>
     }
 
-    if (props.buyComputer === true){
+    //GET CUSTOMER COORDINATES
+    if (props.coordinatesIntake){
         callback = <GetCoordinatesView
-            handleCustomerCoordinates={props.handleCustomerCoordinates}/>
+            handleCustomerCoordinates={props.handleCustomerCoordinates}
+            handleCoordinatesIntake={props.handleCoordinatesIntake}/>
+    }
+
+    //BUY COMPUTER
+    if (props.buyComputer === true){
+        callback = <Buy 
+            customerCoordinates={props.customerCoordinates}
+            computerInfo={props.computerInfo}/>
     }
 
     return (
@@ -261,6 +276,9 @@ export default function View(props)
                     handleBuyComputer={props.handleBuyComputer}
                     customerCoordinates={props.customerCoordinates}
                     handleCustomerCoordinates={props.handleCustomerCoordinates}
+                    handleCoordinatesIntake={props.handleCoordinatesIntake}
+                    coordinatesIntake={props.coordinatesIntake}
+                    computerInfo={props.computerInfo}
                    />
             </div>
         )
@@ -333,6 +351,9 @@ export default function View(props)
                 handleBuyComputer={props.handleBuyComputer}
                 customerCoordinates={props.customerCoordinates}
                 handleSetCustomerCoordinates={props.handleSetCustomerCoordinates} 
+                handleCoordinatesIntake={props.handleCoordinatesIntake}
+                coordinatesIntake={props.coordinatesIntake}
+                computerInfo={props.computerInfo}
                 />
             </div>
         )

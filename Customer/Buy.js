@@ -97,7 +97,11 @@ export function GetCoordinatesView(props)
                     <label>Longitude (decimal degrees)</label>
                     <input id="lon" />
                 </div>
-                <button onClick = {()=>{props.handleCustomerCoordinates(document.getElementById("lat").value, document.getElementById("lon").value)}}>Buy</button>
+                <button 
+                    onClick = {()=>{props.handleCustomerCoordinates(
+                        document.getElementById("lat").value, document.getElementById("lon").value)}}>
+                    Buy
+                </button>
         </div>
     )
 }
@@ -121,5 +125,22 @@ export function Buy(props)
  *          5. site manager cut: cost * (5%)
  ************************************************************/
 {
+    let computer = props.computerInfo
+    let price = computer.price
+    let perMileCost = 0.03
+    let shipping = 0.0;//calculateShipping(props.storeLat, props.storeLong, props.custLat, props.custLong, perMileCost)
 
+    let totalPrice = shipping + price
+
+    console.log("total price:" + totalPrice)
+
+    return (
+        <div className="bodybag">
+            Price: {price}
+            <br/>
+            Shipping: {shipping}
+            <br/>
+            Total: {totalPrice}
+        </div>
+    )
 }
