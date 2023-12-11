@@ -1,3 +1,10 @@
+/*********************************************************
+ * @filename Header.js
+ * @project Everest Computer Consignment Store
+ * 
+ * @brief File for Nav button actions
+ *********************************************************/
+
 import React from "react";
 import {useState} from "react";
 import './everest_style.css'
@@ -73,9 +80,10 @@ function getDefaultNav(props)
             <button key={"aboutButton"} className="Button" onClick={() => {props.handleAbout(true)}}>About Us</button>
             <button className="Button" onClick={() => {props.handleSearch("Stores")}}>Search Stores</button>
             <button className="Button" onClick={() => {props.handleSearch("Computers")}}>Search Computers</button>
-            <button key={"questionsButton"} className="Button">?</button>
         </div>
     )
+    //remove -> <button key={"questionsButton"} className="Button">?</button>
+
 }
 
 //********************************************************* */
@@ -111,7 +119,6 @@ function getStoreOwnerNav(props)
         <button className="Button" onClick={() => {props.handleAbout(true)}}> About Us</button>
         <button className="Button" onClick={() => {props.handleSearch("Stores")}}>Search Stores</button>
         <button className="Button" onClick={() => {props.handleSearch("Computers")}}>Search Computers</button>
-        <button className="Button"> ? </button>
     </div>
     )
 }
@@ -162,7 +169,6 @@ function getSiteManagerNav(props)
             <DropdownNav navName={"Inventory Reports"} navSelect={inventory}/>
             <DropdownNav navName={"Sales Reports"} navSelect={profit} />
             <button onClick={() => props.handleRemoveStore(true)}>Remove Store</button>  
-            <button className="Button">?</button>
         </div>
     )
 }

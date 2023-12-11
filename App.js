@@ -38,6 +38,8 @@ function App() {
   const [listFilteredStores, setListFilteredStores] = React.useState(null); //view selected stores inventory
   const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
   const [siteBalance, setSiteBalance] = React.useState(null);
+  const [buyComputer, setBuyComputer] = React.useState(null, null, null);
+  const [customerCoordinates, setCustomerCoordinates] = React.useState(0.0, 0.0); //customer coordinates
 
 
   //clear function should be called between view to remove old render
@@ -55,6 +57,7 @@ function App() {
     setSearch(null)
     setRemoveStore(null)
     setListFilteredStores(false)
+    setBuyComputer(false, -1, 0)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -128,6 +131,18 @@ function App() {
     setCustomerStoreInventory(inventory)
   }
 
+  //function to get to the coordinate entry view after clicking "Buy" button
+  function handleBuyComputer(bool, computerID, price){
+    clear();
+    setBuyComputer(bool, computerID, price);
+  }
+
+  //function to get the customer's coordinates when they're buying a computer
+  function handleCustomerCoordinates(lat, lon){
+    console.log("coordinates: " + lat + "," + lon)
+    setCustomerCoordinates(lat, lon)
+  }
+
   //ABOUT US ##################################
   //render the "about us" page
   function handleAbout(bool){
@@ -135,7 +150,7 @@ function App() {
     setAbout(bool);
   }
 
-  //------------------------------- END LANDING PAGE VIEW 
+  //------------------------------------------------------------ END LANDING PAGE VIEW 
 
   //ELEVATED ACCESS -------------------------------------
 
@@ -336,6 +351,8 @@ function App() {
             listFilteredStores={listFilteredStores} handleListFilteredStores={handleListFilteredStores}
             customerStoreInventory={customerStoreInventory} handleCustomerStoreInventory={handleCustomerStoreInventory}
             siteBalance={siteBalance} handleSiteBalance={handleSiteBalance}
+            customerCoordinates={customerCoordinates} handleCustomerCoordinates={handleCustomerCoordinates}
+            buyComputer={buyComputer} handleBuyComputer={handleBuyComputer}
             />
     </div>
   );

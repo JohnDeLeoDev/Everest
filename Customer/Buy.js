@@ -15,21 +15,25 @@ function convertToDecimalDeg(storeLat, storeLong, custLat, custLong)
     let div = 1/60;
     // /1, /60, /3600
 
-    for(let i of decStoreLat.length){
-        deg += parsefloat(decStoreLat * (mult))
+    for(let i of decStoreLat){
+        deg += (i * (mult))
         mult *= div;
     }
 
     return deg;
 }
 
+//*************************************************************** */
 function toRadians(val)
+/**
+ * @brief helper conversion for decimal degrees -> radians
+ *****************************************************************/
 {
     return val * Math.PI/180;
 }
 
 //*************************************************************** */
-export function calculateShipping(storeLat, storeLong, custLat, custLong)
+export function calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile)
 /**
  * @brief calculate the shipping from the store to the customer's loc
  *      
@@ -42,7 +46,7 @@ export function calculateShipping(storeLat, storeLong, custLat, custLong)
  * 
  *  φ is latitude, λ is longitude, R is earth’s radius (mean radius = 6,371km)
  *  a = sin²(φB - φA/2) + cos φA * cos φB * sin²(λB - λA/2) 
- *  c = 2 * atan2( √a, √(1−a) )
+ *  c = 2 * asin( √a, √(1−a) )
  *  d = R ⋅ c
  * 
  *  @parameters
@@ -58,21 +62,44 @@ export function calculateShipping(storeLat, storeLong, custLat, custLong)
 
     var deltaLat = toRadians((custLat - storeLat))
     var lat = Math.sin(deltaLat/2.0)**2
-    //var latSq = Math.pow(sinLats,2)
 
     var deltaLong = toRadians((custLong - storeLong))
     var long = Math.sin(deltaLong/2.0)**2
-    //var longSq = Math.pow(sinLongs, 2)
 
     //convert to radians
     var a = 2 * lat + (long * Math.cos(toRadians(storeLat))*(Math.cos(toRadians(storeLat))))
-    var c = 2 * Math.asin(Math.sqrt(a), Math.sqrt(1-a))
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
     distance = (meanRadius * c);    //km
 
     //convert to miles
     distance = distance / 1.609344;
     
-    return distance;
+    return distance * costPerMile;
+}
+
+//********************************************************************* */
+export function GetCoordinatesView(props)
+/**
+ * @brief a web view for getting coordinates from the customer when buying
+ *      a computer with the "Buy" button
+ * input form
+ ************************************************************************/
+{
+
+    return (
+        <div className="bodybag">
+            <h2>Please enter the latitude and longitude of your location</h2>
+                <div>
+                    <label>Latitude (decimal degrees)</label>
+                    <input id="lat" />
+                </div>
+                <div>
+                    <label>Longitude (decimal degrees)</label>
+                    <input id="lon" />
+                </div>
+                <button onClick = {()=>{props.handleCustomerCoordinates(document.getElementById("lat").value, document.getElementById("lon").value)}}>Buy</button>
+        </div>
+    )
 }
 
 //***************************************************************** */

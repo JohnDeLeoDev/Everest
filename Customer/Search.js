@@ -123,7 +123,7 @@ export function SearchComputer(props)
                                 <p>Processor: {computer.processor}</p>
                                 <p>Process Generation: {computer.processGen}</p>
                                 <p>Graphics: {computer.graphics}</p>
-                                <button>Buy</button>
+                                <button onClick={() => props.handleBuyComputer(true, computer.inventoryID, computer.price)}>Buy</button>
                             </div>
                         )
                     })}
@@ -299,6 +299,7 @@ export function SearchStores(props)
                                             <p>Processor: {computer.processor}</p>
                                             <p>Process Generation: {computer.processGen}</p>
                                             <p>Graphics: {computer.graphics}</p>
+                                            <button onClick={() =>props.handleBuyComputer(true, computer.inventoryID, computer.price)}>Buy</button>
                                         </div>
                                     )
                                 })}

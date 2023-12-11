@@ -1,6 +1,21 @@
+/* Compare.js */
+
 import React from 'react';
 
-export function CompareSelected(props) {
+//*********************************************************************** */
+export function CompareSelected(props) 
+/***************************************************************************
+ * @brief compare two selected computers 
+ * 
+ * @param {*} props 
+ *      .compareState: bool
+ *      .searchResults: all search results
+ *      
+ * @returns 
+ *      inner function computerCards: this returns the rendering of the two computers
+ *      being compared, or an error 
+ **************************************************************************/
+{
     let selectedComputersID = props.compareState;
     let allSearch = props.searchResults;
     let selectedComputers = [];
@@ -38,7 +53,7 @@ export function CompareSelected(props) {
                                 <p>Processor: {computer.processor}</p>
                                 <p>Process Generation: {computer.processGen}</p>
                                 <p>Graphics: {computer.graphics}</p>
-                                <button>Buy</button>
+                                <button >Buy</button>
                             </div>
                         )
                     })}
@@ -52,10 +67,5 @@ export function CompareSelected(props) {
             {computerCards()}
         </div>
     )
-
-
-
-
-
 
 }

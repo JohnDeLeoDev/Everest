@@ -20,7 +20,8 @@ test('calc lat-long distance', () => {
     let custLat = 32.715736;
     let custLong = -117.161087;
     let tol = (2578*0.05);
-    let distance = calculateShipping(storeLat, storeLong, custLat, custLong);
-    expect(distance).toBeGreaterThan(2578-tol);
-    expect(distance).toBeLessThan(2578+tol);  //miles
+    let costPerMile = 3.00;
+    let distance = calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile);
+    expect(distance).toBeGreaterThan(costPerMile*(2578-tol));
+    expect(distance).toBeLessThan(costPerMile*(2578+tol));  //miles
     });

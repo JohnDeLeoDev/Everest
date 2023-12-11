@@ -6,7 +6,7 @@ import { test_stores } from './Manager/testStores';
 //**************************************************************** */
 export function LoginRequest(props) 
 /**
- * @brief Login request to server
+ * @brief Login request to server (POST)
  *    
  * @parameters
  *      props.json: the request from the calling function
@@ -71,7 +71,8 @@ export function LoginRequest(props)
 //********************************************************** */
 export function CreateStoreRequest(props) 
 /**
- * @brief create a new store
+ * @brief create a new store (POST)
+ * 
  * @parameters
  *      json: the info from the create store intake form
  *      storeCreated: value indicating successful store creation
@@ -134,7 +135,7 @@ export function CreateStoreRequest(props)
 //**************************************************************** */
 export function RemoveStoreRequest(props)
 /**
- * @brief request to remove a store from the server by storeID
+ * @brief request to remove a store from the server by storeID (POST)
  * 
  * @parameters
  *      props.storeID: the ID of the store to remove
@@ -479,7 +480,18 @@ export function ModifyComputerRequest(props)
         }, []);
 }
 
-export function AddBalanceRequest(props) {
+//************************************************************************************** */
+export function AddBalanceRequest(props) 
+/**
+ * @brief add to the site manager balance
+ * 
+ * @parameters  sent in props
+ *      .amount: amount to add to balance
+ * 
+ * @returns
+ *      looking for a status 200 OK reply 
+ ******************************************************************************************/
+{
     let amount = props.amount;
     let json = {
         "amount": amount
@@ -520,7 +532,19 @@ export function AddBalanceRequest(props) {
     }, []);
 }
 
-export function RemoveBalanceRequest(props) {
+//********************************************************************************** */
+export function RemoveBalanceRequest(props) 
+/**
+ * @brief 
+ * 
+ * @parameters delivered in props
+ *      .userID: the user ID
+ *      .amount: the amount to remove from the store balance
+ *      .json: the request to be set
+ * @returns
+ *      looking for an OK 200 status 
+ ***************************************************************************************/
+{
     let userID = props.userID;
     let amount = props.amount;
     let json = {
@@ -672,7 +696,18 @@ export function SearchStoreInventoryRequest(props)
         }, [props.json]);
 }
 
-export function SiteMgrBalanceRequest(props) {
+//**************************************************************************************** */
+export function SiteMgrBalanceRequest(props) 
+/**
+ * @brief get the balance for the site manager (profit)
+ * 
+ * @parameters passed in with props
+ *      .json: the json request
+ *      .handlSiteBalance()
+ * @returns
+ *      the balance amount in props.handlSiteBalance()
+ *******************************************************************************************/
+{
     const [siteMgrBalanceRequest, setSiteMgrBalanceRequest] = React.useState(props.json);
     const [siteMgrBalanceResponse, setSiteMgrBalanceResponse] = React.useState(null);
 

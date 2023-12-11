@@ -1,9 +1,18 @@
+/*****************************************************************
+ * @filename View.js
+ * @project Everest Computer Consignment Store
+ * 
+ * @brief A file to control the page rendering flow of the UI
+ *****************************************************************/
+//default and customer use cases
 import React from "react";
 import './everest_style.css';
 import {Login} from './Login.js';
 import About from './About.js';
 import { SearchComputer, SearchStores } from "./Customer/Search";
 import { GenerateStore } from "./Customer/GenerateInventory.js";
+import { GetCoordinatesView } from "./Customer/Buy.js";
+import { ListStores } from "./Customer/ListStores.js";
 
 //owner use cases
 import Create from './Owner/Create.js';
@@ -15,7 +24,6 @@ import InventoryReport from "./Owner/InventoryReport";
 import { GenerateBalance, GenerateSiteManagerBalance, GenerateStoreBalance } from "./Manager/GenerateBalance";
 import { GenerateInventoryReport} from "./Manager/GenerateReport";
 import RemoveStore from "./Manager/RemoveStore";
-import { ListStores } from "./Customer/ListStores.js";
 
 //*********************************************** */
 function Footer()
@@ -127,9 +135,14 @@ function OwnerView(props)
 
     if (props.search === "Stores"){
         callback = <SearchStores
-            stores={props.stores} handleStores={props.handleStores}/>
+            stores={props.stores} 
+            handleStores={props.handleStores}
+            handleBuyComputer={props.handleBuyComputer}/>
     } else if  (props.search === "Computers"){
-        callback = <SearchComputer searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}/>
+        callback = <SearchComputer 
+        searchResults={props.searchResults} 
+        handleSearchResults={props.handleSearchResults}
+        handleBuyComputer={props.handleBuyComputer}/>
     }
 
     if (props.inventoryReport === true) {
@@ -175,11 +188,13 @@ export function Landing(props)
             handleStores={props.handleStores}
             handleListFilteredStores={props.handleListFilteredStores}
             handleCustomerStoreInventory={props.handleCustomerStoreInventory}
+            handleBuyComputer={props.handleBuyComputer}
         />
     } else if  (props.search === "Computers"){
         callback = <SearchComputer 
             searchResults={props.searchResults} 
             handleSearchResults={props.handleSearchResults}
+            handleBuyComputer={props.handleBuyComputer}
         />
     }
 
@@ -196,6 +211,11 @@ export function Landing(props)
 
     if (props.about === true){
         callback = <About/>
+    }
+
+    if (props.buyComputer === true){
+        callback = <GetCoordinatesView
+            handleCustomerCoordinates={props.handleCustomerCoordinates}/>
     }
 
     return (
@@ -237,6 +257,10 @@ export default function View(props)
                     listFilteredStores={props.listFilteredStores}
                     customerStoreInventory = {props.customerStoreInventory}
                     handleCustomerStoreInventory = {props.handleCustomerStoreInventory}
+                    buyComputer={props.buyComputer}
+                    handleBuyComputer={props.handleBuyComputer}
+                    customerCoordinates={props.customerCoordinates}
+                    handleCustomerCoordinates={props.handleCustomerCoordinates}
                    />
             </div>
         )
@@ -304,7 +328,11 @@ export default function View(props)
                 listFilteredStores={props.listFilteredStores}
                 handleListFilteredStores={props.handleListFilteredStores}
                 customerStoreInventory = {props.customerStoreInventory}
-                handleCustomerStoreInventory = {props.handleCustomerStoreInventory}   
+                handleCustomerStoreInventory = {props.handleCustomerStoreInventory}  
+                buyComputer={props.buyComputer}
+                handleBuyComputer={props.handleBuyComputer}
+                customerCoordinates={props.customerCoordinates}
+                handleSetCustomerCoordinates={props.handleSetCustomerCoordinates} 
                 />
             </div>
         )
