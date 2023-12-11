@@ -741,3 +741,19 @@ export function SiteMgrBalanceRequest(props)
             });
         }, [props.json]);
 }
+
+//************************************************************************ */
+export function GetStoreLatLong(props)
+/**
+ * @brief get the latitude and longitude for the store that we are buying from
+ * 
+ * @parameters come in with props
+ *     
+ * @returns
+ *  Store.lat, Store.longitude, StoreID
+ *****************************************************************************/
+{
+    //we have the computer id, we need the store id
+    //send computer id and expect back the store lat/long
+    
+}

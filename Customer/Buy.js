@@ -1,6 +1,6 @@
 //Buy computer case
 import React from "react";
-
+import { AddBalanceRequest, GetStoreLatLong } from "../API";
 
 //*************************************************************************** */
 function convertToDecimalDeg(storeLat, storeLong, custLat, custLong)
@@ -106,6 +106,26 @@ export function GetCoordinatesView(props)
     )
 }
 
+//******************************************************************** */
+function ReqStoreLonLat(props)
+/**
+ * @brief request the store latitude and longitude
+ **********************************************************************/
+{
+    const [storeLatLon, setStoreLatLon] = React.useState(null, null);
+
+    //set the lat and lon from store retrieved from database
+    function handleStoreLatLon(lat, lon){
+        setStoreLatLon(lat, lon)
+    }
+
+    return (
+        <GetStoreLatLong 
+            handleStoreLatLon={handleStoreLatLon}
+            />
+    )
+}
+
 //***************************************************************** */
 export function Buy(props)
 /**
@@ -128,19 +148,35 @@ export function Buy(props)
     let computer = props.computerInfo
     let price = computer.price
     let perMileCost = 0.03
-    let shipping = 0.0;//calculateShipping(props.storeLat, props.storeLong, props.custLat, props.custLong, perMileCost)
+    let shipping = 0.0;
+    let storePay = price*0.95;
+    let siteCut = price - storePay;
+    //need to get the store lat/lon set
+
+    //let shipping = calculateShipping(props.storeLat, props.storeLong, props.custLat, props.custLong, perMileCost)
 
     let totalPrice = shipping + price
 
     console.log("total price:" + totalPrice)
+    console.log("store paid: " + storePay + " site cut: " + siteCut)
 
+    //request in return:
+    //pay store
+    //pay site manager
+    //remove computer from database
     return (
         <div className="bodybag">
-            Price: {price}
+            Reciept of Sale:
             <br/>
-            Shipping: {shipping}
+            Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
             <br/>
-            Total: {totalPrice}
+            Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
+            <br/>
+            Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
+
+            <AddBalanceRequest
+                userID={0} 
+                amount={siteCut}/>
         </div>
     )
 }
