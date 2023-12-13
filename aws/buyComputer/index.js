@@ -73,7 +73,7 @@ exports.handler = async (event) => {
         };
         return response;
     } else {        //Update Site_Balances SET balanceAmount = balanceAmount + 3.00 where balanceName="Profit";
-        let storeIDQuery = "UPDATE Site_Balances SET balanceAmount = balanceAmount'" + siteCut + "' WHERE balanceName = 'Profit';";
+        let storeIDQuery = 'UPDATE Site_Balances SET balanceAmount = balanceAmount + ' + siteCut + ' WHERE balanceName = "Profit";';
         var result = await new Promise((resolve, reject) => {
             pool.query(storeIDQuery, (error, results) => {
                 if (error) {
@@ -84,6 +84,18 @@ exports.handler = async (event) => {
         });
     }
 
+    //remove the computer
+    let storeIDQuery = 'DELETE FROM Computers WHERE inventoryID=' + computerID + ';';
+    var result = await new Promise((resolve, reject) => {
+        pool.query(storeIDQuery, (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+
+    //back to app
     response = {
         statusCode: 200,
         body: JSON.stringify("Success! Computer Purchased."),
