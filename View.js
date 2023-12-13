@@ -223,7 +223,8 @@ export function Landing(props)
     if (props.coordinatesIntake){
         callback = <GetCoordinatesView
             handleCustomerCoordinates={props.handleCustomerCoordinates}
-            handleCoordinatesIntake={props.handleCoordinatesIntake}/>
+            handleCoordinatesIntake={props.handleCoordinatesIntake}
+            computer={props.computerInfo}/>
     }
 
     //BUY COMPUTER

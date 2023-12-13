@@ -42,7 +42,7 @@ function App() {
   const [computerInfo, setcomputerInfo] = React.useState(null);
   const [coordinatesIntake, setCoordinatesIntake] = React.useState(null, null);
   const [customerCoordinates, setCustomerCoordinates] = React.useState(0.0, 0.0); //customer coordinates
-
+  const [storeCoordinates, setStoreCoordinates] = React.useState(0.0, 0.0); //store coordinates
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -154,6 +154,11 @@ function App() {
     console.log("coordinates: " + lat + "," + lon)
     setCustomerCoordinates(lat, lon)
     setBuyComputer(true)
+  }
+
+  function handleStoreCoordinates(lat, lon){
+    console.log("store: " + lat + "," + lon)
+    setStoreCoordinates(lat, lon)
   }
 
   //ABOUT US ##################################
@@ -368,6 +373,7 @@ function App() {
             customerCoordinates={customerCoordinates} handleCustomerCoordinates={handleCustomerCoordinates}
             buyComputer={buyComputer} handleBuyComputer={handleBuyComputer}
             computerInfo={computerInfo}
+            storeCoordinates={storeCoordinates} handleStoreCoordinates={handleStoreCoordinates}
             />
     </div>
   );

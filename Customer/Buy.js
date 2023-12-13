@@ -85,6 +85,10 @@ export function GetCoordinatesView(props)
  * input form
  ************************************************************************/
 {
+    let computer = props.computer
+    let computerID = computer.inventoryID
+    const [storeCoordinates, getStoreCoordinates] = React.useState(null, null)
+    console.log("in getCoords, computerID="+computerID)
 
     return (
         <div className="bodybag">
@@ -99,30 +103,59 @@ export function GetCoordinatesView(props)
                 </div>
                 <button 
                     onClick = {()=>{props.handleCustomerCoordinates(
-                        document.getElementById("lat").value, document.getElementById("lon").value)}}>
+                        document.getElementById("lat").value, document.getElementById("lon").value)
+                    }}>
                     Buy
                 </button>
+            {<ReqStoreLonLat 
+                    handleStoreCoordinates={props.handleStoreCoordinates} 
+                    computerID={computerID}/>} 
         </div>
     )
 }
 
+/*
+function getStoreCoordinates(computerID){
+    let json = {"ComputerID":computerID}
+
+    return (
+        <div>
+            {<ReqStoreLonLat 
+                    handleStoreCoordinates={props.handleStoreCoordinates} 
+                    id={props.id}/>}
+        </div>
+    )
+}*/
+
 //******************************************************************** */
-function ReqStoreLonLat(props)
+export function ReqStoreLonLat(props)
 /**
  * @brief request the store latitude and longitude
  **********************************************************************/
 {
-    const [storeLatLon, setStoreLatLon] = React.useState(null, null);
+    let computerID = props.computerID
+    console.log("in req store lat lon, computer id="+computerID)
 
     //set the lat and lon from store retrieved from database
     function handleStoreLatLon(lat, lon){
-        setStoreLatLon(lat, lon)
+        props.handleStoreCoordinates(lat, lon)
+        console.log("lat: " + lat + " long " + lon)
+    }
+
+    //create the json for the request, have to send computer ID, will look for store and will 
+    //do all the things for buy
+    let json = {
+        "computerID": computerID
     }
 
     return (
-        <GetStoreLatLong 
+        <div>
+        <GetStoreLatLong
             handleStoreLatLon={handleStoreLatLon}
+            computerID={props.computerID}
+            json={json}
             />
+        </div>
     )
 }
 
@@ -147,11 +180,22 @@ export function Buy(props)
 {
     let computer = props.computerInfo
     let price = computer.price
+    let id = computer.inventoryID
     let perMileCost = 0.03
     let shipping = 0.0;
     let storePay = price*0.95;
     let siteCut = price - storePay;
+
     //need to get the store lat/lon set
+    const [storeLatLon, setStoreLatLon] = React.useState(null, null);
+
+    //set it here in another call
+    function handleLatLon(lat, lon){
+        setStoreLatLon(lat, lon)
+    }
+
+    ReqStoreLonLat(handleLatLon={handleLatLon}, id={id})
+    console.log("store? " + storeLatLon)
 
     //let shipping = calculateShipping(props.storeLat, props.storeLong, props.custLat, props.custLong, perMileCost)
 
@@ -174,9 +218,12 @@ export function Buy(props)
             <br/>
             Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
 
-            <AddBalanceRequest
-                userID={0} 
-                amount={siteCut}/>
         </div>
     )
+
+    /*
+<AddBalanceRequest
+                userID={0} 
+                amount={siteCut}/>
+    */
 }

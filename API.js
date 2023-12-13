@@ -748,12 +748,105 @@ export function GetStoreLatLong(props)
  * @brief get the latitude and longitude for the store that we are buying from
  * 
  * @parameters come in with props
- *     
+ *      .json: the computerID to get the store to get the lat/long
+ *      .handleStoreCoordinates(lat, lon): get the coordinates
+ *      .handleComputerDNE(bool): if an error comes back that the computerID isn't in the db 
+ *          then we send an error saying the computer they are trying to buy is not available
+ * 
  * @returns
- *  Store.lat, Store.longitude, StoreID
+ *      Store.lat, Store.longitude
  *****************************************************************************/
 {
     //we have the computer id, we need the store id
     //send computer id and expect back the store lat/long
-    
+    const [storeLatLonRequest, setStoreLatLonRequest] = React.useState(props.json);
+    const [storeLatLonResponse, setStoreLatLonResponse] = React.useState(null);
+
+    function handleStoreLatLonRequest(json) {
+        setStoreLatLonRequest(json);
+    }
+
+    function handleStoreLatLonResponse(response) {
+        let body = response.body;
+        body = JSON.parse(body);
+        let lat = body.lat;
+        let lon = body.lon;
+        props.handleStoreCoordinates(lat, lon);   
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+            body: JSON.stringify(props.json)
+        };
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/getStoreLatLon', requestOptions)           //needs a lambda and an api gateway 
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleStoreLatLonResponse(data);
+                }
+            });
+        }, [props.json]);
+}
+
+//*************************************************************************** */
+export function BuyComputer(props)
+/**
+ * @brief buy the computer
+ * 
+ *      needs to:
+ *          pay the store owner     
+ *          pay the site manager
+ *          remove the computer from inventory
+ *          return status
+ * 
+ * @parameters
+ *      .json
+ *      .handleBuyStatus(good or bad)
+ *********************************************************************************/
+{
+    //need the computerID
+    //need the $$ for site manager
+    //need the $$ for store owner
+    //status - success
+    const [buyComputerRequest, setBuyComputerRequest] = React.useState(props.json);
+    const [buyComputerResponse, setBUyComputerResponse] = React.useState(null);
+
+    function handleBuyComputerRequest(json) {
+        setBuyComputerRequest(json);
+    }
+
+    //handle sending the confirmation that the purchase was successful
+    function handleBuyComputerResponse(response) {
+        if (response["body-json"]["statusCode"] === 200) {
+            props.handleBuyComputer(true);  
+        } 
+        else {
+            props.handleBuyComputer(false);
+        }
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+            body: JSON.stringify(props.json)
+        };
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/buyComputer', requestOptions)           //needs a lambda and an api gateway 
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleBuyComputerResponse(data);
+                }
+            });
+        }, [props.json]);
 }
