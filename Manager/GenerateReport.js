@@ -173,32 +173,7 @@ export function GenerateInventoryReport(props)
     const [sortAsc, setSortAsc] = React.useState(null);
     const [sortDesc, setSortDesc] = React.useState(true);
 
-
-
-    //const [sort, setSort] = React.useState();
-
-    //set the balances from the data string
-    /*function handleSiteInventoryBalances(balances){
-        console.log("Received inventory balances")
-        let resp = JSON.parse(balances.body)
-        console.log("RESPONSE", resp)
-
-        // CALCULATE THE BALANCE FOR EACH STORE, PROVIDE THE SORT PREFERENCE 
-        // GET A BALANCE TABLE FROM CALCULATEINVENTORYBALANCE
-        let balanceSet = calculateInventoryBalance(resp, sortDirection)
-        // let balanceSet = calculateInventoryBalance(resp, sort)
-
-        // CALCULATE THE BALANCE FOR ALL STORES TOGETHER
-        siteTotal = totalInventoryTotals(resp)
-        console.log("SITE TOTAL " + siteTotal)
-        setSiteInventoryTotal(siteTotal.toLocaleString('us-US', { style: 'currency', currency: 'USD' }));
-
-        //now set the values
-        setSiteInventoryBalances(balanceSet)
-        console.log(siteInventoryBalances)
-        console.log(balanceSet)
-    }*/
-
+    //set sort direction
     function handleSortAsc(bool){
         setSortAsc(bool)
         setSortDesc(!bool)
@@ -208,12 +183,6 @@ export function GenerateInventoryReport(props)
         setSortDesc(bool)
         setSortAsc(!bool)
     }
-
-    /*
-     *  {sortAsc && calculateInventoryBalance(rawNums, 0)}  
-            {sortDesc && calculateInventoryBalance(rawNums, 1)}
-            
-     */
 
     //handle the event
     if (props.setStoreReport === "Site"){

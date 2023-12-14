@@ -316,7 +316,7 @@ export function GetStoreInventory(props)
         if (response !== null && response !== undefined) {
             if (response.statusCode === 200) {
                 let body = JSON.parse(response.body);
-                props.handleSiteInventory(body);
+                props.handleInventory(body);
             }
         }
     }
