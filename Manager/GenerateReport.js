@@ -133,6 +133,7 @@ function totalInventoryTotals(inventoryData)
  ********************************************************************/
 {
     let sitewideTotal = 0;
+    console.log(inventoryData)
 
     //add values to map
     for (let i of inventoryData){
@@ -140,7 +141,7 @@ function totalInventoryTotals(inventoryData)
         console.log("total: " + sitewideTotal)
     }
 
-    return sitewideTotal;
+    return sitewideTotal.toLocaleString('us-US', { style: 'currency', currency: 'USD' });
 } 
 
 
@@ -159,12 +160,7 @@ export function GenerateInventoryReport(props)
     let siteTotal = 0;
 
     console.log("RAW: ", rawNums)
-    //let balanceSet = calculateInventoryBalance(rawNums, 1)
-
-
-    // GenerateReport triggers a GET request to the server
-    const [siteInventoryRequest, setSiteInventoryRequest] = React.useState(null);
-    
+  
     //set all store inventory balances
     const [siteInventoryBalances, setSiteInventoryBalances] = React.useState(null);
     
@@ -223,8 +219,8 @@ export function GenerateInventoryReport(props)
     if (props.setStoreReport === "Site"){
         return (
             <div>
-                Total Site Inventory Value
-                <h3>{siteInventoryTotal}</h3>
+                Total Site Inventory Value 
+                <h3>{rawNums && totalInventoryTotals(rawNums)}</h3>
                 <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
             </div>
         )
@@ -234,8 +230,6 @@ export function GenerateInventoryReport(props)
         <div>
             <button onClick={() =>{handleSortAsc(true)}}>Sort Ascending</button>
             <button onClick={() => {handleSortDesc(true)}}>Sort Descending</button>
-            {rawNums && sortAsc && calculateInventoryBalance(rawNums, 0)}  
-            {rawNums && sortDesc && calculateInventoryBalance(rawNums, 1)}
            <p> 
                 Store Inventory Total Report 
             </p>
@@ -247,9 +241,12 @@ export function GenerateInventoryReport(props)
                     </tr>
                 </thead>
                 <tbody>
-        {siteInventoryBalances}
         </tbody>
             </table>
+
+            {rawNums && sortAsc && calculateInventoryBalance(rawNums, 0)}  
+            {rawNums && sortDesc && calculateInventoryBalance(rawNums, 1)}
+
             <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
         </div>
     )
