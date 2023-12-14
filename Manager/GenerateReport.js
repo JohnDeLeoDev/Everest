@@ -24,37 +24,71 @@ function compareBalance (a, b)
     }
 }
 
-function helpCalculate(siteInventoryData)
+
+//********************************************************************************
+function helpCalculate(siteInventoryData, sort)
+/**
+ *
+ ***********************************************************************************/
 {
     //create a dictionary init to 0
     //keys are unique store names
     let storeList = []
 
+    let sortOrder = sort
+    // FOR EACH STORE/COMPUTER ITEM PRICE PAIR IN THE LIST, ADD IT'S NAME
+    // TO THE LIST OF ENTRIES
+
+    console.log("In helpCalc")
+    console.log(siteInventoryData)
+
     for (let i of siteInventoryData){
         storeList.push(i.name);
     }
 
-    //the unique list of stores
+    //USE SET TO REMOVE DUPLICAT ENTIRES AND CREATE A NEW SET
     let newset = new Set(storeList);    
 
-    //map
+    // CREATE A MAP AND ADD ALL NAMES TO MAPPPING WITH A DEFAULT VALUE OF 0 AS THE KEY
     let map = new Map();
+   
     for (let i of newset){
         map.set(i, 0)
     }
 
     //add values to map
+    // FOR EACH OF THE STORE/COMPUTER COST PAIRS IN THE LIST
     for (let i of siteInventoryData){
+        // PULL THE VALUE FROM THE MAP BASED ON THE CURRENT ITEMS NAME AND STORE IN TEMPVAL
         let tmpVal = map.get(i.name)
+        // ADD THE CURRENT ITEMS VALUE TO THE VALUE STORED IN THE TEMPVAL
         tmpVal += i.price
+        // UPDATE THE STORE NAMES MAP ENTRY WITH THE NEW VALUE
         map.set(i.name, tmpVal)
     }
 
+    console.log(map)
+
+    // SET THE SORT ORDER OF THE RESULTS
+    if(sortOrder === 0){
+
+        // ASC ORDER
+        map = new Map([...map.entries()].sort((a,b)=>a[1]-b[1]))  
+
+    } else{
+
+        // DESC ORDER
+        map = new Map([...map.entries()].sort((a,b)=>b[1]-a[1]))
+    }
+   
+
+    console.log(map)
+    // RETURN MAPPING OF STORE TO TOTAL VALUE IN INVENTORY
     return map;
 }
 
 //************************************************************** */
-function calculateInventoryBalance(siteInventoryData)
+function calculateInventoryBalance(siteInventoryData, sort)
 /**
  * @brief helper function to calculate the inventory total per store
  *        in lambda, join is done to return an array of store names
@@ -69,7 +103,11 @@ function calculateInventoryBalance(siteInventoryData)
 {
     let balanceTable = []       //an html table
 
-    let map = helpCalculate(siteInventoryData)
+    let sortOrder = sort
+
+    let map = helpCalculate(siteInventoryData, sort)
+
+    
 
     //get the return
     for (let [key, value] of map) {
@@ -105,6 +143,7 @@ function totalInventoryTotals(inventoryData)
     return sitewideTotal;
 } 
 
+
 //*********************************************************** */
 export function GenerateInventoryReport(props)
 /**
@@ -114,13 +153,14 @@ export function GenerateInventoryReport(props)
  **************************************************************/
 {
     //const objArray = JSON.parse(props.stores);
+    const rawNums = props.siteInventoryBalances;
     const sortedBalances = {};//balances.sort(compareBalance);  //sorts ascending by default
     const reportBody = []
-    const date = new Date();
-    const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
     let siteTotal = 0;
+
+    console.log("RAW: ", rawNums)
+    //let balanceSet = calculateInventoryBalance(rawNums, 1)
+
 
     // GenerateReport triggers a GET request to the server
     const [siteInventoryRequest, setSiteInventoryRequest] = React.useState(null);
@@ -132,14 +172,27 @@ export function GenerateInventoryReport(props)
     const [siteInventoryTotal, setSiteInventoryTotal] = React.useState(null);
 
     //ascending/descending sort for inventory - TODO - by final iteration
-    const [sortDirection, setSortDirection] = React.useState("");
+    const [sortDirection, setSortDirection] = React.useState(1);
+
+    const [sortAsc, setSortAsc] = React.useState(null);
+    const [sortDesc, setSortDesc] = React.useState(true);
+
+
+
+    //const [sort, setSort] = React.useState();
 
     //set the balances from the data string
-    function handleSiteInventoryBalances(balances){
+    /*function handleSiteInventoryBalances(balances){
         console.log("Received inventory balances")
         let resp = JSON.parse(balances.body)
         console.log("RESPONSE", resp)
-        let balanceSet = calculateInventoryBalance(resp)
+
+        // CALCULATE THE BALANCE FOR EACH STORE, PROVIDE THE SORT PREFERENCE 
+        // GET A BALANCE TABLE FROM CALCULATEINVENTORYBALANCE
+        let balanceSet = calculateInventoryBalance(resp, sortDirection)
+        // let balanceSet = calculateInventoryBalance(resp, sort)
+
+        // CALCULATE THE BALANCE FOR ALL STORES TOGETHER
         siteTotal = totalInventoryTotals(resp)
         console.log("SITE TOTAL " + siteTotal)
         setSiteInventoryTotal(siteTotal.toLocaleString('us-US', { style: 'currency', currency: 'USD' }));
@@ -148,17 +201,28 @@ export function GenerateInventoryReport(props)
         setSiteInventoryBalances(balanceSet)
         console.log(siteInventoryBalances)
         console.log(balanceSet)
+    }*/
+
+    function handleSortAsc(bool){
+        setSortAsc(bool)
+        setSortDesc(!bool)
     }
 
-    //handle the event
-    
+    function handleSortDesc(bool){
+        setSortDesc(bool)
+        setSortAsc(!bool)
+    }
 
+    /*
+     *  {sortAsc && calculateInventoryBalance(rawNums, 0)}  
+            {sortDesc && calculateInventoryBalance(rawNums, 1)}
+            
+     */
+
+    //handle the event
     if (props.setStoreReport === "Site"){
         return (
             <div>
-                <GetSiteInventoryBalancesRequest 
-                    handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
-                /> 
                 Total Site Inventory Value
                 <h3>{siteInventoryTotal}</h3>
                 <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
@@ -168,12 +232,11 @@ export function GenerateInventoryReport(props)
 
     return (
         <div>
-            <button onClick={() =>{setSortDirection("Ascending")}}>Sort Ascending</button>
-            <button onClick={() => {setSortDirection("Descending")}}>Sort Descending</button>
-            <GetSiteInventoryBalancesRequest 
-                handleSiteInventoryBalances={handleSiteInventoryBalances} //this sets the balances  with a request 
-            />    
-        <p> 
+            <button onClick={() =>{handleSortAsc(true)}}>Sort Ascending</button>
+            <button onClick={() => {handleSortDesc(true)}}>Sort Descending</button>
+            {rawNums && sortAsc && calculateInventoryBalance(rawNums, 0)}  
+            {rawNums && sortDesc && calculateInventoryBalance(rawNums, 1)}
+           <p> 
                 Store Inventory Total Report 
             </p>
             <table>
@@ -190,6 +253,8 @@ export function GenerateInventoryReport(props)
             <button className="Button" onClick={() => {props.handleSetStoreReport("")}}>Close</button>
         </div>
     )
+}
+
 }
 /*
     if (props.descending){
@@ -235,6 +300,11 @@ export function GenerateInventoryReport(props)
             <button className="Button" onClick={() => {props.handleSetStoreReport(null)}}>Close</button>
         </div>
     )*/
-}
 
 
+
+
+    //const date = new Date();
+    //const day = date.getDay();
+    //const month = date.getMonth();
+    //const year = date.getFullYear();

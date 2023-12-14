@@ -2,9 +2,11 @@ import React from 'react';
 import './everest_style.css'
 import { Header } from './Header';
 import View from './View';
+import { GetSiteInventoryBalancesRequest } from './API.js';
 import {testInventory} from './Owner/testInventory.js';
 import { test_stores } from './Manager/testStores';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
+import { GetStoreInventory } from './API.js';
 
 
 function App() {
@@ -22,14 +24,14 @@ function App() {
   const [logout, setLogout] = React.useState(null);
   const [addComputer, setAddComputer] = React.useState(null);
   const [computerAdded, setComputerAdded] = React.useState(null);
-  const [inventoryView, setInventoryView] = React.useState(null)
+  const [inventoryView, setInventoryView] = React.useState(null);
+  const [siteInventoryBalances, setSiteInventoryBalances] = React.useState(null);   //set all store inventory balances
   const [inventory, setInventory] = React.useState(null);
   const [inventoryReport, setInventoryReport] = React.useState(null);
   const [modifyComp, setModifyComp] = React.useState(false, null, false);
   const [removeComp, setRemoveComp] = React.useState(false, null, false);
   const [stores, setStores] = React.useState(null);  //init test data for stores
   const [showStores, setShowStores] = React.useState(null); //the filter boxes - all stores
-  const [descending, setDescending] = React.useState(null);
   const [showBalances, setShowBalances] = React.useState(null); 
   const [siteManagerBalance, setSiteManagerBalance] = React.useState(null);
   const [storeBalance, setStoreBalance] = React.useState(null);
@@ -296,11 +298,13 @@ function App() {
     clear();
   }
 
-  //sort numeric values in descending order
-  function handleDescending(bool){
-    clear()
-    setDescending(bool)
-  }
+  //set the balances from the data string
+  function handleSiteInventoryBalances(balances){
+    console.log("Received inventory balances")
+    let resp = JSON.parse(balances.body)
+
+    setSiteInventoryBalances(resp)
+}
 
   //REMOVE STORE ###################################
   function handleRemoveStore(bool){
@@ -357,7 +361,6 @@ function App() {
             inventoryReport={inventoryReport} handleInventoryReport={handleInventoryReport} 
             stores={stores} handleStores={handleStores}
             showStores={showStores} handleShowStores={handleShowStores}
-            descending={descending} handleDescending={handleDescending}
             showBalances={showBalances} 
             siteManagerBalance={siteManagerBalance} handleSiteManagerBalance={handleSiteManagerBalance}
             storeBalance={storeBalance} handleStoreBalance={handleStoreBalance}
@@ -374,7 +377,10 @@ function App() {
             buyComputer={buyComputer} handleBuyComputer={handleBuyComputer}
             computerInfo={computerInfo}
             storeCoordinates={storeCoordinates} handleStoreCoordinates={handleStoreCoordinates}
+            siteInventoryBalances={siteInventoryBalances}
             />
+
+            {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}
     </div>
   );
 }

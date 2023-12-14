@@ -10,6 +10,7 @@ import {useState} from "react";
 import './everest_style.css'
 import logo from './everest.jpg'
 import RemoveStore from "./Manager/RemoveStore";
+import { GenerateInventoryReport } from "./Manager/GenerateReport";
 
 /****************************************************** */
 function DropdownNav(props)
