@@ -63,15 +63,15 @@ export function ManagerView(props)
                handleSiteManagerBalance={props.handleSiteManagerBalance}
                siteBalance={props.siteBalance} handleSiteBalance={props.handleSiteBalance}
                />
-    } else if (props.showBalances === 'All Stores'){
+    } else if (props.showBalances === 'All Stores' && props.storeBalances){
         callback = <GenerateStoreBalance 
             handleStoreBalance={props.handleStoreBalance}
-        //    storeBalances={props.storeBalances}
+            storeBalances={props.storeBalances}
             />
     }
 
     //get total inventory balance for all stores as one value
-    if (props.setStoreReport === "All Stores" || props.setStoreReport === "Site" ) {     //get total inventory for each store
+    if ((props.setStoreReport === "All Stores" )|| props.setStoreReport === "Site" ) {     //get total inventory for each store
         callback = <GenerateInventoryReport
                     //stores={props.stores}
                     setStoreReport={props.setStoreReport}

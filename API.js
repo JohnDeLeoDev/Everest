@@ -883,7 +883,7 @@ export function GetStoreBalances(props)
         if (body !== undefined && body !== null){
             body = JSON.parse(body);
             let balances = body
-            console.log(balances[0].name)
+            console.log(balances[0].name)       //proof on concept print
             props.handleStoreBalances(balances);  
         } else {
             console.log("NULL RESP")
@@ -906,5 +906,5 @@ export function GetStoreBalances(props)
                     handleStoreBalancesResponse(data);
                 }
             });
-        }, [props.json]);
+        }, []);
 }

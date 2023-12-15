@@ -8,6 +8,7 @@ import { test_stores } from './Manager/testStores';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
 import { GetStoreInventory } from './API.js';
 import { ReqStoreLonLat } from './Customer/Buy.js';
+import { GetStoreBalances } from './API.js';
 
 
 function App() {
@@ -435,6 +436,7 @@ function App() {
             {storeLoc && <ReqStoreLonLat handleStoreCoordinates = {handleStoreCoordinates} 
                           computerID={computerInfo.inventoryID} handleStoreLoc={handleStoreLoc}
                           handleConfirmBuy={handleConfirmBuy}/>}
+            {(showBalances === 'All Stores') && <GetStoreBalances handleStoreBalances={handleStoreBalances}/>}
     </div>
   );
 }
