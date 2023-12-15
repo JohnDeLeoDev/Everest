@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     let computerID = event.computerID;      //get the storeID to pay the store, then rem computer at the end
     let storeCut = event.storeCut;      //pay the store 95%
     let siteCut = event.siteCut;        //pay the site the rest
-
+    let profit = "Profit";              //try another way       
 
     var response = {};
 
@@ -53,7 +53,7 @@ exports.handler = async (event) => {
             body: JSON.stringify('Error: Invalid transaction. The store must be paid.'),
         };
         return response;
-    } else {            //Update Stores SET storeBalance = storeBalance + 3.00 where storeID=3;
+    } else {            //Update Stores SET storeBalance = storeBalance + {$$$} + where storeID=3;
         let computerQuery = "UPDATE Stores SET storeBalance = storeBalance +'" + storeCut + "' WHERE storeID = '" + store + "';";
         var latLong = await new Promise((resolve, reject) => {
             pool.query(computerQuery, (error, results) => {
@@ -73,7 +73,7 @@ exports.handler = async (event) => {
         };
         return response;
     } else {        //Update Site_Balances SET balanceAmount = balanceAmount + 3.00 where balanceName="Profit";
-        let storeIDQuery = 'UPDATE Site_Balances SET balanceAmount = balanceAmount + ' + siteCut + ' WHERE balanceName = "Profit";';
+        let storeIDQuery = "UPDATE Site_Balances SET balanceAmount = balanceAmount + '" + siteCut + "' WHERE balanceName = '" +profit+ "';";
         var result = await new Promise((resolve, reject) => {
             pool.query(storeIDQuery, (error, results) => {
                 if (error) {

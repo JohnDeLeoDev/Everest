@@ -833,12 +833,12 @@ export function BuyComputer(props)
 
     //handle sending the confirmation that the purchase was successful
     function handleBuyComputerResponse(response) {
-        console.log(response);
-        if (response["statusCode"] === 200) {
-            props.handleBuyComputer(true);  
+        console.log(response.status);
+        if (response.status === 200) {
+            props.handleStatus(true);  
         } 
         else {
-            props.handleBuyComputer(false);
+            props.handleStatus(false);
         }
     }
 

@@ -15,7 +15,12 @@ TO DO:
             be selectable to "go to" (display inventory for that store) - ITERATION 2
         2. View Inventory for One Store - shows all computers in one store - ITERATION 2
         ---------------------------------------------------------------------------------
-        3. Buy Computer - FINAL
+        3. Buy Computer - FINAL 
+            Status:
+            - end and testing -
+                need to reformat query in buyComputer lambda to pay the site Manager
+                clean up exit view
+                Q: who gets the shipping money?
         4. Search Computers with filters - FINAL
         5. Compare Two Computers - FINAL
         

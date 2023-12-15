@@ -260,7 +260,6 @@ export function Buy(props)
 
             <BuyComputer 
                 json={json} 
-                handleBuyComputer={props.handleBuyComputer}
                 handleStatus={handleStatus}/>
 
             <button onClick={()=>{props.handleBuyComputer(false)}}>Close</button>
