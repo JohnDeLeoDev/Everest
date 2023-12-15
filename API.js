@@ -762,6 +762,8 @@ export function GetStoreLatLong(props)
     const [storeLatLonRequest, setStoreLatLonRequest] = React.useState(props.json);
     const [storeLatLonResponse, setStoreLatLonResponse] = React.useState(null);
 
+    console.log("IN REQ")
+
     function handleStoreLatLonRequest(json) {
         setStoreLatLonRequest(json);
     }
@@ -769,9 +771,10 @@ export function GetStoreLatLong(props)
     function handleStoreLatLonResponse(response) {
         let body = response.body;
         body = JSON.parse(body);
-        let lat = body.lat;
-        let lon = body.lon;
-        props.handleStoreCoordinates(lat, lon);   
+        let lat = body.lat.lat;    //doh
+        let lon = body.lat.longitude;
+        console.log("RES lat: ", lat, " lon:", lon)
+        props.handleStoreCoordinates(lat, lon);  
     }
 
     useEffect(() => {

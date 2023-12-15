@@ -138,12 +138,14 @@ function OwnerView(props)
         callback = <SearchStores
             stores={props.stores} 
             handleStores={props.handleStores}
-            handleBuyComputer={props.handleBuyComputer}/>
+            //handleBuyComputer={props.handleBuyComputer}
+            />
     } else if  (props.search === "Computers"){
         callback = <SearchComputer 
         searchResults={props.searchResults} 
         handleSearchResults={props.handleSearchResults}
-        handleBuyComputer={props.handleBuyComputer}/>
+        //handleBuyComputer={props.handleBuyComputer}
+        />
     }
 
     if (props.inventoryReport === true) {
@@ -224,14 +226,19 @@ export function Landing(props)
     if (props.coordinatesIntake){
         callback = <GetCoordinatesView
             handleCustomerCoordinates={props.handleCustomerCoordinates}
+            //handleStoreCoordinates={props.handleStoreCoordinates}
             handleCoordinatesIntake={props.handleCoordinatesIntake}
+            handleStoreLoc={props.handleStoreLoc}
             computer={props.computerInfo}/>
     }
 
     //BUY COMPUTER
     if (props.buyComputer === true){
+        let lat = props.storeCoordinates
+        console.log("coord " + lat.lat)
         callback = <Buy 
             customerCoordinates={props.customerCoordinates}
+            storeCoordinates={props.storeCoordinates}
             computerInfo={props.computerInfo}/>
     }
 
@@ -281,6 +288,9 @@ export default function View(props)
                     handleCoordinatesIntake={props.handleCoordinatesIntake}
                     coordinatesIntake={props.coordinatesIntake}
                     computerInfo={props.computerInfo}
+                    handleStoreCoordinates={props.handleStoreCoordinates}
+                    storeCoordinates={props.storeCoordinates}
+                    handleStoreLoc={props.handleStoreLoc}
                    />
             </div>
         )
@@ -357,6 +367,9 @@ export default function View(props)
                 handleCoordinatesIntake={props.handleCoordinatesIntake}
                 coordinatesIntake={props.coordinatesIntake}
                 computerInfo={props.computerInfo}
+                handleStoreCoordinates={props.handleStoreCoordinates}
+                storeCoordinates={props.storeCoordinates}                    
+                handleStoreLoc={props.handleStoreLoc}
                 />
             </div>
         )

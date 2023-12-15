@@ -7,11 +7,24 @@ import {testInventory} from './Owner/testInventory.js';
 import { test_stores } from './Manager/testStores';
 import { wait } from '@testing-library/user-event/dist/utils/index.js';
 import { GetStoreInventory } from './API.js';
+import { ReqStoreLonLat } from './Customer/Buy.js';
 
 
 function App() {
+  //cookieeees
   let cookie = localStorage.getItem('user');
   cookie = JSON.parse(cookie);
+
+  let storeCoordInit = {
+    lat: 0.0,
+    lon: 0.0
+  }
+
+  let customerCoordInit = {
+    lat: 0.0,
+    lon: 0.0
+  }
+
   const [user, setUser] = React.useState(cookie);
   const [login, setLogin] = React.useState(null);
   const [failedLogin, setFailedLogin] = React.useState(false);
@@ -41,10 +54,13 @@ function App() {
   const [customerStoreInventory, setCustomerStoreInventory] = React.useState(null);
   const [siteBalance, setSiteBalance] = React.useState(null);
   const [buyComputer, setBuyComputer] = React.useState(null);
+  const [storeLoc, setStoreLoc] = React.useState(null);
   const [computerInfo, setcomputerInfo] = React.useState(null);
   const [coordinatesIntake, setCoordinatesIntake] = React.useState(null, null);
-  const [customerCoordinates, setCustomerCoordinates] = React.useState(0.0, 0.0); //customer coordinates
-  const [storeCoordinates, setStoreCoordinates] = React.useState(0.0, 0.0); //store coordinates
+  const [customerCoordinates, setCustomerCoordinates] = React.useState(customerCoordInit); //customer coordinates
+  const [storeCoordinates, setStoreCoordinates] = React.useState(storeCoordInit); //store coordinates
+
+
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -63,6 +79,7 @@ function App() {
     setListFilteredStores(false)
     setCoordinatesIntake(false)
     setBuyComputer(false)
+    setStoreLoc(false)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -150,17 +167,28 @@ function App() {
     setBuyComputer(bool);
   }
 
+  function handleStoreLoc(bool){
+    clear();
+    setStoreLoc(bool);
+  }
+
   //function to get the customer's coordinates when they're buying a computer
   function handleCustomerCoordinates(lat, lon){
     clear()
-    console.log("coordinates: " + lat + "," + lon)
-    setCustomerCoordinates(lat, lon)
-    setBuyComputer(true)
+    console.log("customer: " + lat + "," + lon)
+    setCustomerCoordinates(
+      customerCoordinates.lat = lat,
+      customerCoordinates.lon = lon
+    )
   }
 
   function handleStoreCoordinates(lat, lon){
     console.log("store: " + lat + "," + lon)
-    setStoreCoordinates(lat, lon)
+    setStoreCoordinates(
+      storeCoordinates.lat = lat,
+      storeCoordinates.lon = lon
+    )
+    ;  
   }
 
   //ABOUT US ##################################
@@ -378,9 +406,12 @@ function App() {
             computerInfo={computerInfo}
             storeCoordinates={storeCoordinates} handleStoreCoordinates={handleStoreCoordinates}
             siteInventoryBalances={siteInventoryBalances}
+            handleStoreLoc={handleStoreLoc}
             />
 
             {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}
+            {storeLoc && <ReqStoreLonLat handleStoreCoordinates = {handleStoreCoordinates} 
+                          computerID={computerInfo.inventoryID} handleBuyComputer={handleBuyComputer}/>}
     </div>
   );
 }

@@ -87,8 +87,17 @@ export function GetCoordinatesView(props)
 {
     let computer = props.computer
     let computerID = computer.inventoryID
-    const [storeCoordinates, getStoreCoordinates] = React.useState(null, null)
+    let handleStoreCoordinates = props.handleStoreCoordinates
     console.log("in getCoords, computerID="+computerID)
+
+    const [coord, setCoord] = React.useState(null);
+
+
+    function passback(){
+        props.handleCustomerCoordinates(
+            document.getElementById("lat").value, document.getElementById("lon").value) 
+        props.handleStoreLoc(true)
+    }
 
     return (
         <div className="bodybag">
@@ -102,17 +111,22 @@ export function GetCoordinatesView(props)
                     <input id="lon" />
                 </div>
                 <button 
-                    onClick = {()=>{props.handleCustomerCoordinates(
-                        document.getElementById("lat").value, document.getElementById("lon").value)
+                    onClick = {()=>{
+                        passback()
                     }}>
                     Buy
                 </button>
-            {<ReqStoreLonLat 
-                    handleStoreCoordinates={props.handleStoreCoordinates} 
-                    computerID={computerID}/>} 
         </div>
     )
 }
+
+
+/*
+{sendReq && <ReqStoreLonLat 
+                    handleStoreCoordinates={props.handleStoreCoordinates} 
+                    computerID={computerID}/>} 
+
+*/
 
 /*
 function getStoreCoordinates(computerID){
@@ -136,12 +150,15 @@ export function ReqStoreLonLat(props)
     let computerID = props.computerID
     console.log("in req store lat lon, computer id="+computerID)
 
+    /*
     //set the lat and lon from store retrieved from database
-    function handleStoreLatLon(lat, lon){
+    function handleSt(lat, lon){
         props.handleStoreCoordinates(lat, lon)
         console.log("lat: " + lat + " long " + lon)
     }
+    */
 
+    let stop = props.handleBuyComputer(true)
     //create the json for the request, have to send computer ID, will look for store and will 
     //do all the things for buy
     let json = {
@@ -150,8 +167,9 @@ export function ReqStoreLonLat(props)
 
     return (
         <div>
+            {stop}
         <GetStoreLatLong
-            handleStoreLatLon={handleStoreLatLon}
+            handleStoreCoordinates={props.handleStoreCoordinates}
             computerID={props.computerID}
             json={json}
             />
@@ -180,24 +198,30 @@ export function Buy(props)
 {
     let computer = props.computerInfo
     let price = computer.price
-    let id = computer.inventoryID
+    let computerID = computer.inventoryID
+    let coordinates = {} 
     let perMileCost = 0.03
     let shipping = 0.0;
     let storePay = price*0.95;
     let siteCut = price - storePay;
+    let storeCoord = props.storeCoordinates
+    let customerCoord = props.customerCoordinates
 
-    //need to get the store lat/lon set
-    const [storeLatLon, setStoreLatLon] = React.useState(null, null);
 
-    //set it here in another call
-    function handleLatLon(lat, lon){
-        setStoreLatLon(lat, lon)
+    {storeCoord.lat && console.log("Store lat: " + storeCoord.lat + " Store lon: " + storeCoord.lon)}
+
+/*
+    const [storeCoordinates, setStoreCoordinates] = React.useState(null, null)
+
+    function handleStoreCoordinates(lat, lon)
+    {
+        setStoreCoordinates(lat, lon)
     }
 
-    ReqStoreLonLat(handleLatLon={handleLatLon}, id={id})
-    console.log("store? " + storeLatLon)
+    ReqStoreLonLat(handleStoreCoordinates={handleStoreCoordinates}, computerID={computerID})*/
+    //console.log("store? " + storeCoordinates)
 
-    //let shipping = calculateShipping(props.storeLat, props.storeLong, props.custLat, props.custLong, perMileCost)
+    shipping = calculateShipping(storeCoord.lat, storeCoord.lon, customerCoord.lat, customerCoord.lon, perMileCost)
 
     let totalPrice = shipping + price
 
