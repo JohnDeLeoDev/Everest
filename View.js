@@ -129,7 +129,7 @@ function OwnerView(props)
     
     if (props.inventoryReport){
         callback = <InventoryReport 
-            inventory={props.inventory}
+            storeProfit={props.storeProfit}
             handleInventoryReport={props.handleInventoryReport}/>
     }
 
@@ -318,6 +318,7 @@ export default function View(props)
                 stores={props.stores} handleStores={props.handleStores}
                 about={props.about}
                 searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
+                storeProfit={props.storeProfit}
                 />
         )
     } 

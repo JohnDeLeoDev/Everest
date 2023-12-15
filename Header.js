@@ -116,7 +116,7 @@ function getStoreOwnerNav(props)
     <div>
         <button className="Button" onClick={() => props.handleLogout(true)}> Logout </button>
         <button className="Button" onClick={() => {props.handleAddComputer(true)}}> Add Computer </button>
-        <button className="Button" onClick={() => {props.handleInventoryReport(true)}}> Generate Reports</button>
+        <button className="Button" onClick={() => {props.handleInventoryReport(true)}}> Check Balance</button>
         <button className="Button" onClick={() => {props.handleAbout(true)}}> About Us</button>
         <button className="Button" onClick={() => {props.handleSearch("Stores")}}>Search Stores</button>
         <button className="Button" onClick={() => {props.handleSearch("Computers")}}>Search Computers</button>

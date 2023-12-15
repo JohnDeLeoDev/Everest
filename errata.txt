@@ -18,9 +18,7 @@ TO DO:
         3. Buy Computer - FINAL 
             Status:
             - end and testing -
-                need to reformat query in buyComputer lambda to pay the site Manager
-                clean up exit view
-                Q: who gets the shipping money?
+                clean up exit view, add better error checking and messages
         4. Search Computers with filters - FINAL
         5. Compare Two Computers - FINAL
         

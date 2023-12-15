@@ -62,6 +62,7 @@ function App() {
   const [storeCoordinates, setStoreCoordinates] = React.useState(storeCoordInit); //store coordinates
   const [confirmBuy, setConfirmBuy] = React.useState(null);
   const [storeBalances, setStoreBalances] = React.useState(null); //all of the store balances for SM view
+  const [storeProfit, setStoreProfit] = React.useState(null); //profit for ONE store
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -412,6 +413,7 @@ function App() {
             showBalances={showBalances} 
             siteManagerBalance={siteManagerBalance} handleSiteManagerBalance={handleSiteManagerBalance}
             storeBalance={storeBalance} handleStoreBalance={handleStoreBalance}
+            storeProfit={storeProfit}
             search={search} handleSearch={handleSearch}
             setStoreReport={storeReport} handleSetStoreReport={handleSetStoreReport}
             removeStore={removeStore} setRemoveStore={setRemoveStore}
