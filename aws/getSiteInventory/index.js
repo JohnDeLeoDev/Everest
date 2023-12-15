@@ -26,7 +26,7 @@ exports.handler = async (event) => {
   //get the names 
   let inventoryQuery ='SELECT name,price \
                        FROM Stores  \
-                       JOIN Computers\
+                       LEFT JOIN Computers\
                        ON Stores.storeID=Computers.storeID';
 
   let result = await new Promise((resolve, reject) => {
