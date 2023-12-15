@@ -770,11 +770,18 @@ export function GetStoreLatLong(props)
 
     function handleStoreLatLonResponse(response) {
         let body = response.body;
-        body = JSON.parse(body);
-        let lat = body.lat.lat;    //doh
-        let lon = body.lat.longitude;
-        console.log("RES lat: ", lat, " lon:", lon)
-        props.handleStoreCoordinates(lat, lon);  
+        if (body !== undefined && body !== null){
+            body = JSON.parse(body);
+            let dir = body.lat;
+            console.log("RES BODY ",dir)
+            let lat = dir.lat;    //doh
+            let lon = dir.longitude;
+            console.log("RES lat: ", lat, " lon:", lon)
+            props.handleStoreCoordinates(lat, lon);  
+        } else {
+            console.log("NULL RESP")
+        }
+        
     }
 
     useEffect(() => {
@@ -826,7 +833,8 @@ export function BuyComputer(props)
 
     //handle sending the confirmation that the purchase was successful
     function handleBuyComputerResponse(response) {
-        if (response["body-json"]["statusCode"] === 200) {
+        console.log(response);
+        if (response["statusCode"] === 200) {
             props.handleBuyComputer(true);  
         } 
         else {

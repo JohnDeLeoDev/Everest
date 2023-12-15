@@ -1,6 +1,6 @@
 //Buy computer case
 import React from "react";
-import { AddBalanceRequest, GetStoreLatLong } from "../API";
+import { BuyComputer, GetStoreLatLong } from "../API";
 
 //*************************************************************************** */
 function convertToDecimalDeg(storeLat, storeLong, custLat, custLong)
@@ -66,14 +66,19 @@ export function calculateShipping(storeLat, storeLong, custLat, custLong, costPe
     var deltaLong = toRadians((custLong - storeLong))
     var long = Math.sin(deltaLong/2.0)**2
 
+    //console.log("store lat: " + storeLat + " store long: " + storeLong)
+    //console.log("cust lat: " + custLat + " cust lon: " + custLong)
+
     //convert to radians
     var a = 2 * lat + (long * Math.cos(toRadians(storeLat))*(Math.cos(toRadians(storeLat))))
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    var c = 2 * Math.atan2(Math.sqrt(Math.abs(a)), Math.sqrt(Math.abs(1-a)))
     distance = (meanRadius * c);    //m
+
+    //console.log("a: " + a + " c "+ c + " distance " + distance)
 
     //convert to miles
     distance = distance / 1.852;
-    console.log("distance: " + distance)
+    console.log("shipping distance(mi): " + distance)
     
     return distance * costPerMile;
 }
@@ -112,10 +117,11 @@ export function GetCoordinatesView(props)
                     <input id="lon" />
                 </div>
                 <button 
+                    className="Button"
                     onClick = {()=>{
                         passback()
                     }}>
-                    Buy
+                    Set Location
                 </button>
         </div>
     )
@@ -159,7 +165,8 @@ export function ReqStoreLonLat(props)
     }
     */
 
-    let stop = props.handleBuyComputer(true)
+    let stop = props.handleStoreLoc(false)
+    let next = props.handleConfirmBuy(true)
     //create the json for the request, have to send computer ID, will look for store and will 
     //do all the things for buy
     let json = {
@@ -169,6 +176,7 @@ export function ReqStoreLonLat(props)
     return (
         <div>
             {stop}
+            {next}
         <GetStoreLatLong
             handleStoreCoordinates={props.handleStoreCoordinates}
             computerID={props.computerID}
@@ -208,26 +216,33 @@ export function Buy(props)
     let storeCoord = props.storeCoordinates
     let customerCoord = props.customerCoordinates
 
+    //debug prints
+    {storeCoord.lat && console.log("Store lat: " + storeCoord.lat+ " Store lon: " + storeCoord.lon)}
+    {customerCoord.length && console.log("Customer lat: " + customerCoord.lat + " Customer lon: " + customerCoord.lat)}
 
-    {storeCoord.lat && console.log("Store lat: " + storeCoord.lat + " Store lon: " + storeCoord.lon)}
-
-/*
-    const [storeCoordinates, setStoreCoordinates] = React.useState(null, null)
-
-    function handleStoreCoordinates(lat, lon)
-    {
-        setStoreCoordinates(lat, lon)
-    }
-
-    ReqStoreLonLat(handleStoreCoordinates={handleStoreCoordinates}, computerID={computerID})*/
-    //console.log("store? " + storeCoordinates)
-
-    shipping = calculateShipping(storeCoord.lat, storeCoord.lon, customerCoord.lat, customerCoord.lon, perMileCost)
+    shipping = calculateShipping(storeCoord.lat, storeCoord.lat, customerCoord.lat, customerCoord.lon, perMileCost)
 
     let totalPrice = shipping + price
 
+    //debug prints
     console.log("total price:" + totalPrice)
     console.log("store paid: " + storePay + " site cut: " + siteCut)
+
+
+    let json = {
+        "computerID":computerID,
+        "storeCut":storePay,
+        "siteCut":siteCut
+    }
+
+    //define
+    const [status, setStatus] = React.useState(null);
+
+    function handleStatus(status){
+        console.log("status: ", status)
+        setStatus(status);
+    }
+
 
     //request in return:
     //pay store
@@ -243,12 +258,13 @@ export function Buy(props)
             <br/>
             Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
 
+            <BuyComputer 
+                json={json} 
+                handleBuyComputer={props.handleBuyComputer}
+                handleStatus={handleStatus}/>
+
+            <button onClick={()=>{props.handleBuyComputer(false)}}>Close</button>
         </div>
     )
 
-    /*
-<AddBalanceRequest
-                userID={0} 
-                amount={siteCut}/>
-    */
 }

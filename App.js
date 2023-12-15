@@ -59,8 +59,7 @@ function App() {
   const [coordinatesIntake, setCoordinatesIntake] = React.useState(null, null);
   const [customerCoordinates, setCustomerCoordinates] = React.useState(customerCoordInit); //customer coordinates
   const [storeCoordinates, setStoreCoordinates] = React.useState(storeCoordInit); //store coordinates
-
-
+  const [confirmBuy, setConfirmBuy] = React.useState(null);
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -80,6 +79,7 @@ function App() {
     setCoordinatesIntake(false)
     setBuyComputer(false)
     setStoreLoc(false)
+    setConfirmBuy(false)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -173,22 +173,34 @@ function App() {
   }
 
   //function to get the customer's coordinates when they're buying a computer
-  function handleCustomerCoordinates(lat, lon){
+  function handleCustomerCoordinates(tlat, tlon){
     clear()
-    console.log("customer: " + lat + "," + lon)
-    setCustomerCoordinates(
-      customerCoordinates.lat = lat,
-      customerCoordinates.lon = lon
+    console.log("customer: " + tlat + "," + tlon)
+    //setCustomerCoordinates(...customerCoordinates, [lat, lon])
+    
+    setCustomerCoordinates({
+      ...customerCoordinates,
+      lat: tlat,
+      lon: tlon
+    }
+      
     )
   }
 
-  function handleStoreCoordinates(lat, lon){
-    console.log("store: " + lat + "," + lon)
-    setStoreCoordinates(
-      storeCoordinates.lat = lat,
-      storeCoordinates.lon = lon
-    )
-    ;  
+  function handleStoreCoordinates(tlat, tlon){
+    console.log("store: " + tlat + "," + tlon)
+
+    setStoreCoordinates ({
+      ...storeCoordinates,
+      lat: tlat,
+      lon: tlon
+    });
+    console.log("in lat " + storeCoordinates.lat)
+  }
+
+  function handleConfirmBuy(bool){
+    clear();
+    setConfirmBuy(bool)
   }
 
   //ABOUT US ##################################
@@ -406,12 +418,14 @@ function App() {
             computerInfo={computerInfo}
             storeCoordinates={storeCoordinates} handleStoreCoordinates={handleStoreCoordinates}
             siteInventoryBalances={siteInventoryBalances}
-            handleStoreLoc={handleStoreLoc}
+            handleStoreLoc={handleStoreLoc} 
+            confirmBuy={confirmBuy} handleConfirmBuy={handleConfirmBuy}
             />
 
             {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}
             {storeLoc && <ReqStoreLonLat handleStoreCoordinates = {handleStoreCoordinates} 
-                          computerID={computerInfo.inventoryID} handleBuyComputer={handleBuyComputer}/>}
+                          computerID={computerInfo.inventoryID} handleStoreLoc={handleStoreLoc}
+                          handleConfirmBuy={handleConfirmBuy}/>}
     </div>
   );
 }

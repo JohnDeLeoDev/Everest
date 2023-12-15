@@ -35,3 +35,13 @@ test('calc lat-long distance', () => {
       let distance = calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile);
       expect(distance).toBeCloseTo(60*costPerMile);  //miles
       });
+
+      test('calc TEST1 lat-long distance', () => {
+        let storeLat = 118.2425;
+        let storeLong = 34.0549;
+        let custLat = 22.0020;
+        let custLong = 33.0030;
+        let costPerMile = 0.03;
+        let distance = calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile);
+        expect(distance).toBeCloseTo(60*costPerMile);  //miles
+        });

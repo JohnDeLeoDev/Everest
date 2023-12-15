@@ -233,13 +233,14 @@ export function Landing(props)
     }
 
     //BUY COMPUTER
-    if (props.buyComputer === true){
+    if (props.confirmBuy === true){
         let lat = props.storeCoordinates
         console.log("coord " + lat.lat)
         callback = <Buy 
             customerCoordinates={props.customerCoordinates}
             storeCoordinates={props.storeCoordinates}
-            computerInfo={props.computerInfo}/>
+            computerInfo={props.computerInfo}
+            handleBuyComputer={props.handleBuyComputer}/>
     }
 
     return (
@@ -291,6 +292,7 @@ export default function View(props)
                     handleStoreCoordinates={props.handleStoreCoordinates}
                     storeCoordinates={props.storeCoordinates}
                     handleStoreLoc={props.handleStoreLoc}
+                    confirmBuy={props.confirmBuy} handleConfirmBuy={props.handleConfirmBuy}
                    />
             </div>
         )
@@ -370,6 +372,7 @@ export default function View(props)
                 handleStoreCoordinates={props.handleStoreCoordinates}
                 storeCoordinates={props.storeCoordinates}                    
                 handleStoreLoc={props.handleStoreLoc}
+                confirmBuy={props.confirmBuy} handleConfirmBuy={props.handleConfirmBuy}
                 />
             </div>
         )
