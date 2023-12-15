@@ -57,14 +57,17 @@ export function ManagerView(props)
     let callback = ''
     console.log("MANAGER VIEW")
 
-    //profit for site manager
+    //profit for site manager or all stores
     if (props.showBalances === "Site"){
         callback = <GenerateSiteManagerBalance
                handleSiteManagerBalance={props.handleSiteManagerBalance}
                siteBalance={props.siteBalance} handleSiteBalance={props.handleSiteBalance}
                />
     } else if (props.showBalances === 'All Stores'){
-        callback = <GenerateStoreBalance handleStoreBalance={props.handleStoreBalance}/>
+        callback = <GenerateStoreBalance 
+            handleStoreBalance={props.handleStoreBalance}
+        //    storeBalances={props.storeBalances}
+            />
     }
 
     //get total inventory balance for all stores as one value
@@ -337,6 +340,8 @@ export default function View(props)
                 searchResults={props.searchResults} handleSearchResults={props.handleSearchResults}
                 siteBalance={props.siteBalance} handleSiteBalance={props.handleSiteBalance}
                 siteInventoryBalances={props.siteInventoryBalances}
+                storeBalances={props.storeBalances}
+                handleStoreBalances={props.handleStoreBalances}
                 />
         </div>
         )

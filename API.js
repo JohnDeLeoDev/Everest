@@ -825,7 +825,7 @@ export function BuyComputer(props)
     //need the $$ for store owner
     //status - success
     const [buyComputerRequest, setBuyComputerRequest] = React.useState(props.json);
-    const [buyComputerResponse, setBUyComputerResponse] = React.useState(null);
+    const [buyComputerResponse, setBuyComputerResponse] = React.useState(null);
 
     function handleBuyComputerRequest(json) {
         setBuyComputerRequest(json);
@@ -834,11 +834,12 @@ export function BuyComputer(props)
     //handle sending the confirmation that the purchase was successful
     function handleBuyComputerResponse(response) {
         console.log(response.status);
-        if (response.status === 200) {
-            props.handleStatus(true);  
-        } 
-        else {
-            props.handleStatus(false);
+        if (response !== null && response !== undefined) {
+            if (response.statusCode === 200) {
+                props.handleStatus(true);
+            } else {
+                props.handleStatus(false)
+            }
         }
     }
 
@@ -857,6 +858,52 @@ export function BuyComputer(props)
             .then(data => {
                 if (data !== null && data !== undefined) {
                     handleBuyComputerResponse(data);
+                }
+            });
+        }, [props.json]);
+}
+
+//************************************************************************* */
+export function GetStoreBalances(props)
+/**
+ * @brief get the balances for all stores - site manager view
+ * 
+ *****************************************************************************/
+{
+    const [storeBalancesRequest, setStoreBalancesRequest] = React.useState(null);
+    const [storeBalancesResponse, setStoreBalancesResponse] = React.useState(null);
+
+    function handleStoreBalancesRequest(json) {
+        setStoreBalancesRequest(json);
+    }
+
+    //get balances for all stores on the site
+    function handleStoreBalancesResponse(response) {
+        let body = response.body;
+        if (body !== undefined && body !== null){
+            body = JSON.parse(body);
+            let balances = body
+            console.log(balances[0].name)
+            props.handleStoreBalances(balances);  
+        } else {
+            console.log("NULL RESP")
+        }
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+        };
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/getStoreBalances', requestOptions)           //needs a lambda and an api gateway 
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleStoreBalancesResponse(data);
                 }
             });
         }, [props.json]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SiteMgrBalanceRequest} from '../API.js';
+import {GetStoreBalances, SiteMgrBalanceRequest} from '../API.js';
 
 /**
  * @brief Generate reports for site manager
@@ -15,12 +15,25 @@ export function GenerateStoreBalance(props)
     //build structure ascending (default)
     // store name : "name"
     // store balance : "balance"
-    let storeBalances = props.storeBalances;
+    //let storeBalances = props.storeBalances;
+    //console.log("generate store bals: ", storeBalances)\
+
+    let json = {
+        
+    }
+
+    const [storeBalances, setStoreBalances] = React.useState(null);
+    const [getBals, setGetBals] = React.useState(true)
+
+    function handleStoreBalances(balances){
+        console.log("generate balances: ", balances)
+        setStoreBalances(balances)
+    }
 
     return (
         <div>
-            Get the balances from all stores
-            
+            <h2>Store Balances</h2>
+            <GetStoreBalances json={json} handleStoreBalances={handleStoreBalances}/>
             <button className="Button" onClick={() => {props.handleStoreBalance(false)}}>Close</button>
         </div>
     )

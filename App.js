@@ -60,6 +60,7 @@ function App() {
   const [customerCoordinates, setCustomerCoordinates] = React.useState(customerCoordInit); //customer coordinates
   const [storeCoordinates, setStoreCoordinates] = React.useState(storeCoordInit); //store coordinates
   const [confirmBuy, setConfirmBuy] = React.useState(null);
+  const [storeBalances, setStoreBalances] = React.useState(null); //all of the store balances for SM view
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -326,6 +327,12 @@ function App() {
     setStoreBalance(bool);
   }
 
+  //get the values
+  function handleStoreBalances(balances){
+    console.log("IN APP, BALANCES:",balances)
+    setStoreBalances(balances)
+  }
+
   //INVENTORY TOTALS ###############################
   //'All Stores' or 'Site'
   function handleSetStoreReport(option){
@@ -420,6 +427,8 @@ function App() {
             siteInventoryBalances={siteInventoryBalances}
             handleStoreLoc={handleStoreLoc} 
             confirmBuy={confirmBuy} handleConfirmBuy={handleConfirmBuy}
+            handleStoreBalances={handleStoreBalances}
+            storeBalances={storeBalances}
             />
 
             {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}
@@ -431,3 +440,6 @@ function App() {
 }
 
 export default App;
+
+
+//            {(showBalances==='All Stores' )}
