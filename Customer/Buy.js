@@ -69,10 +69,11 @@ export function calculateShipping(storeLat, storeLong, custLat, custLong, costPe
     //convert to radians
     var a = 2 * lat + (long * Math.cos(toRadians(storeLat))*(Math.cos(toRadians(storeLat))))
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-    distance = (meanRadius * c);    //km
+    distance = (meanRadius * c);    //m
 
     //convert to miles
-    distance = distance / 1.609344;
+    distance = distance / 1.852;
+    console.log("distance: " + distance)
     
     return distance * costPerMile;
 }

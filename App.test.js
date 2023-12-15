@@ -19,9 +19,19 @@ test('calc lat-long distance', () => {
     let storeLong = -71.057083;
     let custLat = 32.715736;
     let custLong = -117.161087;
-    let tol = (2578*0.05);
+    let tol = (2249*0.03);
     let costPerMile = 3.00;
     let distance = calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile);
-    expect(distance).toBeGreaterThan(costPerMile*(2578-tol));
-    expect(distance).toBeLessThan(costPerMile*(2578+tol));  //miles
+    expect(distance).toBeGreaterThan(costPerMile*(2249-tol));
+    expect(distance).toBeLessThan(costPerMile*(2249+tol));  //miles
     });
+
+    test('calc TEST lat-long distance', () => {
+      let storeLat = 0;
+      let storeLong = 0;
+      let custLat = 0;
+      let custLong = 1;
+      let costPerMile = 0.03;
+      let distance = calculateShipping(storeLat, storeLong, custLat, custLong, costPerMile);
+      expect(distance).toBeCloseTo(60*costPerMile);  //miles
+      });
