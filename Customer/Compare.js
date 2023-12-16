@@ -53,7 +53,7 @@ export function CompareSelected(props)
                                 <p>Processor: {computer.processor}</p>
                                 <p>Process Generation: {computer.processGen}</p>
                                 <p>Graphics: {computer.graphics}</p>
-                                <button >Buy</button>
+                                <button onClick={() => props.handleCoordinatesIntake(true, computer)}>Buy</button>
                             </div>
                         )
                     })}

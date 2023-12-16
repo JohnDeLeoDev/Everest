@@ -237,13 +237,18 @@ export function Landing(props)
 
     //BUY COMPUTER
     if (props.confirmBuy === true){
-        let lat = props.storeCoordinates
-        console.log("coord " + lat.lat)
-        callback = <Buy 
-            customerCoordinates={props.customerCoordinates}
-            storeCoordinates={props.storeCoordinates}
-            computerInfo={props.computerInfo}
-            handleBuyComputer={props.handleBuyComputer}/>
+        if (props.buyStatusCount === 0){
+            let lat = props.storeCoordinates
+            console.log("coord " + lat.lat)
+            callback = <Buy 
+                customerCoordinates={props.customerCoordinates}
+                storeCoordinates={props.storeCoordinates}
+                computerInfo={props.computerInfo}
+                handleBuyComputer={props.handleBuyComputer}
+                buyStatusCount={props.buyStatusCount}
+                handleSetBuyStatusCount={props.handleSetBuyStatusCount}
+            />
+        }
     }
 
     return (
@@ -287,6 +292,8 @@ export default function View(props)
                     handleCustomerStoreInventory = {props.handleCustomerStoreInventory}
                     buyComputer={props.buyComputer}
                     handleBuyComputer={props.handleBuyComputer}
+                    buyStatusCount={props.buyStatusCount}
+                    handleSetBuyStatusCount={props.handleSetBuyStatusCount}
                     customerCoordinates={props.customerCoordinates}
                     handleCustomerCoordinates={props.handleCustomerCoordinates}
                     handleCoordinatesIntake={props.handleCoordinatesIntake}
@@ -370,6 +377,8 @@ export default function View(props)
                 handleCustomerStoreInventory = {props.handleCustomerStoreInventory}  
                 buyComputer={props.buyComputer}
                 handleBuyComputer={props.handleBuyComputer}
+                buyStatusCount={props.buyStatusCount}
+                handleSetBuyStatusCount={props.handleSetBuyStatusCount}
                 customerCoordinates={props.customerCoordinates}
                 handleSetCustomerCoordinates={props.handleSetCustomerCoordinates} 
                 handleCoordinatesIntake={props.handleCoordinatesIntake}

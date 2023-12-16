@@ -63,6 +63,7 @@ function App() {
   const [confirmBuy, setConfirmBuy] = React.useState(null);
   const [storeBalances, setStoreBalances] = React.useState(null); //all of the store balances for SM view
   const [storeProfit, setStoreProfit] = React.useState(null); //profit for ONE store
+  const [buyStatusCount, setBuyStatusCount] = React.useState(0);
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -158,10 +159,13 @@ function App() {
 
   //function to get to the coordinate entry view after clicking "Buy" button
   function handleCoordinatesIntake(bool, computer){
-    clear();
-    setCoordinatesIntake(bool)
-    setcomputerInfo(computer)
-    console.log("computer id: " + computer.inventoryID + " price: " + computer.price)
+    if (buyStatusCount === 0) {
+      clear();
+      setCoordinatesIntake(bool)
+      setcomputerInfo(computer)
+      setBuyStatusCount(0);
+      console.log("computer id: " + computer.inventoryID + " price: " + computer.price)
+    }
   }
 
   //function to "Buy" after getting coordinates
@@ -204,6 +208,10 @@ function App() {
   function handleConfirmBuy(bool){
     clear();
     setConfirmBuy(bool)
+  }
+
+  function handleSetBuyStatusCount(count){
+    setBuyStatusCount(count);
   }
 
   //ABOUT US ##################################
@@ -432,6 +440,8 @@ function App() {
             confirmBuy={confirmBuy} handleConfirmBuy={handleConfirmBuy}
             handleStoreBalances={handleStoreBalances}
             storeBalances={storeBalances}
+            buyStatusCount={buyStatusCount}
+            handleSetBuyStatusCount={handleSetBuyStatusCount}
             />
 
             {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}

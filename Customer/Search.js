@@ -86,6 +86,7 @@ export function SearchComputer(props)
         document.querySelectorAll('input[type=checkbox]:checked').forEach( el => el.checked = false );
     }
 
+
     //******************************************************************* */
     function computerCards() 
     /**
@@ -177,7 +178,7 @@ export function SearchComputer(props)
                 
                 )}
                 </div>
-                {compareState && <CompareSelected compareState={compareState} searchResults={props.searchResults}/>}
+                {compareState && <CompareSelected handleCoordinatesIntake={props.handleCoordinatesIntake} compareState={compareState} searchResults={props.searchResults}/>}
             </form>
             </div>
             <div id='results'>

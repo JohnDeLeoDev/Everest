@@ -1,5 +1,5 @@
 //Buy computer case
-import React from "react";
+import React, { useEffect } from "react";
 import { BuyComputer, GetStoreLatLong } from "../API";
 
 //*************************************************************************** */
@@ -101,13 +101,13 @@ export function GetCoordinatesView(props)
 
     function passback(){
         props.handleCustomerCoordinates(
-            document.getElementById("lat").value, document.getElementById("lon").value) 
-        props.handleStoreLoc(true)
+            document.getElementById("lat").value, document.getElementById("lon").value);
+        props.handleStoreLoc(true);
     }
 
     return (
         <div className="bodybag">
-            <h2>Please enter the latitude and longitude of your location</h2>
+            <h2>Please enter the latitude and longitude of your location. When ready, click the buy button.</h2>
                 <div>
                     <label>Latitude (decimal degrees)</label>
                     <input id="lat" />
@@ -121,7 +121,7 @@ export function GetCoordinatesView(props)
                     onClick = {()=>{
                         passback()
                     }}>
-                    Set Location
+                    Buy
                 </button>
         </div>
     )
@@ -177,7 +177,7 @@ export function ReqStoreLonLat(props)
         <div>
             {stop}
             {next}
-        <GetStoreLatLong
+            <GetStoreLatLong
             handleStoreCoordinates={props.handleStoreCoordinates}
             computerID={props.computerID}
             json={json}
@@ -211,7 +211,7 @@ export function Buy(props)
     let coordinates = {} 
     let perMileCost = 0.03
     let shipping = 0.0;
-    let storePay = price*0.95;
+    let storePay = price*0.95;          
     let siteCut = price - storePay;
     let storeCoord = props.storeCoordinates
     let customerCoord = props.customerCoordinates
@@ -236,12 +236,18 @@ export function Buy(props)
     }
 
     //define
-    const [status, setStatus] = React.useState(null);
+    const [status, setStatus] = React.useState(null); 
 
     function handleStatus(status){
-        console.log("status: ", status)
-        setStatus(status);
+        if (props.buyStatusCount == 0) {
+            console.log("status: ", status)
+            setStatus(status);
+            props.handleSetBuyStatusCount(1);
+        } else {
+            return;
+        }
     }
+
 
 
     //request in return:
@@ -250,18 +256,14 @@ export function Buy(props)
     //remove computer from database
     return (
         <div className="bodybag">
-            Reciept of Sale:
-            <br/>
-            Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
-            <br/>
-            Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
-            <br/>
-            Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
-
-            <BuyComputer 
-                json={json} 
-                handleStatus={handleStatus}/>
-
+            <BuyComputer json={json} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>
+            {(status == true) && <h2>Computer purchased successfully!</h2>}
+            {(status == true) && <h2>Thank you for your purchase!</h2>}
+            {(status == true) && <h2>Receipt of Sale:</h2>}
+            {(status == true) && <h2>Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
             <button onClick={()=>{props.handleBuyComputer(false)}}>Close</button>
         </div>
     )
