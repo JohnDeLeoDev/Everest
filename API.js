@@ -906,7 +906,7 @@ export function GetStoreBalances(props)
                 'Access-Control-Allow-Origin': '*'
                 },
         };
-        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/getStoreBalances', requestOptions)           //needs a lambda and an api gateway 
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/getStoreBalances', requestOptions)           
             .then(response => response.json())
             .then(data => {
                 if (data !== null && data !== undefined) {
@@ -914,4 +914,51 @@ export function GetStoreBalances(props)
                 }
             });
         }, []);
+}
+
+//************************************************************************* */
+export function GetOneStoreBalance(props)
+/**
+ * @brief get the balances for all stores - site manager view
+ * 
+ *****************************************************************************/
+{
+    const [storeBalanceRequest, setStoreBalanceRequest] = React.useState(props.json);
+    const [storeBalanceResponse, setStoreBalanceResponse] = React.useState(null);
+
+    function handleStoreBalancesRequest(json) {
+        setStoreBalanceRequest(json);
+    }
+
+    //get balances for one store on the site
+    function handleStoreBalanceResponse(response) {
+        let body = response.body;
+        if (body !== undefined && body !== null){
+            body = JSON.parse(body);
+            let balance = body[0].storeBalance
+            console.log(balance)       //proof of concept print
+            props.handleBalance(balance);  
+        } else {
+            console.log("NULL RESP")
+        }
+    }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*'
+                },
+            body: JSON.stringify(props.json)
+        };
+        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/getOneStoreBalance', requestOptions)           //needs a lambda and an api gateway 
+            .then(response => response.json())
+            .then(data => {
+                if (data !== null && data !== undefined) {
+                    handleStoreBalanceResponse(data);
+                }
+            });
+        }, [props.json]);
 }

@@ -64,6 +64,7 @@ function App() {
   const [storeBalances, setStoreBalances] = React.useState(null); //all of the store balances for SM view
   const [storeProfit, setStoreProfit] = React.useState(null); //profit for ONE store
   const [buyStatusCount, setBuyStatusCount] = React.useState(0);
+  const [oneStoreBalance, setOneStoreBalance] = React.useState(null);
 
   //clear function should be called between view to remove old render
   function clear(){
@@ -84,6 +85,7 @@ function App() {
     setBuyComputer(false)
     setStoreLoc(false)
     setConfirmBuy(false)
+    setOneStoreBalance(false)
   }
 
   //FROM LANDING PAGE VIEW ------------
@@ -286,6 +288,12 @@ function App() {
     setInventoryReport(bool)
   }
 
+  function handleOneStoreBalance(bool){
+    clear();
+    setOneStoreBalance(bool)
+    console.log("show one balance: ", bool)
+  }
+
   //MODIFY COMPUTER ###############################
   //modify computer in store inventory
   function handleModifyComp(bool, id) {
@@ -395,6 +403,7 @@ function App() {
               handleSearch={handleSearch}
               handleSetStoreReport={handleSetStoreReport}
               handleRemoveStore={handleRemoveStore}
+              handleOneStoreBalance={handleOneStoreBalance}
               />
       
       <View login={login} 
@@ -444,6 +453,7 @@ function App() {
             storeBalances={storeBalances}
             buyStatusCount={buyStatusCount}
             handleSetBuyStatusCount={handleSetBuyStatusCount}
+            oneStoreBalance={oneStoreBalance} handleOneStoreBalance={handleOneStoreBalance}
             />
 
             {storeReport && <GetSiteInventoryBalancesRequest handleSiteInventoryBalances={handleSiteInventoryBalances}/>}
