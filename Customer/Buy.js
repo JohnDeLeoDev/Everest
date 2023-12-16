@@ -209,7 +209,6 @@ export function Buy(props)
     let computer = props.computerInfo
     let price = computer.price
     let computerID = computer.inventoryID
-    let coordinates = {} 
     let perMileCost = 0.03
     let shipping = 0.0;
     let storePay = price*0.95;          
@@ -257,24 +256,19 @@ export function Buy(props)
     return (
         <div className="bodybag">
             {props.buyStatusCount == 0 && <BuyComputer json={json} status={status} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>}
-            {(status == true) && <h2>Computer purchased successfully!</h2>}
-            {(status == true) && <h2>Thank you for your purchase!</h2>}
-            {(status == true) && <h2>Receipt of Sale:</h2>}
-            {(status == true) && <h2>Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
-            {(status == true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
-            {(status == true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
-            {(status == false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
+            {(status === true) && <h2>Computer purchased successfully!</h2>}
+            {(status === true) && <h2>Thank you for your purchase!</h2>}
+            {(status === true) && <h2>Receipt of Sale:</h2>}
+            {(status === true) && <h2>Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status === true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status === true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status === false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
             <button onClick={() => {
                 props.handleSetBuyStatusCount(0);
                 props.handleConfirmBuy(false);
 
 
             }}>Back</button>
-
-      
-
-                
-                
             
         </div>
     )
