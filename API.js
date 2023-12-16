@@ -835,15 +835,20 @@ export function BuyComputer(props)
 
     //handle sending the confirmation that the purchase was successful
     function handleBuyComputerResponse(response) {
-        if (props.buyStatusCount === 0) {
-            if (response["statusCode"] === 200) {
-                props.handleStatus(true);
-                props.handleSetBuyStatusCount(1);
-            } else {
-                props.handleStatus(false)
-            }
-        } else {
+        if (props.status === true) {
             return;
+        } else {
+            if (props.status === null || props.status === undefined) {
+                if (response["statusCode"] === 200) {
+                    props.handleStatus(true);
+                    props.handleSetBuyStatusCount(1);
+                } else {
+                    props.handleStatus(false);
+                    props.handleSetBuyStatusCount(1);
+                }
+            } else {
+                return;
+            }
         }
     }
 

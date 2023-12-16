@@ -243,8 +243,6 @@ export function Buy(props)
         if (props.buyStatusCount == 0) {
             setStatus(status);
             props.handleSetBuyStatusCount(1);
-            wait(5000);
-
         } else {
             return;
         }
@@ -258,7 +256,7 @@ export function Buy(props)
     //remove computer from database
     return (
         <div className="bodybag">
-            {props.buyStatusCount == 0 && <BuyComputer json={json} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>}
+            {props.buyStatusCount == 0 && <BuyComputer json={json} status={status} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>}
             {(status == true) && <h2>Computer purchased successfully!</h2>}
             {(status == true) && <h2>Thank you for your purchase!</h2>}
             {(status == true) && <h2>Receipt of Sale:</h2>}
