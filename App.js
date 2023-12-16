@@ -31,7 +31,7 @@ function App() {
   const [failedLogin, setFailedLogin] = React.useState(false);
   const [failedCreateStore, setFailedCreateStore] = React.useState(null);
   const [search, setSearch] = React.useState(null);
-  const [searchResults, setSearchResults] = React.useState(false);
+  const [searchResults, setSearchResults] = React.useState({});
   const [about, setAbout] = React.useState(null);
   const [createStore, setCreateStore] = React.useState(null);
   const [storeCreated, setStoreCreated] = React.useState(null);
