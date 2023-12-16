@@ -238,6 +238,8 @@ export function Buy(props)
     //define
     const [status, setStatus] = React.useState(null); 
 
+    const [buyTrigger, setBuyTrigger] = React.useState(false);
+
     function handleStatus(status){
         if (props.buyStatusCount == 0) {
             setStatus(status);
@@ -247,6 +249,12 @@ export function Buy(props)
         }
     }
 
+    function handleBuyTrigger(){
+        setBuyTrigger(true);
+    }
+
+
+
 
 
     //request in return:
@@ -255,6 +263,21 @@ export function Buy(props)
     //remove computer from database
     return (
         <div className="bodybag">
+            {(status == null) && <h2>Are you sure you want to buy this computer?</h2>}
+            {(status == null) && <h2>Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == null) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == null) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == null) && <button onClick={() => {
+                handleBuyTrigger();
+            }}>Buy</button>}
+
+            {(status == true) && <h2>Computer purchased successfully!</h2>}
+            {(status == true) && <h2>Thank you for your purchase!</h2>}
+            {(status == true) && <h2>Receipt of Sale:</h2>}
+            {(status == true) && <h2>Price:{price.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
+            {(status == false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
             {props.buyStatusCount == 0 && <BuyComputer json={json} status={status} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>}
             {(status === true) && <h2>Computer purchased successfully!</h2>}
             {(status === true) && <h2>Thank you for your purchase!</h2>}
@@ -269,6 +292,14 @@ export function Buy(props)
 
 
             }}>Back</button>
+
+            {buyTrigger && <BuyComputer 
+                handleStatus={handleStatus}
+                json={json}
+                />}
+
+                
+                
             
         </div>
     )
