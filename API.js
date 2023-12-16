@@ -144,11 +144,19 @@ export function RemoveStoreRequest(props)
  *******************************************************************/
 {
     const [removeStoreRequest, setRemoveStoreRequest] = React.useState(props.json);
-    const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
-
     const json = JSON.stringify(removeStoreRequest);
+
     function handleRemoveStoreResponse(response) {
-        setRemoveStoreResponse(response);
+        console.log("IN HANDLE REMOVE STORE RESPONSE");
+        console.log(response);
+        if (response["statusCode"] !== null && response["statusCode"] !== undefined) {
+            if (response["statusCode"] === 200) {
+                console.log(response);
+                props.handleRemoveStoreResponse("Store successfully removed.");
+            } else {
+                props.handleRemoveStoreResponse("Error: store not removed.");
+            }
+        }
     }
 
      //contact server
@@ -171,12 +179,12 @@ export function RemoveStoreRequest(props)
         requestOptions.body = JSON.stringify(requestOptions.body);
 
         fetch('https://1pw1l3rxk2.execute-api.us-east-1.amazonaws.com/default/removeStore', requestOptions)
-            .then(response => {
-                //console.log(response);
-                response.json();
-            })
+            .then(response => response.json())
             .then(data => handleRemoveStoreResponse(data));
-        }, []);   
+        }
+        , []);
+
+
 
     
    /* const requestOptions= {

@@ -13,6 +13,7 @@ export default function RemoveStore(props)
 {
     // setCreateStoreRequest triggers a POST request to the server
     const [removeStoreRequest, setRemoveStoreRequest] = React.useState(null);
+    const [removeStoreResponse, setRemoveStoreResponse] = React.useState(null);
 
     let json = null;
 
@@ -31,6 +32,11 @@ export default function RemoveStore(props)
         setRemoveStoreRequest(storeName);
     }
 
+    function handleRemoveStoreResponse(response) {
+        console.log("response is", response)
+        setRemoveStoreResponse(response);
+    }
+
     return (
         <div>
             
@@ -44,7 +50,8 @@ export default function RemoveStore(props)
                 <br/>
                 <button onClick={() => handleRemoveStoreRequest()}>Remove</button>
             </div>
-            {removeStoreRequest && <RemoveStoreRequest json={removeStoreRequest} />}
+            {removeStoreRequest && <RemoveStoreRequest json={removeStoreRequest} handleRemoveStoreResponse={handleRemoveStoreResponse} />}
+            {removeStoreResponse && <p>{removeStoreResponse}</p>}
         </div>
     )
 
