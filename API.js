@@ -841,10 +841,8 @@ export function BuyComputer(props)
             if (props.status === null || props.status === undefined) {
                 if (response["statusCode"] === 200) {
                     props.handleStatus(true);
-                    props.handleSetBuyStatusCount(1);
                 } else {
                     props.handleStatus(false);
-                    props.handleSetBuyStatusCount(1);
                 }
             } else {
                 return;
