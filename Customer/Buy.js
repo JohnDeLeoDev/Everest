@@ -1,6 +1,7 @@
 //Buy computer case
 import React, { useEffect } from "react";
 import { BuyComputer, GetStoreLatLong } from "../API";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 //*************************************************************************** */
 function convertToDecimalDeg(storeLat, storeLong, custLat, custLong)
@@ -240,8 +241,10 @@ export function Buy(props)
 
     function handleStatus(status){
         if (props.buyStatusCount == 0) {
-            console.log("status: ", status)
             setStatus(status);
+            props.handleSetBuyStatusCount(1);
+            wait(5000);
+
         } else {
             return;
         }
@@ -263,7 +266,18 @@ export function Buy(props)
             {(status == true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
             {(status == true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
             {(status == false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
-            <button >Close</button>
+            <button onClick={() => {
+                props.handleSetBuyStatusCount(0);
+                props.handleConfirmBuy(false);
+
+
+            }}>Back</button>
+
+      
+
+                
+                
+            
         </div>
     )
 

@@ -239,19 +239,18 @@ export function Landing(props)
     }
 
     //BUY COMPUTER
-    if (props.confirmBuy === true){
-        if (props.buyStatusCount === 0){
-            let lat = props.storeCoordinates
-            console.log("coord " + lat.lat)
-            callback = <Buy 
-                customerCoordinates={props.customerCoordinates}
-                storeCoordinates={props.storeCoordinates}
-                computerInfo={props.computerInfo}
-                handleBuyComputer={props.handleBuyComputer}
-                buyStatusCount={props.buyStatusCount}
-                handleSetBuyStatusCount={props.handleSetBuyStatusCount}
-            />
-        }
+    if (props.confirmBuy === true) {
+        let lat = props.storeCoordinates
+        console.log("coord " + lat.lat)
+        callback = <Buy 
+            customerCoordinates={props.customerCoordinates}
+            storeCoordinates={props.storeCoordinates}
+            computerInfo={props.computerInfo}
+            handleBuyComputer={props.handleBuyComputer}
+            buyStatusCount={props.buyStatusCount}
+            handleSetBuyStatusCount={props.handleSetBuyStatusCount}
+            handleConfirmBuy={props.handleConfirmBuy}
+        />
     }
 
     return (

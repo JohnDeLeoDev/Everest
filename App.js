@@ -160,28 +160,30 @@ function App() {
   //function to get to the coordinate entry view after clicking "Buy" button
   function handleCoordinatesIntake(bool, computer){
     if (buyStatusCount === 0) {
-      clear();
-      setCoordinatesIntake(bool)
+      setCoordinatesIntake(true)
       setcomputerInfo(computer)
-      setBuyStatusCount(0);
       console.log("computer id: " + computer.inventoryID + " price: " + computer.price)
+    } else {
+      setCoordinatesIntake(false)
+      setBuyComputer(false)
+      setStoreLoc(false)
+      setConfirmBuy(false)
+      setBuyStatusCount(0)
     }
   }
 
   //function to "Buy" after getting coordinates
   function handleBuyComputer(bool){
-    clear();
     setBuyComputer(bool);
   }
 
   function handleStoreLoc(bool){
-    clear();
+    setCoordinatesIntake(false);
     setStoreLoc(bool);
   }
 
   //function to get the customer's coordinates when they're buying a computer
   function handleCustomerCoordinates(tlat, tlon){
-    clear()
     console.log("customer: " + tlat + "," + tlon)
     //setCustomerCoordinates(...customerCoordinates, [lat, lon])
     
