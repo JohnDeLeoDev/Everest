@@ -5,4 +5,6 @@ Manager/Manager.js
 Owner/Remove.js
 Owner/Modify.js
 
-aws/getSiteInventory/getSiteInventory.zip
+aws/*/node_modules/*
+aws/*/*.zip
+
