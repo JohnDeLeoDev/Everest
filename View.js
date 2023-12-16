@@ -250,6 +250,8 @@ export function Landing(props)
             buyStatusCount={props.buyStatusCount}
             handleSetBuyStatusCount={props.handleSetBuyStatusCount}
             handleConfirmBuy={props.handleConfirmBuy}
+            handleSearchResults={props.handleSearchResults}
+            searchResults={props.searchResults}
         />
     }
 

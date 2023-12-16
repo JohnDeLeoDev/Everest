@@ -52,6 +52,7 @@ export function SearchComputer(props)
     const [filter, setFilter] = React.useState({});
     const [search, setSearch] = React.useState(null);
     const [compareState, setCompareState] = React.useState(null);
+    const [searchReturned, setSearchReturned] = React.useState(null);
 
     function handleSearch(e){
         e.preventDefault()
@@ -86,6 +87,11 @@ export function SearchComputer(props)
         document.querySelectorAll('input[type=checkbox]:checked').forEach( el => el.checked = false );
     }
 
+    function handleSearchReturned() {
+        setSearchReturned(true);
+    }
+  
+
 
     //******************************************************************* */
     function computerCards() 
@@ -98,8 +104,7 @@ export function SearchComputer(props)
      *      View displaying all computers returned from filter search
      *************************************************************************/
     {
-        let searchResults = props.searchResults;
-        if (searchResults === null || searchResults.length === 0 || searchResults === undefined) {
+        if (props.searchResults === null || props.searchResults === undefined || props.searchResults.length === 0) {
             return (
                 <div className="search-results">
                     <div className="computer-card">
@@ -110,7 +115,7 @@ export function SearchComputer(props)
         } else return (
             <>
                 <div className="search-results">
-                    {searchResults.map((computer) => {
+                    {props.searchResults.map((computer) => {
                         return (
                             <div className="computer-card">
                                 <div className="compare-check">
@@ -183,13 +188,11 @@ export function SearchComputer(props)
             </div>
             <div id='results'>
                 {search && <SearchComputersRequest 
-                    searchResults={props.searchResults} 
                     handleSearchResults={props.handleSearchResults} 
+                    handleSearchReturned={handleSearchReturned}
                     json={filter} />}
-                {props.searchResults && computerCards()}
+                {(props.searchResults && searchReturned) && computerCards()}
             </div>
-
-            
 
         </div>
     )

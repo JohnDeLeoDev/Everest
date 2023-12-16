@@ -255,18 +255,12 @@ export function Buy(props)
         let newResults = previousResults.filter((computer) => {
             return computer.inventoryID != props.computerInfo.inventoryID;
         });
-        props.handleSearchResults(newResults);
-                
+        props.handleSearchResults(newResults);     
     }
 
     function handleBuyTrigger(){
         setBuyTrigger(true);
     }
-
-
-
-
-
 
     //request in return:
     //pay store

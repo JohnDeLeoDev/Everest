@@ -380,6 +380,7 @@ export function SearchComputersRequest(props)
     function handleSearchComputersResponse(response) {
         if (response !== null && response !== undefined) {
             props.handleSearchResults(response);
+            props.handleSearchReturned(true);
         }
     }
 
