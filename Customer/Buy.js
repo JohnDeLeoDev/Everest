@@ -249,13 +249,18 @@ export function Buy(props)
             return;
         }
         
-        let previousResults = props.searchResults;
+        try {
+            let previousResults = props.searchResults;
 
-        // remove purchased computer from search results
-        let newResults = previousResults.filter((computer) => {
-            return computer.inventoryID != props.computerInfo.inventoryID;
-        });
-        props.handleSearchResults(newResults);     
+            // remove purchased computer from search results
+            let newResults = previousResults.filter((computer) => {
+                return computer.inventoryID != props.computerInfo.inventoryID;
+            });
+            props.handleSearchResults(newResults); 
+        } catch (error) {
+            console.log(error);
+        }
+       
     }
 
     function handleBuyTrigger(){

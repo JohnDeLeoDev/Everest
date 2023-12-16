@@ -26,6 +26,7 @@ export function ListStores(props)
                 handleCustomerStoreInventory={setInventory}
                 />}
             {<GenerateStore 
+                handleCoordinatesIntake={props.handleCoordinatesIntake}
                 computers={inventory}
             />}
         </div>

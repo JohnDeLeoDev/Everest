@@ -11,8 +11,14 @@
  ****************************************************************************************/
 
 //this is the function for the filter boxes
-export function storeResults(customerStoreInventory){
+export function StoreResults(props){
     var storeResults = [];
+    var customerStoreInventory = props.computers;
+
+    function handleBuyClick(computer){
+        console.log("Buy button clicked");
+        props.handleCoordinatesIntake(true, computer);
+    }
 
     if (customerStoreInventory === null 
         || customerStoreInventory === undefined 
@@ -35,6 +41,10 @@ export function storeResults(customerStoreInventory){
                         {customerStoreInventory[storeName].map((computer) => {
                                 return (
                                     <div className="computer-card">
+                                        <div className="compare-check">
+                                            <input type="checkbox" id="computer-compare" value={computer.inventoryID}/>
+                                            <label for="computer-compare">Compare</label>
+                                        </div>
                                         <h2>{computer.brand} {computer.model}</h2> 
                                         <p>Price: {computer.price}</p>
                                         <p>Memory: {computer.memory}</p>
@@ -42,8 +52,7 @@ export function storeResults(customerStoreInventory){
                                         <p>Processor: {computer.processor}</p>
                                         <p>Process Generation: {computer.processGen}</p>
                                         <p>Graphics: {computer.graphics}</p>
-                                        <p className="highlight-text">{computer.description}</p>
-                                        <button>Buy</button>
+                                        <button onClick={() => handleBuyClick(computer)} >Buy</button>
                                     </div>
                                 )
                             })}
@@ -78,8 +87,14 @@ export function GenerateStore(props)
 
     let displayComputers = {}
 
-    displayComputers = <>{storeResults(inventory)}</>
-    
+    displayComputers = (
+        <div>
+            <StoreResults 
+                computers={inventory}
+                handleCoordinatesIntake={props.handleCoordinatesIntake}
+            />
+        </div>
+    )
 
     return (
         <div>

@@ -207,6 +207,7 @@ export function Landing(props)
         callback = <ListStores
             listFilteredStores={props.listFilteredStores}
             customerStoreInventory={props.customerStoreInventory}
+            handleCoordinatesIntake={props.handleCoordinatesIntake}
         />
     }
 
