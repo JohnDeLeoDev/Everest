@@ -319,6 +319,7 @@ function App() {
   //"All Stores" to render for all stores 
   function handleShowBalances(selection){
     clear();
+    setShowBalances("");
     setShowBalances(selection);
   }
 
