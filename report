@@ -1,0 +1,781 @@
+commit e62f62245382f4cccbebe4ac3112b389959f1b18
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Dec 16 11:49:21 2023 -0500
+
+    finishing up one store balance API
+
+commit 899b8b573db24967ebf07e5be256d5a9248320f0
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Dec 16 00:17:56 2023 -0500
+
+    remove all the aws node module files
+
+commit 9c26b0135b683ffbb976d7747c02b48227e9d662
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 23:55:31 2023 -0500
+
+    Minor fix to manager balance updating.
+
+commit d973f7030e23f68b384e149697aaabe6413750f3
+Merge: 230e489 f1ba888
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 23:55:28 2023 -0500
+
+    merge and gitignore update
+
+commit 230e4896a28e924ac125b4ff77c32ba35daafa11
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 23:51:54 2023 -0500
+
+    merge
+
+commit a1447aa9f7ee65345320ca6ff123550b4e4243c1
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 23:46:42 2023 -0500
+
+    update gitignore to exclude node_module folders in aws
+
+commit f1ba88856764426cc6617acf20b890e639052217
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 23:12:58 2023 -0500
+
+    Minor fix.
+
+commit b812aceb04d165bdf239c26373855c060edd9527
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 22:57:56 2023 -0500
+
+    Buy now working pretty well.
+
+commit b02913e733094651f12a05698173ef6126d33014
+Merge: 159c618 d911896
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 22:44:11 2023 -0500
+
+    merge
+
+commit 159c618c83bc81577e065ddc5c55fca35a5c537a
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 22:40:17 2023 -0500
+
+    merge
+
+commit d9118961d94a316b3fe08e73723253a9864699a8
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 22:38:36 2023 -0500
+
+    Improved buy.
+
+commit d0ac819938f4a35b2e521014b2e42f8c766228a2
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 22:25:29 2023 -0500
+
+    Buy more reliably.
+
+commit e28107d4a8e31ba142dc6e92252f6f49e815c8ae
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 22:12:46 2023 -0500
+
+    Buy now shows the correct messages.
+
+commit eb9d1c48e72d6d1ae1da8724b4400a9ca4bfd27f
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 21:41:04 2023 -0500
+
+    This is where I am at... Buy still flashes and goes away.
+
+commit c2fd75e7a97a0c744ad7e738edc79578adbf0b90
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 21:09:20 2023 -0500
+
+    Added status message to remove store.
+
+commit a87ed3e92d4fee9275006ca0c7d1a9082026b04f
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Dec 15 19:06:46 2023 -0500
+
+    Made improvements to buy to prevent duplicate orders, and to handle out of stock computers. There is still an issue when the buy is successful. It is not showing the success message.
+
+commit 3f0255ceff2bcc0c9863b1b93689a9b1f31fa6ae
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 13:49:31 2023 -0500
+
+    setting up for someone to add the store balance to the store owner dashboard
+
+commit a193d488d56dca185a2624bdd17c654a6edcb6e1
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 13:19:35 2023 -0500
+
+    added store balances to site manager dashboard
+
+commit 7074925faab44b2aeac02ac84ebc485ba2b82ee5
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 12:20:49 2023 -0500
+
+    working on site manager can see all store balances
+
+commit 534093efaaed8fcf90538eb2b28a421fd956450e
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 10:14:34 2023 -0500
+
+    updates buy is in testing
+
+commit 2778454c1f760b633e573faaa61c2d26daa478e2
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 04:48:28 2023 -0500
+
+    buy works but type error on paying the site manager because query string isn't formatted well
+
+commit adddc6fbfbba356a9a43f5138dfb2b852db71752
+Merge: c56423e fe09963
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Dec 15 00:49:01 2023 -0500
+
+    Merge branch 'main' of https://github.com/JohnDeLeoDev/Everest
+    merge
+
+commit fe09963b5dad3c0398112b33fb370ed5fd9c0fdf
+Author: edebaca <debaca.emily@gmail.com>
+Date:   Thu Dec 14 21:45:57 2023 -0800
+
+    Update index.js
+    
+    shows stores with $0 inventory
+
+commit c56423ef59791f6ad00f3a6f9977756724de7fd2
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Dec 14 23:11:15 2023 -0500
+
+    all values in place for buy, hooking up the aws and testing
+
+commit 28ee17da32f2b804f36df0f1c29824482b322deb
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Dec 14 22:38:57 2023 -0500
+
+    almost done with buy, saving progress
+
+commit 10ac96bfdf03f223603489a581a3ccf92bf72fc5
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Dec 14 12:34:21 2023 -0500
+
+    fix regression error introduced by working too late at night :)
+
+commit 8b64f02ec6ee5f4e80557a3942e9948003c2c9b2
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Dec 14 02:13:41 2023 -0500
+
+    update total inventory total to match new data passing
+
+commit c0a332554cbde0a01c54437ff8a24864cdfcf6c7
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Dec 14 01:54:09 2023 -0500
+
+    Corey and i finishing up asc desc
+
+commit b0838fb8d4e94d0560cecaad8df3d6081b63fd53
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Dec 13 00:32:22 2023 -0500
+
+    added remove, tested in aws, not linked to gateway yet but seems to work in all tests
+
+commit ab3c0b524230fa2d43282bcc068d72cad938fef8
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Dec 13 00:07:32 2023 -0500
+
+    added API parts for buying a computer - pay store, pay site, TODO is remove from inventory
+
+commit e02d36a653d319241ffca04f1cd9998776b1843f
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Dec 12 22:51:33 2023 -0500
+
+    get lat/lon request linked but with cors errors on the response
+
+commit 4b55d5bdf7e5ff680aee483f0bf9281b4aefc1a5
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Dec 11 00:28:17 2023 -0500
+
+    last update for today saved
+
+commit b8126ca694858f2877821a22e11bcaf374776297
+Author: emac-E <emackey@wpi.edu>
+Date:   Sun Dec 10 23:33:23 2023 -0500
+
+    adding to Buy, can get to a test demo from Search Computers Buy button. Need to get store lat/long to finish shipping calc.
+
+commit 4829235bedd7a37d40ccfa2fc3738bacbcfd30d7
+Author: emac-E <emackey@wpi.edu>
+Date:   Sun Dec 10 21:18:55 2023 -0500
+
+    added draft lat/long path in app for Buy case, added comments, removed help nav button
+
+commit b772c9e830c91ec2e0f01f6cc0fda762d0a6cf1c
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Dec 6 13:26:42 2023 -0500
+
+    added lat long distance function, buy buttons
+
+commit c6c4e8616a1162cce1b7c74320638fd7fd57bfc1
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 22 11:03:56 2023 -0500
+
+    Site manager balance now displaying. Needs to be styled and formatted.
+
+commit bd5f301ce37e57eb68e5c86f1332ef1522c94717
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Nov 21 01:15:39 2023 -0500
+
+    added user instruction on Search page, add comments to new undocumented functions
+
+commit 3109e6386f67825733c585d907199debeedbec48
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Nov 21 01:05:52 2023 -0500
+
+    merging together the multiple options for search computers - functionality to click store name to go to store
+
+commit 01267d615f9d1ae65e79635f6660e4b968e06cb5
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 20 14:35:22 2023 -0500
+
+    Minor fix.
+
+commit a7edec0521a941993f52f6ca49ff5805e31ce0e8
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 20 14:29:11 2023 -0500
+
+    Store search now functional.
+
+commit b705484d824c1584a39fdc439e827fec766c851c
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 20 12:01:15 2023 -0500
+
+    Compare now works with ability to clear compare results.
+
+commit c94290b819d0d884e6343cbc8c77fd69bfe3967f
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 20 10:13:54 2023 -0500
+
+    Bringing in Corey's changes.
+
+commit c7177e6e1c2758c3b94cf5a06750188f979c9b4d
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 19 15:03:31 2023 -0500
+
+    Modify computer now working and updating rendered inventory.
+
+commit 3b5f5796c3ebb54fa700656331a5b5c8b0077d81
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 19 14:33:26 2023 -0500
+
+    Modify computers now works.
+
+commit 81be130f510a77ea6aec4d1e078027718e79c961
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 19 11:19:11 2023 -0500
+
+    Ensuring that stores prop gets passed to search component
+
+commit a4cf7a5aeebe89c82d61b7bee0adea12e57ea3df
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 18 18:59:49 2023 -0500
+
+    Added reportSiteMgrBalance
+
+commit 585836997cec4c6de53243694576c374e521df61
+Merge: e1fe450 ba3b0e0
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 18 17:44:39 2023 -0500
+
+    merge to add the gui customer view to show inventory from one store with test data
+
+commit e1fe4507811753e584dcba87df5883a740ce5584
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 18 17:40:10 2023 -0500
+
+    added view for Customer case Show Inventory from One Store, with test data
+
+commit ba3b0e0475c76b6bb3f16dc214d72b3015124135
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 18 16:44:06 2023 -0500
+
+    Fixed addition/subtraction of balances when computer is removed.
+
+commit 866a9799389fbd5f942f9072ddf5062f89b45ebb
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 18 15:32:56 2023 -0500
+
+    Add balance now functional and can be found in API.js
+
+commit 56d60d3c02db4a011961dc5205e02cbe30378805
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 18 13:07:57 2023 -0500
+
+    temp change to store owner and default view for direct nav buttons while fixing dropdown
+
+commit 7dd12af839f07da1de3f4aceace62193086ec2ef
+Merge: 48fe4a9 635b95b
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 18 12:47:59 2023 -0500
+
+    add comments to API and APP, added items to errata - TODOs -, implemented total site inventory, attempt to fix cross platform issues with dropdown nav
+
+commit 48fe4a9337cb87aa36217ac4721216f3e98763ce
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 18 12:36:25 2023 -0500
+
+    add documentation, errata lists, impl total inventory for site
+
+commit 635b95b58688ea64a2fb4ab08699a274e3678a04
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Nov 17 14:58:32 2023 -0500
+
+    Troubleshooting the modify computer use case. Still not working from React.
+
+commit 5c8cc5154be7c7a8758a5d0a5cbcfdf406bdae6d
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Nov 17 09:16:25 2023 -0500
+
+    Got rid of all html, React errors.
+
+commit ce14ffb59b74f07138000ee5a163e2dc738ccf18
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Fri Nov 17 09:08:22 2023 -0500
+
+    Getting rid of HTML errors.
+
+commit 3a9f36672feff9320d4f00da8ce3c160e11c471b
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Thu Nov 16 14:42:26 2023 -0500
+
+    Modify computer working, but not from React. Need to fix that.
+
+commit fc8ce6bce35c238cc8b9d12456c2bdeda54f9a96
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Thu Nov 16 12:55:43 2023 -0500
+
+    Remove computers now works.
+
+commit 93f5f6636785c9d9d865d17bdc1ee77750008a1a
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Thu Nov 16 10:17:02 2023 -0500
+
+    Fixed "No results found."
+
+commit 215c726ea81b436479acb83b872703f1fdff0b26
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Thu Nov 16 10:01:32 2023 -0500
+
+    Filtering is now fully functional. Will need to update if more options are provided.
+
+commit 43aeb3a56ec9f54de5d176758c8d012633e0938a
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Thu Nov 16 09:40:39 2023 -0500
+
+    Filtering now restricts down computers displayed based on options chosen by user.
+
+commit cb5c14c32d030802a11fc5d7a5a11ad90aa91789
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Nov 16 00:16:41 2023 -0500
+
+    super minor style change to login display
+
+commit da68ee29b6749184f73308c74cb23c34aa3f9678
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Nov 16 00:01:33 2023 -0500
+
+    checkin lambda function, added documentation to new functions in API.js
+
+commit 9374787272401e82164a98249786f5677d516797
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 15 18:52:37 2023 -0500
+
+    Search by memory is working.  Need to add search by storage and search by processor.
+
+commit 0b0481ca8254aace56ed1655fd47d94774a3b4a6
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 15 16:38:06 2023 -0500
+
+    Search computers now displays computers that match selection for price. Need to add functionality to the rest of the options.
+
+commit 9d9afd38008ac4426db75f749976a9cd8b9275a9
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 8 10:35:54 2023 -0500
+
+    Forced lahout behavior to clear inventory rendered locally.
+
+commit b7ceb96b46f9d91c33af39d8c8ee80cbdfd91afe
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 8 09:16:52 2023 -0500
+
+    Remove store works.
+
+commit 374d14798a0afb7099b8a7b6dd3fada4c3ebba47
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 03:33:21 2023 -0500
+
+    fix create form entries
+
+commit 92d88715d3b667b406cfbfa2a17c23a108f4a9c9
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 03:29:59 2023 -0500
+
+    rm dflt store name replace with Beta
+
+commit d1bb2adeecfed166e49129af2d1a1686a97197f0
+Merge: 5926026 6849905
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 03:23:44 2023 -0500
+
+    remove store getting back success
+
+commit 5926026340eefa0634cbabb2efc15ecc8db24af5
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 01:34:45 2023 -0500
+
+    merge
+
+commit 684990575a16a71d2c97b4f64c82ec2f32fc9f9e
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 8 01:28:33 2023 -0500
+
+    Minor change.
+
+commit 88a048181e834b1f10e463d011936e4273303393
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 01:27:29 2023 -0500
+
+    rm username from create store
+
+commit dd2d3bc878497b1de77073ccdbf06406159a20bc
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 8 01:26:16 2023 -0500
+
+    Minor fix.
+
+commit 78bdc847b4770bf1f0d83617c658381a6321bc6c
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Wed Nov 8 00:21:36 2023 -0500
+
+    Working on remove store issue
+
+commit 3e2a3cb5d349797cb3679a3b178f76a78633c077
+Author: emac-E <emackey@wpi.edu>
+Date:   Wed Nov 8 00:07:47 2023 -0500
+
+    rm old test buttons
+
+commit d8356609561f2baf58473df2ff9664730af8d0a7
+Merge: c5a601a 719c207
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Nov 7 23:59:13 2023 -0500
+
+    Merge branch 'main' of https://github.com/JohnDeLeoDev/Everest
+
+commit c5a601a9433fc8a8fd772c24f6996d76e8877088
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Nov 7 23:52:23 2023 -0500
+
+    update my repo
+
+commit 719c207c22d2faa4673aa7ffdbca58af88b63336
+Author: emac-E <138073820+emac-E@users.noreply.github.com>
+Date:   Tue Nov 7 22:49:44 2023 -0500
+
+    Update Header.js
+    
+    changes to site manager nav actions
+
+commit d8a0c50c9c32265dce81f73ea4da1bd5b1affd09
+Author: emac-E <138073820+emac-E@users.noreply.github.com>
+Date:   Tue Nov 7 22:14:09 2023 -0500
+
+    Update API.js
+    
+    API support for site inventory balance request
+
+commit 206e36b41bc1dd4e795a865c59549589ebad6fa2
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 22:12:27 2023 -0500
+
+    Minor changes to config file.
+
+commit 51a73824af3134e7e0c83471ad0840e66e835f63
+Author: emac-E <138073820+emac-E@users.noreply.github.com>
+Date:   Tue Nov 7 22:10:41 2023 -0500
+
+    Update GenerateReport.js
+    
+    get site inventory balances of all stores
+
+commit ced0cf608c6c89471ea376369b3fb19f674e3e3a
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 21:18:37 2023 -0500
+
+    Back button completed on create store.
+
+commit 86e4c0301d154dc8189c01c0be138106280f00e0
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 21:12:59 2023 -0500
+
+    Added back button after create store.
+
+commit 7e059fd3b46ef0dec1fb0879ec850c9c2aa54abf
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 20:59:51 2023 -0500
+
+    Updated create.js with Corey's code
+
+commit 3c801dff746adba891d0c34248df0054d121abe4
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 20:14:03 2023 -0500
+
+    Minor fix.
+
+commit 0b107a5294054fb7d736bb7e42cd927140301408
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 20:11:06 2023 -0500
+
+    Added back button and confirmation message to add computer.
+
+commit d8f4e8860eef77499046336d1a1d239544f63ce9
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 19:25:21 2023 -0500
+
+    Store inventory is back up and working.
+
+commit 2cfc4e6a79e9c406e02a9e0189bd6d113877f6d9
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 19:09:01 2023 -0500
+
+    Inventory is back working.
+
+commit db1a34e5ac615bb2be9ebadb53024144d0d332c5
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Tue Nov 7 16:48:53 2023 -0500
+
+    Inventory report calculates inventory total.
+
+commit cc85ad461e03b769a76f8e33c6e7859a4e130270
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 17:59:03 2023 -0500
+
+    Minor changes.
+
+commit 1e0f573b6e9423d7d8fbfd3c14db8b6fc996a0d3
+Merge: 87a77cd 7d0914b
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Nov 6 17:38:14 2023 -0500
+
+    Merge branch 'main' of https://github.com/JohnDeLeoDev/Everest
+    "merging minor changes"
+
+commit 87a77cdbf08effd596fb0f9fafe93655708df19f
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Nov 6 17:37:58 2023 -0500
+
+    minor things changed
+
+commit 7d0914b9052e97e946955207726d48ff9ad44e17
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 17:32:53 2023 -0500
+
+    Add computer now working. Need to add error handling for it.
+
+commit 8df82464ae00c508275863ea7a5e2fccf8e13158
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 15:08:15 2023 -0500
+
+    Made progress on addstore, got rid of cors issue.
+
+commit 6e3c472d559fa0789516162b6262e561df8d54c8
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 14:26:57 2023 -0500
+
+    Added error handling to login process.
+
+commit 12339a28314a7eba3fca2ab780b83a684dc8f27c
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 13:44:57 2023 -0500
+
+    Minor fix to json request.
+
+commit c79e6cf8084fa9b4c08e8fb2ebdb6bf52337f8b1
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Mon Nov 6 13:38:39 2023 -0500
+
+    Store inventory now displays for logged in user.
+
+commit 0a169bb798d05a0e673b9595028ab1d398c4292e
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Nov 6 00:56:25 2023 -0500
+
+    minor touch up
+
+commit f816d1e38c272627f5550b5ceb332ab47b8cad74
+Merge: 65977c5 289e71d
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Nov 6 00:41:10 2023 -0500
+
+    Merge branch 'main' of https://github.com/JohnDeLeoDev/Everest
+    added remove computer case on nav and linked to server communication
+
+commit 65977c597946f9786b173ada9a67029041e4010f
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Nov 6 00:30:08 2023 -0500
+
+    moving rm store to a nav and input search & impl for server connection
+
+commit 289e71dd030acaf6765866296c6376dcb85ebd0f
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 5 20:31:29 2023 -0500
+
+    Updated handling of json from api.
+
+commit 80861e0ab3599fe79bc87abc28a2b8e665179434
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 5 18:37:04 2023 -0500
+
+    Error message for failed create store.
+
+commit 550bc8600f90ba0fa82f88d6ff78e41fb9ccf311
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 5 18:28:14 2023 -0500
+
+    np
+
+commit 36bd71c3de4ad63a75b5e308d8e0c65dcaa5187c
+Author: emac-E <emackey@wpi.edu>
+Date:   Sun Nov 5 17:26:56 2023 -0500
+
+    fix .css
+
+commit e5eecb1584b110a4c1fe378bccdb70c32d7f562b
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 5 15:04:21 2023 -0500
+
+    Minor changes to createStore.
+
+commit 93152217b6b50397a0dd5faee3d8fea2c082acf6
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sun Nov 5 14:35:30 2023 -0500
+
+    We now have working login functionality that gets stored in local cookie and persists upon browser refresh.
+
+commit e125872c44fa642a611e22a18cc48fe952300d77
+Author: emac-E <emackey@wpi.edu>
+Date:   Sun Nov 5 13:41:35 2023 -0500
+
+    saving progress on server API, added remove funciton
+
+commit cc5ad062683af59f7d44160923652b37921b29c2
+Author: emac-E <emackey@wpi.edu>
+Date:   Sun Nov 5 02:05:28 2023 -0500
+
+    adding support for store inventory balance report and login pswd to Create
+
+commit 166246adba806f5e2b561337a8c28278cc1412f7
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 4 23:18:29 2023 -0400
+
+    fix formatting css
+
+commit 133ea018f95909a94c90e1833327780fac2418c2
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 4 19:47:18 2023 -0400
+
+    Made progress on handleLogin lambda function.
+
+commit fc733341cbeeba40b9af741c81f68689e7e689ce
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 4 17:33:21 2023 -0400
+
+    Minor change to API file.
+
+commit 5cf6daea2399f4a2c21af1d840d6a98f50edc89e
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 4 17:14:21 2023 -0400
+
+    Deleted auth info from db_access.js
+
+commit fe97ea81fd6ff75d28f6f5165e4f052e1e6163a4
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Nov 4 17:13:26 2023 -0400
+
+    Added AWS lamda functions.
+
+commit 5f5f67541c9272f2a570c7b9ecc8591b4f7ff79d
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Nov 4 16:44:06 2023 -0400
+
+    remove add logo button in CreateStore use case
+
+commit fd3317af46f2152178c4bba94d3aae0a00ef0961
+Author: emac-E <emackey@wpi.edu>
+Date:   Fri Nov 3 00:21:02 2023 -0400
+
+    updated search by stores
+
+commit ea4bedb032da2d66542f37e87708f3c1be155546
+Author: emac-E <emackey@wpi.edu>
+Date:   Thu Nov 2 23:04:23 2023 -0400
+
+    fixed problem with the views
+
+commit 0faec6dc5059ff8eed97e168a1a55d971689f40e
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Oct 31 23:09:45 2023 -0400
+
+    fixed logout/login transitions
+
+commit 1c0e96e41fdd41857b339a2d91e573296b1476c6
+Author: emac-E <emackey@wpi.edu>
+Date:   Tue Oct 31 01:45:20 2023 -0400
+
+    updates to Customer and Manager Views
+
+commit 68c47fe4ddecb6e6c273b6a7e3652de44937c427
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Oct 30 02:53:19 2023 -0400
+
+    deleting unnecessary files
+
+commit f1e5d235c7a3cba8a3ece6a59d967ada38aa789c
+Author: emac-E <emackey@wpi.edu>
+Date:   Mon Oct 30 02:39:07 2023 -0400
+
+    merged John branch, working on Site Manager (needs search impl.)
+
+commit 4e30495cc0d2fc6ebcffc32d52588b7ae40909f9
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Oct 28 18:02:28 2023 -0400
+
+    add landing page html to View
+
+commit 7f6718e57caec2a3d193a4417c3d4f016e85b80a
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Oct 28 16:58:50 2023 -0400
+
+    Made progress on site functionality.
+
+commit e453ee55c641660a4f517bbbdb1f35f49b7c3674
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Oct 28 16:58:04 2023 -0400
+
+    Made progress on site functionality. Didn't modify anything in App.js in this commit.
+
+commit d7931fe3f585eb81945f35c16d29500d0c54a51b
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Oct 28 15:01:49 2023 -0400
+
+    Ignore .DS Store
+
+commit 46e6ea0fe433b4f011bf87b1bd875734cf6eb600
+Author: John DeLeo <jdeleo@fastmail.com>
+Date:   Sat Oct 28 15:01:07 2023 -0400
+
+    Added files for each use case.  Need to add the code for each use case.
+
+commit e14fe5cb581165dbed8fdf5f6b02e0f22fcc253b
+Author: emac-E <emackey@wpi.edu>
+Date:   Sat Oct 28 14:13:14 2023 -0400
+
+    initial commit
