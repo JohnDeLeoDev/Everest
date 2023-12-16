@@ -206,7 +206,6 @@ function App() {
   }
 
   function handleConfirmBuy(bool){
-    clear();
     setConfirmBuy(bool)
   }
 

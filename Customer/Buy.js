@@ -242,7 +242,6 @@ export function Buy(props)
         if (props.buyStatusCount == 0) {
             console.log("status: ", status)
             setStatus(status);
-            props.handleSetBuyStatusCount(1);
         } else {
             return;
         }
@@ -256,7 +255,7 @@ export function Buy(props)
     //remove computer from database
     return (
         <div className="bodybag">
-            <BuyComputer json={json} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>
+            {props.buyStatusCount == 0 && <BuyComputer json={json} handleStatus={handleStatus} buyStatusCount={props.buyStatusCount} handleSetBuyStatusCount={props.handleSetBuyStatusCount}/>}
             {(status == true) && <h2>Computer purchased successfully!</h2>}
             {(status == true) && <h2>Thank you for your purchase!</h2>}
             {(status == true) && <h2>Receipt of Sale:</h2>}
@@ -264,7 +263,7 @@ export function Buy(props)
             {(status == true) && <h2>Shipping:{shipping.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
             {(status == true) && <h2>Total:{totalPrice.toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</h2>}
             {(status == false) && <h2>Computer purchase failed. Computer no longer available.</h2>}
-            <button onClick={()=>{props.handleBuyComputer(false)}}>Close</button>
+            <button >Close</button>
         </div>
     )
 

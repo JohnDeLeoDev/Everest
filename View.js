@@ -232,7 +232,10 @@ export function Landing(props)
             //handleStoreCoordinates={props.handleStoreCoordinates}
             handleCoordinatesIntake={props.handleCoordinatesIntake}
             handleStoreLoc={props.handleStoreLoc}
-            computer={props.computerInfo}/>
+            computer={props.computerInfo}
+            
+            
+            />
     }
 
     //BUY COMPUTER

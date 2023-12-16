@@ -832,41 +832,38 @@ export function BuyComputer(props)
     //need the $$ for site manager
     //need the $$ for store owner
     //status - success
-    const [buyComputerRequest, setBuyComputerRequest] = React.useState(props.json);
-    const [buyComputerResponse, setBuyComputerResponse] = React.useState(null);
-
-    function handleBuyComputerRequest(json) {
-        setBuyComputerRequest(json);
-    }
 
     //handle sending the confirmation that the purchase was successful
     function handleBuyComputerResponse(response) {
-        console.log(response.status);
-        if (response.statusCode === 200) {
-            props.handleStatus(true);
+        if (props.buyStatusCount === 0) {
+            if (response["statusCode"] === 200) {
+                props.handleStatus(true);
+                props.handleSetBuyStatusCount(1);
+            } else {
+                props.handleStatus(false)
+            }
         } else {
-            props.handleStatus(false)
+            return;
         }
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*'
-                },
-            body: JSON.stringify(props.json)
-        };
-        fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/buyComputer', requestOptions)           //needs a lambda and an api gateway 
-            .then(response => response.json())
-            .then(data => {
-                if (data !== null && data !== undefined) {
-                    handleBuyComputerResponse(data);
-                }
-            });
-        }, [props.json]);
+    
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*'
+            },
+        body: JSON.stringify(props.json)
+    };
+    fetch('https://kodeky0w40.execute-api.us-east-1.amazonaws.com/Initial/buyComputer', requestOptions)           //needs a lambda and an api gateway 
+        .then(response => response.json())
+        .then(data => {
+            if (data !== null && data !== undefined) {
+                handleBuyComputerResponse(data);
+            }
+        });
 }
 
 //************************************************************************* */
