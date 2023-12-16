@@ -1,6 +1,6 @@
 //Buy computer case
 import React, { useEffect } from "react";
-import { BuyComputer, GetStoreLatLong } from "../API";
+import { BuyComputer, GetStoreLatLong, SearchComputersRequest } from "../API";
 import { wait } from "@testing-library/user-event/dist/utils";
 
 //*************************************************************************** */
@@ -248,15 +248,19 @@ export function Buy(props)
         } else {
             return;
         }
+        
+        let previousResults = props.searchResults;
+
+        // remove purchased computer from search results
+        let newResults = previousResults.filter((computer) => {
+            return computer.inventoryID != props.computerInfo.inventoryID;
+        });
+        props.handleSearchResults(newResults);     
     }
 
     function handleBuyTrigger(){
         setBuyTrigger(true);
     }
-
-
-
-
 
     //request in return:
     //pay store
