@@ -1,0 +1,15 @@
+{
+  "name": "addComputer",
+  "version": "1.0.0",
+  "description": "\"adds a computer to a site store\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "cfnolan",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,11 +1,6 @@
-const bcrypt = require('bcryptjs');
 
 const mysql = require('mysql');
 const db_access = require('/opt/nodejs/db_access');
-
-const jwtSecret = db_access.config.jwtSecret;
-
-// event.userID event.authorization
 
 exports.handler = async (event) => {
     var pool = mysql.createPool({// credentials from db_access layer (loaded separately via console)
@@ -15,16 +10,27 @@ exports.handler = async (event) => {
         database: db_access.config.database
     });
 
+    var response = {};
 
+    let storeQuery = "SELECT balanceAmount FROM Site_Balances WHERE balanceName = 'Profit';";
+    
+    var result = await new Promise((resolve, reject) => {
+        pool.query(storeQuery, (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
 
-    let response = {
+    response = {
         statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(filtered)
+        body: JSON.stringify(result[0]),
     };
+
+    pool.end();
 
     return response;
 }
 
+            

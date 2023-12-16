@@ -22,7 +22,6 @@ exports.handler = async (event) => {
   let balanceQuery ='SELECT name,storeBalance FROM Stores';
 
   let result = await new Promise((resolve, reject) => {
-
       pool.query(balanceQuery, [storeNames, balances], (err, res) => {
           if (err) {
               console.log(err);

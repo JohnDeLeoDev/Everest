@@ -15,8 +15,8 @@ exports.handler = async (event) => {
         database: db_access.config.database
     });
 
-    let computer = JSON.parse(event.body.inventoryID);
-
+    let computer = JSON.parse(event.inventoryID);
+    
     var compQuery = "DELETE FROM Computers WHERE inventoryID = " + computer + ";";
 
     let compResult = await new Promise((resolve, reject) => {
@@ -27,6 +27,7 @@ exports.handler = async (event) => {
             resolve(result);
         });
     });
+    
 
     let response = {
         statusCode: 200,

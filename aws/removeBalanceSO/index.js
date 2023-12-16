@@ -11,15 +11,9 @@ exports.handler = async (event) => {
         database: db_access.config.database
     });
 
-    /* Takes JSON body with:
-     * userID
-     * amount
-     */
 
-   
-
-    let storeOwner = event["userID"];
-    let amount = event["amount"];
+    let storeOwner = event.userID;
+    let amount = event.amount;
 
     let storeQuery = "UPDATE Stores SET storeBalance = storeBalance - ? WHERE storeOwner = ?";
 

@@ -47,8 +47,7 @@ exports.handler = async (event) => {
             });
         });
         
-        allStores[storeID] = storeInventory;
-        allStores[storeID]["storeName"] = storeName[0].name;
+        allStores[storeName[0].name] = storeInventory;
     }
     
     response = {
